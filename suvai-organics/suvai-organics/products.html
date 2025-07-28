@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products - Suvai Organics | Taste the Purity of Nature</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4a6c3c',
+                        secondary: '#a8c48f',
+                        accent: '#d4a76a',
+                        light: '#f8f5e9',
+                        dark: '#2c3e22',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .product-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+        .category-btn:hover, .category-btn.active {
+            background-color: #4a6c3c;
+            color: white;
+        }
+        .organic-pattern {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="20" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="20" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/></svg>');
+            background-size: 150px;
+        }
+        .hero-products {
+            background: linear-gradient(rgba(42, 62, 34, 0.7), url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80'));
+            background-size: cover;
+            background-position: center;
+        }
+        .product-image {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="font-body text-dark bg-light">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
+                    <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition">About Us</a>
+                    <a href="products.html" class="font-medium text-primary hover:text-accent transition">Our Products</a>
+                    <a href="natural-farming.html" class="font-medium text-gray-600 hover:text-primary transition">Natural Farming</a>
+                    <a href="farmers.html" class="font-medium text-gray-600 hover:text-primary transition">Our Farmers</a>
+                    <a href="gallery.html" class="font-medium text-gray-600 hover:text-primary transition">Gallery</a>
+                    <a href="blog.html" class="font-medium text-gray-600 hover:text-primary transition">Blog</a>
+                    <a href="contact.html" class="font-medium text-gray-600 hover:text-primary transition">Contact Us</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="registration.html" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
+                    <a href="#" class="relative">
+                        <i class="fas fa-shopping-cart text-xl text-gray-600 hover:text-primary"></i>
+                        <span class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                    </a>
+                    <button class="md:hidden text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-products py-20 text-center text-white">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-heading font-bold mb-6">Our Organic Products</h1>
+            <p class="text-xl max-w-3xl mx-auto">Hand-picked, ethically sourced, and freshly prepared using age-old methods</p>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-12 organic-pattern">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Explore Our Range</h2>
+                <p class="text-lg text-gray-700">Pure, chemical-free products straight from our farms to your home</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button class="category-btn active px-5 py-2 rounded-full border border-primary text-primary">All Products</button>
+                <button class="category-btn px-5 py-2 rounded-full border border-primary text-primary">Organic Grains</button>
+                <button class="category-btn px-5 py-2 rounded-full border border-primary text-primary">Spices & Herbs</button>
+                <button class="category-btn px-5 py-2 rounded-full border border-primary text-primary">Cold-pressed Oils</button>
+                <button class="category-btn px-5 py-2 rounded-full border border-primary text-primary">Health Mixes</button>
+                <button class="category-btn px-5 py-2 rounded-full border border-primary text-primary">Natural Sweeteners</button>
+                <button class="category-btn px-5 py-2 rounded-full border border-primary text-primary">Ready-to-eat Snacks</button>
+                <button class="category-btn px-5 py-2 rounded-full border border-primary text-primary">Seasonal Produce</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Farm Fresh Goodness</h2>
+                <p class="text-lg text-gray-700">Each product is carefully selected and prepared to preserve natural goodness</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="bg-gray-200 border-2 border-dashed w-full h-64"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-primary">Traditional Red Rice</h3>
+                            <span class="text-accent font-bold">₹ 220/kg</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Organic red rice rich in antioxidants, grown using traditional methods.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-2">(48)</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition flex items-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-secondary bg-opacity-20">
+                        <p class="text-sm text-gray-600"><i class="fas fa-truck text-primary mr-2"></i> Free delivery for orders above ₹500</p>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="bg-gray-200 border-2 border-dashed w-full h-64"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-primary">Cold-pressed Coconut Oil</h3>
+                            <span class="text-accent font-bold">₹ 350/ltr</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Pure, unrefined coconut oil extracted using traditional wood press method.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="text-gray-500 ml-2">(63)</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition flex items-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-secondary bg-opacity-20">
+                        <p class="text-sm text-gray-600"><i class="fas fa-leaf text-primary mr-2"></i> Certified organic by Tamil Nadu Organic Certification</p>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="bg-gray-200 border-2 border-dashed w-full h-64"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-primary">Millet Chips (Spicy)</h3>
+                            <span class="text-accent font-bold">₹ 90/pack</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Crunchy baked chips made from organic millets and traditional spices.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="text-gray-500 ml-2">(37)</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition flex items-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-secondary bg-opacity-20">
+                        <p class="text-sm text-gray-600"><i class="fas fa-fire text-primary mr-2"></i> Best seller in snacks category</p>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="bg-gray-200 border-2 border-dashed w-full h-64"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-primary">Turmeric Powder</h3>
+                            <span class="text-accent font-bold">₹ 180/200g</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Pure turmeric powder with high curcumin content, sun-dried and stone-ground.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-2">(42)</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition flex items-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-secondary bg-opacity-20">
+                        <p class="text-sm text-gray-600"><i class="fas fa-tag text-primary mr-2"></i> New harvest just arrived</p>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="bg-gray-200 border-2 border-dashed w-full h-64"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-primary">Organic Palm Jaggery</h3>
+                            <span class="text-accent font-bold">₹ 150/500g</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Unrefined natural sweetener rich in minerals, made from palm sap.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="text-gray-500 ml-2">(57)</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition flex items-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-secondary bg-opacity-20">
+                        <p class="text-sm text-gray-600"><i class="fas fa-seedling text-primary mr-2"></i> Sustainably harvested from palm groves</p>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card bg-white rounded-xl overflow-hidden">
+                    <div class="bg-gray-200 border-2 border-dashed w-full h-64"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-primary">Moringa Health Mix</h3>
+                            <span class="text-accent font-bold">₹ 250/500g</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Nutrient-rich powder with moringa, millets, and traditional herbs.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1 text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="text-gray-500 ml-2">(29)</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition flex items-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-secondary bg-opacity-20">
+                        <p class="text-sm text-gray-600"><i class="fas fa-heart text-primary mr-2"></i> Great for immunity and energy</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <button class="bg-primary text-white px-8 py-3 rounded-full hover:bg-dark transition">
+                    View All Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Benefits -->
+    <section class="py-16 organic-pattern">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Why Choose Suvai Organics?</h2>
+                <p class="text-lg text-gray-700">Our commitment to purity and sustainability sets us apart</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-8 shadow-md text-center">
+                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-seedling text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">100% Chemical-Free</h3>
+                    <p class="text-gray-700">Grown without synthetic pesticides, fertilizers, or additives. Pure as nature intended.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-8 shadow-md text-center">
+                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-hand-holding-heart text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Farmer First</h3>
+                    <p class="text-gray-700">Fair prices and long-term partnerships that support our farming communities.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-8 shadow-md text-center">
+                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-recycle text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Eco-Friendly</h3>
+                    <p class="text-gray-700">Sustainable packaging and processes that minimize environmental impact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">What Our Customers Say</h2>
+                <p class="text-lg text-gray-700">Real experiences from our growing community</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-8 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="flex space-x-1 text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6 italic">"The red rice tastes just like what my grandmother used to cook. Authentic flavor and so fresh! Knowing it's chemical-free and supports farmers makes it even better."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 mr-4"></div>
+                        <div>
+                            <h4 class="font-bold text-primary">Priya S.</h4>
+                            <p class="text-sm text-gray-600">Chennai, Regular Customer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-8 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="flex space-x-1 text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6 italic">"The coconut oil has transformed my cooking. The aroma is incredible! I can really taste the difference compared to store-bought oils. Will definitely order again."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 mr-4"></div>
+                        <div>
+                            <h4 class="font-bold text-primary">Rajesh K.</h4>
+                            <p class="text-sm text-gray-600">Coimbatore, First-time Buyer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-8 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="flex space-x-1 text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6 italic">"My kids love the millet chips! They're the perfect healthy snack alternative. The spicy flavor has just the right kick. So glad to find snacks I feel good about giving them."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 mr-4"></div>
+                        <div>
+                            <h4 class="font-bold text-primary">Meena R.</h4>
+                            <p class="text-sm text-gray-600">Madurai, Health-conscious Parent</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-primary text-center text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">Join Our Organic Journey</h2>
+            <p class="text-xl max-w-3xl mx-auto mb-8">Experience the purity of nature with every bite. Sign up today for special offers and updates.</p>
+            <div class="max-w-lg mx-auto flex flex-col sm:flex-row gap-4">
+                <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-full flex-grow text-dark">
+                <button class="bg-accent text-white px-8 py-3 rounded-full hover:bg-amber-700 transition">
+                    Subscribe
+                </button>
+            </div>
+            <p class="text-secondary mt-4 text-sm">By subscribing, you agree to our Privacy Policy</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Bringing the purity of nature to your table through sustainable farming and honest products.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
+                        <li><a href="products.html" class="text-gray-300 hover:text-accent transition">Our Products</a></li>
+                        <li><a href="natural-farming.html" class="text-gray-300 hover:text-accent transition">Natural Farming</a></li>
+                        <li><a href="farmers.html" class="text-gray-300 hover:text-accent transition">Our Farmers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="gallery.html" class="text-gray-300 hover:text-accent transition">Gallery</a></li>
+                        <li><a href="blog.html" class="text-gray-300 hover:text-accent transition">Blog</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition">Recipes</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition">Farming Guides</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition">FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
+                            <span>contact@suvaiorganics.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3 text-accent"></i>
+                            <span>+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span>Tamil Nadu, India</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
+                <p class="mt-2 text-gray-500 text-sm">Join us in building a healthier tomorrow.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for category filtering
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // In a real implementation, this would filter products
+                    alert('In a complete implementation, this would filter products by category: ' + this.textContent);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

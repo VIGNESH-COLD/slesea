@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Suvai Organics | Taste the Purity of Nature</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4a6c3c',
+                        secondary: '#a8c48f',
+                        accent: '#d4a76a',
+                        light: '#f8f5e9',
+                        dark: '#2c3e22',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .farm-pattern {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="20" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="20" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/></svg>');
+            background-size: 150px;
+        }
+        .journey-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: linear-gradient(to bottom, #a8c48f, #4a6c3c);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        .team-card {
+            transition: transform 0.3s ease;
+        }
+        .team-card:hover {
+            transform: translateY(-8px);
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .leaf-icon {
+            position: absolute;
+            top: -20px;
+            right: -15px;
+            font-size: 40px;
+            color: #a8c48f;
+            opacity: 0.7;
+            transform: rotate(20deg);
+        }
+        .about-hero {
+            background: linear-gradient(rgba(42, 62, 34, 0.7), rgba(42, 62, 34, 0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234a6c3c" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="font-body text-dark bg-light">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
+                    <a href="about.html" class="font-medium text-primary hover:text-accent transition">About Us</a>
+                    <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition">Our Products</a>
+                    <a href="natural-farming.html" class="font-medium text-gray-600 hover:text-primary transition">Natural Farming</a>
+                    <a href="farmers.html" class="font-medium text-gray-600 hover:text-primary transition">Our Farmers</a>
+                    <a href="gallery.html" class="font-medium text-gray-600 hover:text-primary transition">Gallery</a>
+                    <a href="blog.html" class="font-medium text-gray-600 hover:text-primary transition">Blog</a>
+                    <a href="contact.html" class="font-medium text-gray-600 hover:text-primary transition">Contact Us</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="registration.html" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
+                    <button class="md:hidden text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero py-20 text-center text-white">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-heading font-bold mb-6">Our Story</h1>
+            <p class="text-xl max-w-3xl mx-auto">Rooted in tradition, growing towards a sustainable future</p>
+        </div>
+    </section>
+
+    <!-- Who We Are -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Who We Are</h2>
+                <p class="text-lg text-gray-700 mb-8">Suvai Organics is a mission-driven initiative offering organic, chemical-free snacks and staples. We connect health-conscious consumers with farmer-grown produce.</p>
+                <div class="w-24 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-96"></div>
+                        <div class="absolute -bottom-6 -right-6 bg-primary rounded-lg p-4 shadow-lg w-2/3">
+                            <p class="text-white font-bold text-lg">First-generation farmers with a vision for sustainable agriculture</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-4">Born from the Soil</h3>
+                    <p class="text-gray-700 mb-4">Suvai Organics was founded by a small group of first-generation farmers from Tamil Nadu who shared a common vision: to bring pure, chemical-free food to every household while preserving traditional farming practices.</p>
+                    <p class="text-gray-700 mb-6">Inspired by the growing demand for clean, healthy food, we combined our agricultural heritage with a modern business approach to create a brand that celebrates the purity of nature.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-light p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-primary mb-2">2018</div>
+                            <p class="text-gray-600">Founded with 5 farmers</p>
+                        </div>
+                        <div class="bg-light p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-primary mb-2">100+</div>
+                            <p class="text-gray-600">Farmers in our network</p>
+                        </div>
+                        <div class="bg-light p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-primary mb-2">50+</div>
+                            <p class="text-gray-600">Organic products</p>
+                        </div>
+                        <div class="bg-light p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-primary mb-2">10K+</div>
+                            <p class="text-gray-600">Happy customers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="py-16 farm-pattern">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Our Purpose</h2>
+                <p class="text-lg text-gray-700">The driving force behind everything we do</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="bg-white rounded-xl shadow-lg p-8 relative overflow-hidden">
+                    <div class="leaf-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-6">
+                        <i class="fas fa-bullseye text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-4">Our Mission</h3>
+                    <p class="text-gray-700 mb-4">To promote sustainable agriculture and provide healthy alternatives to every household. We believe that access to pure, chemical-free food is a fundamental right.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
+                            <span>Empower farmers through fair trade practices</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
+                            <span>Revive traditional farming knowledge</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
+                            <span>Create a transparent food ecosystem</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-8 relative overflow-hidden">
+                    <div class="leaf-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-6">
+                        <i class="fas fa-eye text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-4">Our Vision</h3>
+                    <p class="text-gray-700 mb-4">A thriving natural farming ecosystem where farmers prosper and people eat clean. We envision a world where agriculture nourishes both people and the planet.</p>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
+                            <span>Chemical-free farming across Tamil Nadu</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
+                            <span>Direct connection between farmers and consumers</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
+                            <span>Regenerative agriculture that heals the earth</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Journey -->
+    <section class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Our Journey</h2>
+                <p class="text-lg text-gray-700">From humble beginnings to a growing movement</p>
+            </div>
+            
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="journey-line hidden md:block"></div>
+                
+                <div class="space-y-12">
+                    <!-- Timeline item 1 -->
+                    <div class="relative md:flex items-center">
+                        <div class="md:w-1/2 md:pr-16 md:text-right mb-6 md:mb-0">
+                            <div class="inline-block bg-white p-6 rounded-xl shadow-md">
+                                <div class="text-accent font-bold mb-2">2015</div>
+                                <h3 class="text-xl font-heading font-bold text-primary mb-3">The Seed is Planted</h3>
+                                <p class="text-gray-700">Five small farmers in Tamil Nadu begin experimenting with chemical-free farming techniques, inspired by traditional practices.</p>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex items-center justify-center md:w-1/2 relative">
+                            <div class="w-4 h-4 rounded-full bg-primary z-10"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-16">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 md:hidden"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline item 2 -->
+                    <div class="relative md:flex items-center">
+                        <div class="md:w-1/2 md:pr-16 hidden md:block">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64"></div>
+                        </div>
+                        <div class="hidden md:flex items-center justify-center md:w-1/2 relative">
+                            <div class="w-4 h-4 rounded-full bg-primary z-10"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-16 mb-6 md:mb-0">
+                            <div class="inline-block bg-white p-6 rounded-xl shadow-md">
+                                <div class="text-accent font-bold mb-2">2018</div>
+                                <h3 class="text-xl font-heading font-bold text-primary mb-3">Suvai Organics is Born</h3>
+                                <p class="text-gray-700">Formal establishment of Suvai Organics with a mission to bring pure, organic food to consumers while supporting farmers.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline item 3 -->
+                    <div class="relative md:flex items-center">
+                        <div class="md:w-1/2 md:pr-16 md:text-right mb-6 md:mb-0">
+                            <div class="inline-block bg-white p-6 rounded-xl shadow-md">
+                                <div class="text-accent font-bold mb-2">2020</div>
+                                <h3 class="text-xl font-heading font-bold text-primary mb-3">Expanding Our Reach</h3>
+                                <p class="text-gray-700">Launched our e-commerce platform, enabling direct delivery of farm-fresh products to customers across Tamil Nadu.</p>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex items-center justify-center md:w-1/2 relative">
+                            <div class="w-4 h-4 rounded-full bg-primary z-10"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-16">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 md:hidden"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline item 4 -->
+                    <div class="relative md:flex items-center">
+                        <div class="md:w-1/2 md:pr-16 hidden md:block">
+                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64"></div>
+                        </div>
+                        <div class="hidden md:flex items-center justify-center md:w-1/2 relative">
+                            <div class="w-4 h-4 rounded-full bg-primary z-10"></div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-16 mb-6 md:mb-0">
+                            <div class="inline-block bg-white p-6 rounded-xl shadow-md">
+                                <div class="text-accent font-bold mb-2">2023</div>
+                                <h3 class="text-xl font-heading font-bold text-primary mb-3">Thriving Community</h3>
+                                <p class="text-gray-700">Now supporting over 100 farmers and serving thousands of customers with a wide range of organic products.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Our Core Values</h2>
+                <p class="text-lg text-gray-700">Principles that guide everything we do</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="bg-white rounded-xl p-8 shadow-md text-center">
+                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-hand-holding-heart text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Integrity</h3>
+                    <p class="text-gray-700">We are transparent in our practices and honest about our products. What you see is what you get.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-8 shadow-md text-center">
+                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-leaf text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Sustainability</h3>
+                    <p class="text-gray-700">We prioritize methods that nurture the earth and ensure resources for future generations.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-8 shadow-md text-center">
+                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-users text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Community</h3>
+                    <p class="text-gray-700">We build relationships based on mutual respect between farmers, customers, and the land.</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-8 shadow-md text-center">
+                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-seedling text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Tradition</h3>
+                    <p class="text-gray-700">We honor and preserve time-tested farming wisdom while adapting to modern needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team -->
+    <section class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Our Collective</h2>
+                <p class="text-lg text-gray-700">A network of farmers, agriculture enthusiasts, and wellness supporters</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Team Member 1 -->
+                <div class="team-card bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="h-64 bg-gray-200 border-2 border-dashed w-full"></div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold text-primary mb-1">Rajiv Kumar</h3>
+                        <p class="text-accent mb-3">Founder & Farmer</p>
+                        <p class="text-gray-600">3rd generation farmer with expertise in traditional rice cultivation</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="team-card bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="h-64 bg-gray-200 border-2 border-dashed w-full"></div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold text-primary mb-1">Priya Sundaram</h3>
+                        <p class="text-accent mb-3">Co-founder & Nutritionist</p>
+                        <p class="text-gray-600">Passionate about connecting traditional foods with modern health</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="team-card bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="h-64 bg-gray-200 border-2 border-dashed w-full"></div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold text-primary mb-1">Karthik M.</h3>
+                        <p class="text-accent mb-3">Farmer Network Coordinator</p>
+                        <p class="text-gray-600">Facilitates training and support for our farming partners</p>
+                    </div>
+                </div>
+                
+                <!-- Team Member 4 -->
+                <div class="team-card bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="h-64 bg-gray-200 border-2 border-dashed w-full"></div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-bold text-primary mb-1">Meena R.</h3>
+                        <p class="text-accent mb-3">Product Development</p>
+                        <p class="text-gray-600">Creates delicious snacks using traditional recipes with organic ingredients</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 bg-primary rounded-2xl p-8 md:p-12 text-white text-center">
+                <h3 class="text-2xl md:text-3xl font-heading font-bold mb-6">Join Our Movement</h3>
+                <p class="text-xl max-w-3xl mx-auto mb-8">Whether you're a farmer, consumer, or simply believe in our mission, there's a place for you in the Suvai Organics family.</p>
+                <a href="registration.html" class="inline-block bg-accent text-white px-8 py-4 rounded-full hover:bg-amber-700 transition">
+                    Become Part of Our Story
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Bringing the purity of nature to your table through sustainable farming and honest products.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
+                        <li><a href="products.html" class="text-gray-300 hover:text-accent transition">Our Products</a></li>
+                        <li><a href="natural-farming.html" class="text-gray-300 hover:text-accent transition">Natural Farming</a></li>
+                        <li><a href="farmers.html" class="text-gray-300 hover:text-accent transition">Our Farmers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="gallery.html" class="text-gray-300 hover:text-accent transition">Gallery</a></li>
+                        <li><a href="blog.html" class="text-gray-300 hover:text-accent transition">Blog</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition">Recipes</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition">Farming Guides</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition">FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
+                            <span>contact@suvaiorganics.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3 text-accent"></i>
+                            <span>+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span>Tamil Nadu, India</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
+                <p class="mt-2 text-gray-500 text-sm">Join us in building a healthier tomorrow.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.querySelector('.md\\:hidden');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if(mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function() {
+                    // This would toggle a mobile menu in a real implementation
+                    alert('Mobile menu would open here. In a complete implementation, this would show the navigation menu.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
