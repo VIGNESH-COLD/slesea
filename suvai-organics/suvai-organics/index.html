@@ -71,7 +71,7 @@
                 </nav>
                 
                 <div class="flex items-center space-x-4">
-                    <button class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</button>
+                    <a href="registration.html" class="hidden md:block text-primary hover:text-accent transition">Register</a>
                     <button class="md:hidden text-gray-600">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
@@ -81,12 +81,12 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-bg py-16 md:py-24">
+    <section id="hero-section" class="hero-bg py-16 md:py-24">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 mb-10 md:mb-0">
                 <div class="bg-white bg-opacity-80 rounded-2xl p-6 md:p-8 shadow-lg">
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-4">Taste the Purity of Nature</h2>
-                    <p class="text-lg md:text-xl text-gray-700 mb-6">Welcome to Suvai Organics — your trusted partner for natural foods and sustainable living. Experience the taste of tradition while supporting farmers and the earth.</p>
+                    <h2 id="hero-heading" class="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-4">Taste the Purity of Nature</h2>
+                    <p id="hero-text" class="text-lg md:text-xl text-gray-700 mb-6">Welcome to Suvai Organics — your trusted partner for natural foods and sustainable living. Experience the taste of tradition while supporting farmers and the earth.</p>
                     
                     <div class="mb-6 space-y-3">
                         <div class="flex items-center">
@@ -110,15 +110,15 @@
                     </div>
                     
                     <div class="flex flex-wrap gap-4">
-                        <button class="bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition flex items-center">
+                        <a href="products.html" class="bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition flex items-center">
                             <i class="fas fa-shopping-cart mr-2"></i> Shop Now
-                        </button>
-                        <button class="bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition flex items-center">
+                        </a>
+                        <a href="registration.html" class="text-primary hover:text-accent transition flex items-center">
                             <i class="fas fa-hands-helping mr-2"></i> Join Us
-                        </button>
-                        <button class="border border-primary text-primary px-6 py-3 rounded-full hover:bg-primary hover:text-white transition flex items-center">
+                        </a>
+                        <a href="farmers.html" class="border border-primary text-primary px-6 py-3 rounded-full hover:bg-primary hover:text-white transition flex items-center">
                             <i class="fas fa-book-open mr-2"></i> Learn More
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -156,6 +156,9 @@
                             <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">
                                 Add to Cart
                             </button>
+                            <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition">
+                                Buy Now
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -170,6 +173,9 @@
                             <span class="text-lg font-bold text-accent">₹250/L</span>
                             <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">
                                 Add to Cart
+                            </button>
+                            <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition">
+                                Buy Now
                             </button>
                         </div>
                     </div>
@@ -186,6 +192,9 @@
                             <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">
                                 Add to Cart
                             </button>
+                            <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition">
+                                Buy Now
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -201,15 +210,12 @@
                             <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">
                                 Add to Cart
                             </button>
+                            <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition">
+                                Buy Now
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <button class="bg-primary text-white px-8 py-3 rounded-full hover:bg-dark transition">
-                    View All Products
-                </button>
             </div>
         </div>
     </section>
@@ -273,9 +279,9 @@
                                 <p class="text-gray-600">Access to organic seeds, natural fertilizers, and farming tools.</p>
                             </div>
                         </div>
-                        <button class="bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition">
+                        <a href="natural-farming.html" class="bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition">
                             Join Our Farming Movement
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -374,9 +380,9 @@
                         
                         <p class="mb-6">Our farmers receive regular support, mentoring, and take pride in producing chemical-free food that nourishes communities.</p>
                         
-                        <button class="bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition">
+                        <a href="farmers.html" class="bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition">
                             <i class="fas fa-tractor mr-2"></i> Partner with Us
-                        </button>
+                        </a>
                     </div>
                     
                     <div class="md:w-2/5">
@@ -496,6 +502,43 @@
                     mobileMenu.classList.toggle('hidden');
                 });
             }
+
+            // Dynamic Welcome Page
+            const heroSection = document.getElementById('hero-section');
+            const heroHeading = document.getElementById('hero-heading');
+            const heroText = document.getElementById('hero-text');
+
+            const dynamicContent = [
+                {
+                    heading: "Taste the Purity of Nature",
+                    text: "Welcome to Suvai Organics — your trusted partner for natural foods and sustainable living. Experience the taste of tradition while supporting farmers and the earth.",
+                    bg: 'url("data:image/svg+xml;utf8,<svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100\\" height=\\"100\\" viewBox=\\"0 0 100 100\\"><rect width=\\"100\\" height=\\"100\\" fill=\\"%234a6c3c\\" opacity=\\"0.05\\"/><path d=\\"M20,20 Q40,5 60,20 T100,20 Q85,40 100,60 T80,100 Q60,85 40,100 T0,80 Q5,60 0,40 T20,20\\" fill=\\"none\\" stroke=\\"%23a8c48f\\" stroke-width=\\"1\\" opacity=\\"0.2\\"/></svg>")'
+                },
+                {
+                    heading: "From Our Farms to Your Table",
+                    text: "Directly sourced, chemical-free produce. We ensure freshness and quality in every product, supporting local farmers and sustainable practices.",
+                    bg: 'linear-gradient(rgba(74, 108, 60, 0.1), rgba(74, 108, 60, 0.1)), url("https://images.unsplash.com/photo-1533090420-f0018847672e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80")'
+                },
+                {
+                    heading: "Nourishing Lives, Nurturing Earth",
+                    text: "Our commitment extends beyond food. We foster a community that values health, tradition, and environmental stewardship for a better tomorrow.",
+                    bg: 'linear-gradient(rgba(74, 108, 60, 0.1), rgba(74, 108, 60, 0.1)), url("https://images.unsplash.com/photo-1509233725247-49e65479791d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80")'
+                }
+            ];
+
+            let currentIndex = 0;
+
+            function updateHeroContent() {
+                const content = dynamicContent[currentIndex];
+                heroHeading.textContent = content.heading;
+                heroText.textContent = content.text;
+                heroSection.style.backgroundImage = content.bg;
+                currentIndex = (currentIndex + 1) % dynamicContent.length;
+            }
+
+            // Update content every 5 seconds
+            setInterval(updateHeroContent, 5000);
+            updateHeroContent(); // Initial call to set content immediately
         });
     </script>
 </body>

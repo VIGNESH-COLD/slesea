@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Suvai Organics | Taste the Purity of Nature</title>
+    <title>Customer Registration - Suvai Organics</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -32,12 +32,14 @@
             background-size: cover;
             background-position: center;
         }
-        .registration-tab {
-            transition: all 0.3s ease;
-        }
-        .registration-tab:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        .leaf-decoration {
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            font-size: 40px;
+            color: #a8c48f;
+            opacity: 0.7;
+            transform: rotate(25deg);
         }
     </style>
 </head>
@@ -59,8 +61,6 @@
                     <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
                     <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition">About Us</a>
                     <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition">Our Products</a>
-                    <a href="natural-farming.html" class="font-medium text-gray-600 hover:text-primary transition">Natural Farming</a>
-                    <a href="farmers.html" class="font-medium text-gray-600 hover:text-primary transition">Our Farmers</a>
                     <a href="registration.html" class="font-medium text-primary hover:text-accent transition">Register</a>
                     <a href="contact.html" class="font-medium text-gray-600 hover:text-primary transition">Contact Us</a>
                 </nav>
@@ -78,55 +78,88 @@
     <!-- Hero Section -->
     <section class="registration-hero py-16 text-center text-white">
         <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">Join Our Organic Family</h1>
-            <p class="text-xl max-w-3xl mx-auto">Become part of our journey towards sustainable living and chemical-free food</p>
+            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">Customer Registration</h1>
+            <p class="text-xl max-w-3xl mx-auto">Join our community for exclusive access to recipes, discounts, and health updates</p>
         </div>
     </section>
 
-    <!-- Registration Tabs -->
+    <!-- Registration Form -->
     <section class="py-12 bg-light">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Choose Your Path</h2>
-                <p class="text-lg text-gray-700">Select how you'd like to connect with Suvai Organics</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                <!-- Customer Tab -->
-                <a href="register-customer.html" class="registration-tab bg-white rounded-xl shadow-md p-6 text-center">
-                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-user text-primary text-2xl"></i>
+            <div class="bg-white rounded-xl shadow-lg p-8 max-w-3xl mx-auto">
+                <div class="relative">
+                    <div class="leaf-decoration">
+                        <i class="fas fa-leaf"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-2">Customer</h3>
-                    <p class="text-gray-600">Subscribe for recipes, discounts, and health updates</p>
-                    <div class="mt-4">
-                        <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">Join as Consumer</span>
-                    </div>
-                </a>
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-2">Create Your Account</h3>
+                    <p class="text-gray-600 mb-6">Fill in your details to join the Suvai Organics community</p>
+                </div>
                 
-                <!-- Farmer Tab -->
-                <a href="register-farmer.html" class="registration-tab bg-white rounded-xl shadow-md p-6 text-center">
-                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-tractor text-primary text-2xl"></i>
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="full-name">Full Name</label>
+                            <input type="text" id="full-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter your full name" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="email">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter your email" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter your phone number">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="location">Location</label>
+                            <input type="text" id="location" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="City, State">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="password">Password</label>
+                            <input type="password" id="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Create a password" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Confirm your password" required>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-2">Farmer</h3>
-                    <p class="text-gray-600">Get training, support, and direct market access</p>
-                    <div class="mt-4">
-                        <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">Join as Producer</span>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2" for="interests">Interests (Select all that apply)</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="recipes" class="mr-2 text-primary focus:ring-primary">
+                                <label for="recipes">Recipes</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="health" class="mr-2 text-primary focus:ring-primary">
+                                <label for="health">Health Tips</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="discounts" class="mr-2 text-primary focus:ring-primary">
+                                <label for="discounts">Discounts</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="events" class="mr-2 text-primary focus:ring-primary">
+                                <label for="events">Farm Events</label>
+                            </div>
+                        </div>
                     </div>
-                </a>
-                
-                <!-- Sales Partner Tab -->
-                <a href="register-partner.html" class="registration-tab bg-white rounded-xl shadow-md p-6 text-center">
-                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-handshake text-primary text-2xl"></i>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-start">
+                            <input type="checkbox" id="terms" class="mt-1 mr-2 text-primary focus:ring-primary" required>
+                            <label for="terms" class="text-gray-700">I agree to receive communications from Suvai Organics and accept the <a href="#" class="text-primary hover:underline">Terms & Conditions</a></label>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-2">Sales Partner</h3>
-                    <p class="text-gray-600">Distribute our products through your business</p>
-                    <div class="mt-4">
-                        <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">Join as Reseller</span>
+                    
+                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-dark transition font-medium">
+                        Create Account
+                    </button>
+                    
+                    <div class="mt-6 text-center">
+                        <p class="text-gray-600">Already have an account? <a href="#" class="text-primary hover:underline">Sign in</a></p>
                     </div>
-                </a>
+                </form>
             </div>
         </div>
     </section>
@@ -135,98 +168,34 @@
     <section class="py-16 bg-secondary/10">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Why Join Suvai Organics?</h2>
-                <p class="text-lg text-gray-700">Discover the benefits of being part of our organic community</p>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Customer Benefits</h2>
+                <p class="text-lg text-gray-700">What you'll enjoy as a Suvai Organics customer</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white rounded-xl p-8 shadow-md text-center">
                     <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-seedling text-white text-2xl"></i>
+                        <i class="fas fa-tag text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Support Sustainable Farming</h3>
-                    <p class="text-gray-700">Contribute to a movement that values the earth and promotes chemical-free agriculture.</p>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Exclusive Discounts</h3>
+                    <p class="text-gray-700">Get special offers and early access to new products before anyone else.</p>
                 </div>
                 
                 <div class="bg-white rounded-xl p-8 shadow-md text-center">
                     <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-users text-white text-2xl"></i>
+                        <i class="fas fa-utensils text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Join a Thriving Community</h3>
-                    <p class="text-gray-700">Connect with like-minded individuals passionate about healthy living and organic products.</p>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Healthy Recipes</h3>
+                    <p class="text-gray-700">Receive seasonal recipes featuring our organic products, curated by nutritionists.</p>
                 </div>
                 
                 <div class="bg-white rounded-xl p-8 shadow-md text-center">
                     <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-percentage text-white text-2xl"></i>
+                        <i class="fas fa-truck text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Exclusive Benefits</h3>
-                    <p class="text-gray-700">Enjoy special discounts, early access to products, and valuable resources.</p>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Priority Delivery</h3>
+                    <p class="text-gray-700">Enjoy faster delivery options and order tracking for all your purchases.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">What Our Community Says</h2>
-                <p class="text-lg text-gray-700">Hear from members who have joined the Suvai Organics family</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-light rounded-xl p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed mr-4"></div>
-                        <div>
-                            <h4 class="font-bold text-primary">Rajesh K.</h4>
-                            <p class="text-sm text-gray-600">Farmer Partner</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 italic">"Joining Suvai Organics transformed my farming practice. Their training helped me switch to natural methods, and I now earn fair prices for my organic produce."</p>
-                </div>
-                
-                <div class="bg-light rounded-xl p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed mr-4"></div>
-                        <div>
-                            <h4 class="font-bold text-primary">Priya M.</h4>
-                            <p class="text-sm text-gray-600">Customer</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 italic">"As a customer, I love the quality and taste of Suvai products. Their recipes and health tips have helped my family eat better. It feels good to support local farmers!"</p>
-                </div>
-                
-                <div class="bg-light rounded-xl p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed mr-4"></div>
-                        <div>
-                            <h4 class="font-bold text-primary">Sanjay P.</h4>
-                            <p class="text-sm text-gray-600">Sales Partner</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 italic">"Partnering with Suvai Organics has been great for our wellness store. Customers appreciate the authentic, chemical-free products, and the support from the team is excellent."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-16 bg-primary text-center text-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">Ready to Join Our Organic Movement?</h2>
-            <p class="text-xl max-w-3xl mx-auto mb-8">Whether you're a customer, farmer, or business partner, you're welcome in our community.</p>
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="register-customer.html" class="inline-block bg-accent text-white px-8 py-4 rounded-full hover:bg-amber-700 transition font-medium">
-                    Join as Customer
-                </a>
-                <a href="register-farmer.html" class="inline-block bg-white text-primary px-8 py-4 rounded-full hover:bg-gray-100 transition font-medium">
-                    Join as Farmer
-                </a>
-                <a href="register-partner.html" class="inline-block bg-white text-primary px-8 py-4 rounded-full hover:bg-gray-100 transition font-medium">
-                    Join as Partner
-                </a>
             </div>
         </div>
     </section>
