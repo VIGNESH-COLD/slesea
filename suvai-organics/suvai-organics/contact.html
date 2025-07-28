@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Suvai Organics | Taste the Purity of Nature</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4a6c3c',
+                        secondary: '#a8c48f',
+                        accent: '#d4a76a',
+                        light: '#f8f5e9',
+                        dark: '#2c3e22',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .contact-hero {
+            background: linear-gradient(rgba(42, 62, 34, 0.7), rgba(42, 62, 34, 0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234a6c3c" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        .contact-form-bg {
+            background-color: #f8f5e9;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23a8c48f' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .map-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(168, 196, 143, 0.1);
+            pointer-events: none;
+        }
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #a8c48f;
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .contact-card {
+            transition: all 0.3s ease;
+            border-bottom: 3px solid #a8c48f;
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .form-input {
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 12px 15px;
+            width: 100%;
+            transition: all 0.3s ease;
+            background-color: #fff;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #a8c48f;
+            box-shadow: 0 0 0 3px rgba(168, 196, 143, 0.2);
+        }
+    </style>
+</head>
+<body class="font-body text-dark bg-light">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
+                    <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition">About Us</a>
+                    <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition">Our Products</a>
+                    <a href="natural-farming.html" class="font-medium text-gray-600 hover:text-primary transition">Natural Farming</a>
+                    <a href="farmers.html" class="font-medium text-gray-600 hover:text-primary transition">Our Farmers</a>
+                    <a href="gallery.html" class="font-medium text-gray-600 hover:text-primary transition">Gallery</a>
+                    <a href="blog.html" class="font-medium text-gray-600 hover:text-primary transition">Blog</a>
+                    <a href="contact.html" class="font-medium text-primary hover:text-accent transition">Contact Us</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="registration.html" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
+                    <button class="md:hidden text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="contact-hero py-20 text-center text-white">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-heading font-bold mb-6">Get in Touch</h1>
+            <p class="text-xl max-w-3xl mx-auto">We'd love to hear from you! Reach out to us with any questions or feedback.</p>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">How to Reach Us</h2>
+                <p class="text-lg text-gray-700 mb-8">Whether you have questions about our products, farming practices, or want to partner with us, we're here to help.</p>
+                <div class="w-24 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Contact Card 1 -->
+                <div class="contact-card bg-white p-8 rounded-xl shadow-md text-center">
+                    <div class="contact-icon mx-auto">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-4">Visit Us</h3>
+                    <p class="text-gray-700 mb-4">Suvai Organics Farm</p>
+                    <p class="text-gray-600">123 Organic Farm Road</p>
+                    <p class="text-gray-600">Tamil Nadu, India - 600001</p>
+                </div>
+                
+                <!-- Contact Card 2 -->
+                <div class="contact-card bg-white p-8 rounded-xl shadow-md text-center">
+                    <div class="contact-icon mx-auto">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-4">Call Us</h3>
+                    <p class="text-gray-700 mb-4">Available Mon-Sat, 9AM-6PM</p>
+                    <p class="text-gray-600">+91 98765 43210</p>
+                    <p class="text-gray-600">+91 87654 32109</p>
+                </div>
+                
+                <!-- Contact Card 3 -->
+                <div class="contact-card bg-white p-8 rounded-xl shadow-md text-center">
+                    <div class="contact-icon mx-auto">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-4">Email Us</h3>
+                    <p class="text-gray-700 mb-4">We respond within 24 hours</p>
+                    <p class="text-gray-600">info@suvaiorganics.com</p>
+                    <p class="text-gray-600">support@suvaiorganics.com</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 bg-primary rounded-2xl p-8 md:p-12 text-white text-center">
+                <h3 class="text-2xl md:text-3xl font-heading font-bold mb-6">Join Our Community</h3>
+                <p class="text-xl max-w-3xl mx-auto mb-8">Connect with us on social media for daily updates, farming tips, and special offers.</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="#" class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition">
+                        <i class="fab fa-facebook-f text-primary text-xl"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition">
+                        <i class="fab fa-instagram text-primary text-xl"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition">
+                        <i class="fab fa-whatsapp text-primary text-xl"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition">
+                        <i class="fab fa-youtube text-primary text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form & Map -->
+    <section class="py-16 contact-form-bg">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Contact Form -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h2 class="text-3xl font-heading font-bold text-primary mb-6">Send Us a Message</h2>
+                    <p class="text-gray-700 mb-8">Have questions about our products, farming practices, or partnerships? Fill out the form below and we'll get back to you soon.</p>
+                    
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">Your Name</label>
+                            <input type="text" id="name" class="form-input" placeholder="Enter your name">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="email" class="form-input" placeholder="Enter your email">
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-gray-700 mb-2">Phone Number (Optional)</label>
+                            <input type="tel" id="phone" class="form-input" placeholder="Enter your phone number">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                            <select id="subject" class="form-input">
+                                <option value="" disabled selected>Select a subject</option>
+                                <option value="product">Product Inquiry</option>
+                                <option value="order">Order Support</option>
+                                <option value="farming">Natural Farming</option>
+                                <option value="partnership">Partnership Opportunity</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">Your Message</label>
+                            <textarea id="message" rows="5" class="form-input" placeholder="Type your message here..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-dark transition font-medium">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Map -->
+                <div class="map-container">
+                    <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-full min-h-[500px] flex items-center justify-center">
+                        <div class="text-center p-8">
+                            <i class="fas fa-map-marked-alt text-6xl text-primary mb-4"></i>
+                            <h3 class="text-2xl font-heading font-bold text-primary mb-2">Our Farm Location</h3>
+                            <p class="text-gray-700 mb-4">Tamil Nadu, India</p>
+                            <p class="text-gray-600">Map would be displayed here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Frequently Asked Questions</h2>
+                <p class="text-lg text-gray-700">Find answers to common questions about Suvai Organics</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- FAQ 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <button class="faq-question w-full flex justify-between items-center p-6 text-left">
+                        <h3 class="text-lg font-medium text-primary">How can I place an order for your organic products?</h3>
+                        <i class="fas fa-chevron-down text-accent"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-gray-700 hidden">
+                        <p>You can place orders through our website by visiting the "Our Products" section. Select the items you want, add them to your cart, and proceed to checkout. We offer delivery across Tamil Nadu with options for both cash on delivery and online payments.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <button class="faq-question w-full flex justify-between items-center p-6 text-left">
+                        <h3 class="text-lg font-medium text-primary">Do you offer farm visits or tours?</h3>
+                        <i class="fas fa-chevron-down text-accent"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-gray-700 hidden">
+                        <p>Yes, we welcome visitors to experience our natural farming practices firsthand. We organize farm tours on the first Saturday of every month. Please contact us at least one week in advance to schedule your visit and for more details about the tour program.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <button class="faq-question w-full flex justify-between items-center p-6 text-left">
+                        <h3 class="text-lg font-medium text-primary">How can farmers partner with Suvai Organics?</h3>
+                        <i class="fas fa-chevron-down text-accent"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-gray-700 hidden">
+                        <p>We're always looking to partner with farmers practicing or interested in transitioning to natural farming. Visit our "Farmer Registration" page to fill out an application. We provide training, resources, and a guaranteed market for your chemical-free produce at fair prices.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <button class="faq-question w-full flex justify-between items-center p-6 text-left">
+                        <h3 class="text-lg font-medium text-primary">What certifications do your products have?</h3>
+                        <i class="fas fa-chevron-down text-accent"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-gray-700 hidden">
+                        <p>All our products are certified organic by the Tamil Nadu Organic Certification Department. We also follow PGS (Participatory Guarantee System) certification which involves peer review and community-based verification. Our farming practices adhere to NPOP (National Programme for Organic Production) standards.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 5 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <button class="faq-question w-full flex justify-between items-center p-6 text-left">
+                        <h3 class="text-lg font-medium text-primary">Do you offer wholesale prices for retailers?</h3>
+                        <i class="fas fa-chevron-down text-accent"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 text-gray-700 hidden">
+                        <p>Yes, we have special wholesale programs for retailers, wellness centers, and businesses. Please register as a "Sales Partner" through our registration page or contact our partnership team at partnerships@suvaiorganics.com for pricing details and terms.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Bringing the purity of nature to your table through sustainable farming and honest products.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
+                        <li><a href="products.html" class="text-gray-300 hover:text-accent transition">Our Products</a></li>
+                        <li><a href="natural-farming.html" class="text-gray-300 hover:text-accent transition">Natural Farming</a></li>
+                        <li><a href="farmers.html" class="text-gray-300 hover:text-accent transition">Our Farmers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="gallery.html" class="text-gray-300 hover:text-accent transition">Gallery</a></li>
+                        <li><a href="blog.html" class="text-gray-300 hover:text-accent transition">Blog</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition">Recipes</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-accent transition">Farming Guides</a></li>
+                        <li><a href="contact.html" class="text-gray-300 hover:text-accent transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Subscribe to receive updates on new products, farming insights, and special offers.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg w-full focus:outline-none">
+                        <button class="bg-accent text-white px-4 py-2 rounded-r-lg hover:bg-amber-700 transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
+                <p class="mt-2 text-gray-500 text-sm">Join us in building a healthier tomorrow.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                // Toggle answer visibility
+                answer.classList.toggle('hidden');
+                
+                // Rotate icon
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            });
+        });
+        
+        // Form submission simulation
+        const contactForm = document.querySelector('form');
+        if(contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // In a real application, this would send data to a server
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            });
+        }
+    </script>
+</body>
+</html>
