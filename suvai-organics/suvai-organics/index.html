@@ -84,10 +84,7 @@
     </style>
 </head>
 <body class="font-body text-dark bg-light">
-    <!-- Loading overlay -->
-    <div id="loading-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-white transition-opacity duration-500 ease-in-out">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary"></div>
-    </div>
+
 
     <!-- Header & Navigation -->
     <header class="sticky top-0 z-40 bg-white shadow-md transition-all duration-300">
@@ -539,13 +536,7 @@
     <script>
         // Simple script for mobile menu toggle (to be implemented in real site)
         document.addEventListener('DOMContentLoaded', function() {
-            // Hide loading overlay
-            setTimeout(() => {
-                document.getElementById('loading-overlay').classList.add('opacity-0');
-                setTimeout(() => {
-                    document.getElementById('loading-overlay').style.display = 'none';
-                }, 500);
-            }, 800);
+
             
             // Scroll animation observer
             const observer = new IntersectionObserver((entries) => {

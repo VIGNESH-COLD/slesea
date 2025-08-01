@@ -21,6 +21,21 @@
                     fontFamily: {
                         heading: ['Playfair Display', 'serif'],
                         body: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
                     }
                 }
             }
@@ -32,13 +47,7 @@
             background-size: cover;
             background-position: center;
         }
-        .registration-tab {
-            transition: all 0.3s ease;
-        }
-        .registration-tab:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-        }
+        
         /* Navigation underline effect */
         .nav-link {
             position: relative;
@@ -57,16 +66,45 @@
         .nav-link:hover:after {
             width: 100%;
         }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8f5e9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a8c48f;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a6c3c;
+        }
+        
+        /* Animation delays */
+        .delay-100 {
+            animation-delay: 100ms;
+        }
+        .delay-200 {
+            animation-delay: 200ms;
+        }
+        .delay-300 {
+            animation-delay: 300ms;
+        }
+        .delay-400 {
+            animation-delay: 400ms;
+        }
     </style>
 </head>
-<body class="font-body text-dark bg-light">
+<body class="font-body text-dark bg-light scroll-smooth">
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white shadow-md">
+    <header class="sticky top-0 z-50 bg-white shadow-md transition-all duration-300">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
-                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                    <a href="index.html" class="flex items-center transition-transform duration-300 hover:scale-105">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transition-all duration-300 hover:rotate-12">
                             <span class="text-light text-xl font-bold">S</span>
                         </div>
                         <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
@@ -84,65 +122,79 @@
                 </nav>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="registration.html" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
-                    <button class="md:hidden text-gray-600">
+                    <a href="registration.html" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition duration-300 transform hover:scale-105">Register</a>
+                    <button id="mobile-menu-button" class="md:hidden text-gray-600">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden bg-white py-4 mt-2 rounded-lg shadow-xl animate-fade-in">
+                <div class="flex flex-col space-y-4 px-4">
+                    <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Home</a>
+                    <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">About Us</a>
+                    <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Our Products</a>
+                    <a href="natural-farming.html" class="font-medium text-primary hover:text-accent transition py-2 border-b border-gray-100">Natural Farming</a>
+                    <a href="farmers.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Our Farmers</a>
+                    <a href="gallery.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Gallery</a>
+                    <a href="contact.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Contact Us</a>
+                    <a href="registration.html" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition text-center">Register</a>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="registration-hero py-16 text-center text-white">
+    <section class="registration-hero py-12 md:py-16 text-center text-white">
         <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">Join Our Organic Family</h1>
-            <p class="text-xl max-w-3xl mx-auto">Become part of our journey towards sustainable living and chemical-free food</p>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-4 animate-fade-in">Join Our Organic Family</h1>
+            <p class="text-lg sm:text-xl max-w-3xl mx-auto animate-fade-in delay-100">Become part of our journey towards sustainable living and chemical-free food</p>
         </div>
     </section>
 
     <!-- Registration Tabs -->
-    <section class="py-12 bg-light">
+    <section class="py-8 md:py-12 bg-light scroll-section">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Choose Your Path</h2>
-                <p class="text-lg text-gray-700">Select how you'd like to connect with Suvai Organics</p>
+            <div class="max-w-4xl mx-auto text-center mb-8 md:mb-12">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary mb-3 md:mb-4">Choose Your Path</h2>
+                <p class="text-base md:text-lg text-gray-700">Select how you'd like to connect with Suvai Organics</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
                 <!-- Customer Tab -->
-                <a href="register-customer.html" class="registration-tab bg-white rounded-xl shadow-md p-6 text-center">
-                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-user text-primary text-2xl"></i>
+                <a href="register-customer.html" class="registration-tab bg-white rounded-xl shadow-md p-4 md:p-6 text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                    <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-3 md:mb-4 transition duration-300 group-hover:rotate-12">
+                        <i class="fas fa-user text-primary text-xl md:text-2xl transition duration-300 group-hover:scale-110"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-2">Customer</h3>
-                    <p class="text-gray-600">Subscribe for recipes, discounts, and health updates</p>
-                    <div class="mt-4">
-                        <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">Join as Consumer</span>
+                    <h3 class="text-lg md:text-xl font-heading font-bold text-primary mb-2">Customer</h3>
+                    <p class="text-sm md:text-base text-gray-600 mb-3">Subscribe for recipes, discounts, and health updates</p>
+                    <div class="mt-2 md:mt-4">
+                        <span class="bg-primary text-white text-xs md:text-sm px-3 py-1 rounded-full transition duration-300 hover:bg-dark">Join as Consumer</span>
                     </div>
                 </a>
                 
                 <!-- Farmer Tab -->
-                <a href="register-farmer.html" class="registration-tab bg-white rounded-xl shadow-md p-6 text-center">
-                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-tractor text-primary text-2xl"></i>
+                <a href="register-farmer.html" class="registration-tab bg-white rounded-xl shadow-md p-4 md:p-6 text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                    <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-3 md:mb-4 transition duration-300 group-hover:rotate-12">
+                        <i class="fas fa-tractor text-primary text-xl md:text-2xl transition duration-300 group-hover:scale-110"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-2">Farmer</h3>
-                    <p class="text-gray-600">Get training, support, and direct market access</p>
-                    <div class="mt-4">
-                        <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">Join as Producer</span>
+                    <h3 class="text-lg md:text-xl font-heading font-bold text-primary mb-2">Farmer</h3>
+                    <p class="text-sm md:text-base text-gray-600 mb-3">Get training, support, and direct market access</p>
+                    <div class="mt-2 md:mt-4">
+                        <span class="bg-primary text-white text-xs md:text-sm px-3 py-1 rounded-full transition duration-300 hover:bg-dark">Join as Producer</span>
                     </div>
                 </a>
                 
                 <!-- Sales Partner Tab -->
-                <a href="register-partner.html" class="registration-tab bg-white rounded-xl shadow-md p-6 text-center">
-                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-handshake text-primary text-2xl"></i>
+                <a href="register-partner.html" class="registration-tab bg-white rounded-xl shadow-md p-4 md:p-6 text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                    <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-3 md:mb-4 transition duration-300 group-hover:rotate-12">
+                        <i class="fas fa-handshake text-primary text-xl md:text-2xl transition duration-300 group-hover:scale-110"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-2">Sales Partner</h3>
-                    <p class="text-gray-600">Distribute our products through your business</p>
-                    <div class="mt-4">
-                        <span class="bg-primary text-white text-sm px-3 py-1 rounded-full">Join as Reseller</span>
+                    <h3 class="text-lg md:text-xl font-heading font-bold text-primary mb-2">Sales Partner</h3>
+                    <p class="text-sm md:text-base text-gray-600 mb-3">Distribute our products through your business</p>
+                    <div class="mt-2 md:mt-4">
+                        <span class="bg-primary text-white text-xs md:text-sm px-3 py-1 rounded-full transition duration-300 hover:bg-dark">Join as Reseller</span>
                     </div>
                 </a>
             </div>
@@ -150,99 +202,99 @@
     </section>
 
     <!-- Benefits Section -->
-    <section class="py-16 bg-secondary/10">
+    <section class="py-10 md:py-14 bg-secondary/10 scroll-section">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Why Join Suvai Organics?</h2>
-                <p class="text-lg text-gray-700">Discover the benefits of being part of our organic community</p>
+            <div class="max-w-4xl mx-auto text-center mb-8 md:mb-12">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary mb-3 md:mb-4">Why Join Suvai Organics?</h2>
+                <p class="text-base md:text-lg text-gray-700">Discover the benefits of being part of our organic community</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl p-8 shadow-md text-center">
-                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-seedling text-white text-2xl"></i>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
+                <div class="bg-white rounded-xl p-6 md:p-8 shadow-md text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-5 md:mb-6 transition duration-300 hover:rotate-12">
+                        <i class="fas fa-seedling text-white text-xl md:text-2xl transition duration-300 hover:scale-110"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Support Sustainable Farming</h3>
-                    <p class="text-gray-700">Contribute to a movement that values the earth and promotes chemical-free agriculture.</p>
+                    <h3 class="text-lg md:text-xl font-heading font-bold text-primary mb-3">Support Sustainable Farming</h3>
+                    <p class="text-sm md:text-base text-gray-700">Contribute to a movement that values the earth and promotes chemical-free agriculture.</p>
                 </div>
                 
-                <div class="bg-white rounded-xl p-8 shadow-md text-center">
-                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-users text-white text-2xl"></i>
+                <div class="bg-white rounded-xl p-6 md:p-8 shadow-md text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-5 md:mb-6 transition duration-300 hover:rotate-12">
+                        <i class="fas fa-users text-white text-xl md:text-2xl transition duration-300 hover:scale-110"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Join a Thriving Community</h3>
-                    <p class="text-gray-700">Connect with like-minded individuals passionate about healthy living and organic products.</p>
+                    <h3 class="text-lg md:text-xl font-heading font-bold text-primary mb-3">Join a Thriving Community</h3>
+                    <p class="text-sm md:text-base text-gray-700">Connect with like-minded individuals passionate about healthy living and organic products.</p>
                 </div>
                 
-                <div class="bg-white rounded-xl p-8 shadow-md text-center">
-                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-percentage text-white text-2xl"></i>
+                <div class="bg-white rounded-xl p-6 md:p-8 shadow-md text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                    <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-5 md:mb-6 transition duration-300 hover:rotate-12">
+                        <i class="fas fa-percentage text-white text-xl md:text-2xl transition duration-300 hover:scale-110"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Exclusive Benefits</h3>
-                    <p class="text-gray-700">Enjoy special discounts, early access to products, and valuable resources.</p>
+                    <h3 class="text-lg md:text-xl font-heading font-bold text-primary mb-3">Exclusive Benefits</h3>
+                    <p class="text-sm md:text-base text-gray-700">Enjoy special discounts, early access to products, and valuable resources.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Testimonials -->
-    <section class="py-16">
+    <section class="py-10 md:py-14 scroll-section">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">What Our Community Says</h2>
-                <p class="text-lg text-gray-700">Hear from members who have joined the Suvai Organics family</p>
+            <div class="max-w-4xl mx-auto text-center mb-8 md:mb-12">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary mb-3 md:mb-4">What Our Community Says</h2>
+                <p class="text-base md:text-lg text-gray-700">Hear from members who have joined the Suvai Organics family</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-light rounded-xl p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed mr-4"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
+                <div class="bg-light rounded-xl p-5 md:p-6 transition duration-300 transform hover:-translate-y-1 hover:shadow-md">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-200 border-2 border-dashed mr-3 md:mr-4 animate-pulse-slow"></div>
                         <div>
-                            <h4 class="font-bold text-primary">Rajesh K.</h4>
-                            <p class="text-sm text-gray-600">Farmer Partner</p>
+                            <h4 class="font-bold text-primary text-base md:text-lg">Rajesh K.</h4>
+                            <p class="text-xs md:text-sm text-gray-600">Farmer Partner</p>
                         </div>
                     </div>
-                    <p class="text-gray-700 italic">"Joining Suvai Organics transformed my farming practice. Their training helped me switch to natural methods, and I now earn fair prices for my organic produce."</p>
+                    <p class="text-sm md:text-base text-gray-700 italic">"Joining Suvai Organics transformed my farming practice. Their training helped me switch to natural methods, and I now earn fair prices for my organic produce."</p>
                 </div>
                 
-                <div class="bg-light rounded-xl p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed mr-4"></div>
+                <div class="bg-light rounded-xl p-5 md:p-6 transition duration-300 transform hover:-translate-y-1 hover:shadow-md">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-200 border-2 border-dashed mr-3 md:mr-4 animate-pulse-slow delay-200"></div>
                         <div>
-                            <h4 class="font-bold text-primary">Priya M.</h4>
-                            <p class="text-sm text-gray-600">Customer</p>
+                            <h4 class="font-bold text-primary text-base md:text-lg">Priya M.</h4>
+                            <p class="text-xs md:text-sm text-gray-600">Customer</p>
                         </div>
                     </div>
-                    <p class="text-gray-700 italic">"As a customer, I love the quality and taste of Suvai products. Their recipes and health tips have helped my family eat better. It feels good to support local farmers!"</p>
+                    <p class="text-sm md:text-base text-gray-700 italic">"As a customer, I love the quality and taste of Suvai products. Their recipes and health tips have helped my family eat better. It feels good to support local farmers!"</p>
                 </div>
                 
-                <div class="bg-light rounded-xl p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed mr-4"></div>
+                <div class="bg-light rounded-xl p-5 md:p-6 transition duration-300 transform hover:-translate-y-1 hover:shadow-md">
+                    <div class="flex items-center mb-3 md:mb-4">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-200 border-2 border-dashed mr-3 md:mr-4 animate-pulse-slow delay-300"></div>
                         <div>
-                            <h4 class="font-bold text-primary">Sanjay P.</h4>
-                            <p class="text-sm text-gray-600">Sales Partner</p>
+                            <h4 class="font-bold text-primary text-base md:text-lg">Sanjay P.</h4>
+                            <p class="text-xs md:text-sm text-gray-600">Sales Partner</p>
                         </div>
                     </div>
-                    <p class="text-gray-700 italic">"Partnering with Suvai Organics has been great for our wellness store. Customers appreciate the authentic, chemical-free products, and the support from the team is excellent."</p>
+                    <p class="text-sm md:text-base text-gray-700 italic">"Partnering with Suvai Organics has been great for our wellness store. Customers appreciate the authentic, chemical-free products, and the support from the team is excellent."</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="py-16 bg-primary text-center text-white">
+    <section class="py-12 md:py-16 bg-primary text-center text-white scroll-section">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">Ready to Join Our Organic Movement?</h2>
-            <p class="text-xl max-w-3xl mx-auto mb-8">Whether you're a customer, farmer, or business partner, you're welcome in our community.</p>
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="register-customer.html" class="inline-block bg-accent text-white px-8 py-4 rounded-full hover:bg-amber-700 transition font-medium">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading font-bold mb-4 md:mb-6">Ready to Join Our Organic Movement?</h2>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-6 md:mb-8">Whether you're a customer, farmer, or business partner, you're welcome in our community.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
+                <a href="register-customer.html" class="inline-block bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition duration-300 transform hover:scale-105 font-medium">
                     Join as Customer
                 </a>
-                <a href="register-farmer.html" class="inline-block bg-accent text-white px-8 py-4 rounded-full hover:bg-amber-700 transition font-medium">
+                <a href="register-farmer.html" class="inline-block bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition duration-300 transform hover:scale-105 font-medium">
                     Join as Farmer
                 </a>
-                <a href="register-partner.html" class="inline-block bg-accent text-white px-8 py-4 rounded-full hover:bg-amber-700 transition font-medium">
+                <a href="register-partner.html" class="inline-block bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition duration-300 transform hover:scale-105 font-medium">
                     Join as Partner
                 </a>
             </div>
@@ -250,29 +302,29 @@
     </section>
 
    <!-- Footer -->
-<footer class="bg-dark text-white pt-16 pb-8">
+   <footer class="bg-dark text-white pt-12 md:pt-16 pb-6 md:pb-8">
     <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-10 md:mb-12">
             
             <!-- Brand Section -->
             <div class="flex flex-col items-center md:items-start">
                 <div class="flex items-center mb-4">
-                    <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                    <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transition duration-300 hover:rotate-12">
                         <span class="text-light text-xl font-bold">S</span>
                     </div>
                     <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
                 </div>
                 <div class="flex space-x-6">
-                    <a href="#" class="text-gray-300 hover:text-accent transition">
+                    <a href="#" class="text-gray-300 hover:text-accent transition duration-300 transform hover:scale-125">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="#" class="text-gray-300 hover:text-accent transition">
+                    <a href="#" class="text-gray-300 hover:text-accent transition duration-300 transform hover:scale-125">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="text-gray-300 hover:text-accent transition">
+                    <a href="#" class="text-gray-300 hover:text-accent transition duration-300 transform hover:scale-125">
                         <i class="fab fa-whatsapp"></i>
                     </a>
-                    <a href="#" class="text-gray-300 hover:text-accent transition">
+                    <a href="#" class="text-gray-300 hover:text-accent transition duration-300 transform hover:scale-125">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
@@ -280,19 +332,19 @@
 
             <!-- Quick Links -->
             <div class="flex flex-col items-center md:items-start">
-                <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                <h4 class="text-lg font-bold mb-3 md:mb-4">Quick Links</h4>
                 <ul class="space-y-2">
-                    <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
-                    <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
-                    <li><a href="products.html" class="text-gray-300 hover:text-accent transition">Our Products</a></li>
-                    <li><a href="natural-farming.html" class="text-gray-300 hover:text-accent transition">Natural Farming</a></li>
-                    <li><a href="farmers.html" class="text-gray-300 hover:text-accent transition">Our Farmers</a></li>
+                    <li><a href="index.html" class="text-gray-300 hover:text-accent transition duration-300">Home</a></li>
+                    <li><a href="about.html" class="text-gray-300 hover:text-accent transition duration-300">About Us</a></li>
+                    <li><a href="products.html" class="text-gray-300 hover:text-accent transition duration-300">Our Products</a></li>
+                    <li><a href="natural-farming.html" class="text-gray-300 hover:text-accent transition duration-300">Natural Farming</a></li>
+                    <li><a href="farmers.html" class="text-gray-300 hover:text-accent transition duration-300">Our Farmers</a></li>
                 </ul>
             </div>
 
             <!-- Contact Us -->
             <div class="flex flex-col items-center md:items-start">
-                <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                <h4 class="text-lg font-bold mb-3 md:mb-4">Contact Us</h4>
                 <ul class="space-y-3">
                     <li class="flex items-start justify-center md:justify-start">
                         <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
@@ -310,23 +362,71 @@
             </div>
         </div>
 
-            
-            <div class="pt-8 border-t border-gray-700 text-center">
-                <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
-                <p class="mt-2 text-gray-500 text-sm">Join us in building a healthier tomorrow.</p>
-            </div>
+        <div class="pt-6 md:pt-8 border-t border-gray-700 text-center">
+            <p class="text-gray-400 text-sm md:text-base">© 2023 Suvai Organics. All rights reserved.</p>
+            <p class="mt-2 text-gray-500 text-xs md:text-sm">Join us in building a healthier tomorrow.</p>
         </div>
-    </footer>
+    </div>
+</footer>
 
     <script>
         // Mobile menu functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.querySelector('.md\\:hidden');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
             if(mobileMenuButton) {
                 mobileMenuButton.addEventListener('click', function() {
-                    alert('Mobile menu would open here. In a complete implementation, this would show the navigation menu.');
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenu.classList.toggle('animate-fade-in');
                 });
             }
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!mobileMenu.contains(event.target)) {
+                    if (event.target !== mobileMenuButton && !mobileMenuButton.contains(event.target)) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+            
+            // Scroll animations using Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            document.querySelectorAll('.scroll-section').forEach(section => {
+                section.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700', 'ease-out');
+                observer.observe(section);
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+
         });
     </script>
 </body>

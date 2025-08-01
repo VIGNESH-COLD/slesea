@@ -1,64 +1,533 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Farmer Management - Suvai Admin</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Management - Suvai Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4a6c3c',
+                        secondary: '#a8c48f',
+                        accent: '#d4a76a',
+                        light: '#f8f5e9',
+                        dark: '#2c3e22',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .status-pending { background-color: #fef3c7; color: #d97706; }
+        .status-approved { background-color: #dcfce7; color: #16a34a; }
+        .status-rejected { background-color: #fee2e2; color: #dc2626; }
+        .status-training { background-color: #dbeafe; color: #2563eb; }
+        .status-inactive { background-color: #e5e7eb; color: #4b5563; }
+        
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .slide-in { animation: slideIn 0.3s ease-in-out; }
+        @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-primary text-white flex flex-col">
+            <div class="p-6 text-2xl font-bold border-b border-green-700">Suvai Admin</div>
+            <nav class="flex-1 p-4">
+                <ul class="space-y-4">
+                    <li><a href="admin-dashboard.html" class="block p-2 rounded hover:bg-green-700"><i class="fas fa-chart-line mr-2"></i> Dashboard</a></li>
+                    <li><a href="products-upload.html" class="block p-2 rounded hover:bg-green-700"><i class="fas fa-shopping-basket mr-2"></i> Products</a></li>
+                    <li><a href="farmers-manage.html" class="block p-2 rounded bg-green-700"><i class="fas fa-user-tie mr-2"></i> Farmers</a></li>
+                    <li><a href="gallery-manage.html" class="block p-2 rounded hover:bg-green-700"><i class="fas fa-images mr-2"></i> Gallery</a></li>
+                    <li><a href="partners-manage.html" class="block p-2 rounded hover:bg-green-700"><i class="fas fa-handshake mr-2"></i> Partners</a></li>
+                    <li><a href="training.html" class="block p-2 rounded hover:bg-green-700"><i class="fas fa-graduation-cap mr-2"></i> Training</a></li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-green-700">
+                <button class="w-full bg-red-500 py-2 rounded hover:bg-red-600"><i class="fas fa-sign-out-alt mr-2"></i> Logout</button>
+            </div>
+        </aside>
 
-<div class="flex h-screen">
+        <!-- Main Content -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold text-primary"><i class="fas fa-user-tie mr-2"></i> Farmer Management</h1>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search farmers..." class="pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                    <button id="add-farmer-btn" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-dark transition">
+                        <i class="fas fa-plus mr-2"></i> Add Farmer
+                    </button>
+                </div>
+            </div>
 
-  <!-- SIDEBAR (same as before) -->
-  <aside class="w-64 bg-green-800 text-white flex flex-col">
-    <div class="p-6 text-2xl font-bold border-b border-green-700">Suvai Admin</div>
-    <nav class="flex-1 p-4">
-      <ul class="space-y-4">
-        <li><a href="admin-dashboard.html" class="block p-2 rounded hover:bg-green-700">📊 Dashboard</a></li>
-        <li><a href="products-upload.html" class="block p-2 rounded hover:bg-green-700">🛒 Products</a></li>
-        <li><a href="farmers-manage.html" class="block p-2 rounded bg-green-700">👩‍🌾 Farmers</a></li>
-        <li><a href="gallery-manage.html" class="block p-2 rounded hover:bg-green-700">🖼 Gallery</a></li>
-        <li><a href="partners-manage.html" class="block p-2 rounded hover:bg-green-700">🤝 Partners</a></li>
-      </ul>
-    </nav>
-    <div class="p-4 border-t border-green-700">
-      <button class="w-full bg-red-500 py-2 rounded hover:bg-red-600">🚪 Logout</button>
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <div class="text-gray-500">Total Farmers</div>
+                    <div class="text-2xl font-bold">142</div>
+                    <div class="text-green-600 mt-1"><i class="fas fa-arrow-up mr-1"></i> 12%</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <div class="text-gray-500">Pending Approval</div>
+                    <div class="text-2xl font-bold">23</div>
+                    <div class="text-red-600 mt-1"><i class="fas fa-circle mr-1"></i> Needs attention</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <div class="text-gray-500">Active Farmers</div>
+                    <div class="text-2xl font-bold">94</div>
+                    <div class="text-green-600 mt-1"><i class="fas fa-check-circle mr-1"></i> 66%</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <div class="text-gray-500">In Training</div>
+                    <div class="text-2xl font-bold">18</div>
+                    <div class="text-blue-600 mt-1"><i class="fas fa-graduation-cap mr-1"></i> Ongoing</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <div class="text-gray-500">Avg. Farm Size</div>
+                    <div class="text-2xl font-bold">5.2 ac</div>
+                    <div class="text-gray-600 mt-1">Total: 738 acres</div>
+                </div>
+            </div>
+
+            <!-- Farmer Table -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold text-primary">📋 Farmers List</h2>
+                    <div class="flex space-x-2">
+                        <select class="border rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option>All Statuses</option>
+                            <option>Pending</option>
+                            <option>Approved</option>
+                            <option>Rejected</option>
+                            <option>In Training</option>
+                            <option>Inactive</option>
+                        </select>
+                        <select class="border rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option>All Districts</option>
+                            <option>Thanjavur</option>
+                            <option>Trichy</option>
+                            <option>Madurai</option>
+                            <option>Coimbatore</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full border">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th class="p-3 text-left">Name</th>
+                                <th class="p-3 text-left">Farm</th>
+                                <th class="p-3 text-left">Location</th>
+                                <th class="p-3 text-left">Size (ac)</th>
+                                <th class="p-3 text-left">Experience</th>
+                                <th class="p-3 text-left">Method</th>
+                                <th class="p-3 text-left">Status</th>
+                                <th class="p-3 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t hover:bg-green-50 fade-in">
+                                <td class="p-3">
+                                    <div class="font-medium">Arun Kumar</div>
+                                    <div class="text-sm text-gray-500">+91 98765 43210</div>
+                                </td>
+                                <td class="p-3">Green Fields</td>
+                                <td class="p-3">Thanjavur, TN</td>
+                                <td class="p-3">7.5</td>
+                                <td class="p-3">8 years</td>
+                                <td class="p-3">Organic</td>
+                                <td class="p-3">
+                                    <span class="status-pending px-2 py-1 rounded-full text-xs">Pending</span>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <button class="text-green-600 hover:text-green-800 p-1 approve-btn" title="Approve">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-800 p-1 edit-btn" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-800 p-1 delete-btn" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="text-purple-600 hover:text-purple-800 p-1 view-btn" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-t hover:bg-green-50 fade-in">
+                                <td class="p-3">
+                                    <div class="font-medium">Meena Devi</div>
+                                    <div class="text-sm text-gray-500">+91 87654 32109</div>
+                                </td>
+                                <td class="p-3">Sunrise Farm</td>
+                                <td class="p-3">Trichy, TN</td>
+                                <td class="p-3">4.2</td>
+                                <td class="p-3">5 years</td>
+                                <td class="p-3">Natural</td>
+                                <td class="p-3">
+                                    <span class="status-approved px-2 py-1 rounded-full text-xs">Approved</span>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <button class="text-green-600 hover:text-green-800 p-1" title="Approve" disabled>
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-800 p-1 edit-btn" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-800 p-1 delete-btn" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="text-purple-600 hover:text-purple-800 p-1 view-btn" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-t hover:bg-green-50 fade-in">
+                                <td class="p-3">
+                                    <div class="font-medium">Rajesh Patel</div>
+                                    <div class="text-sm text-gray-500">+91 76543 21098</div>
+                                </td>
+                                <td class="p-3">Golden Harvest</td>
+                                <td class="p-3">Madurai, TN</td>
+                                <td class="p-3">12.0</td>
+                                <td class="p-3">15 years</td>
+                                <td class="p-3">Mixed</td>
+                                <td class="p-3">
+                                    <span class="status-training px-2 py-1 rounded-full text-xs">In Training</span>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <button class="text-green-600 hover:text-green-800 p-1 approve-btn" title="Approve">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-800 p-1 edit-btn" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-800 p-1 delete-btn" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="text-purple-600 hover:text-purple-800 p-1 view-btn" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-t hover:bg-green-50 fade-in">
+                                <td class="p-3">
+                                    <div class="font-medium">Priya Suresh</div>
+                                    <div class="text-sm text-gray-500">+91 65432 10987</div>
+                                </td>
+                                <td class="p-3">Organic Oasis</td>
+                                <td class="p-3">Coimbatore, TN</td>
+                                <td class="p-3">3.8</td>
+                                <td class="p-3">3 years</td>
+                                <td class="p-3">Organic</td>
+                                <td class="p-3">
+                                    <span class="status-approved px-2 py-1 rounded-full text-xs">Approved</span>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <button class="text-green-600 hover:text-green-800 p-1" title="Approve" disabled>
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-800 p-1 edit-btn" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-800 p-1 delete-btn" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="text-purple-600 hover:text-purple-800 p-1 view-btn" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-t hover:bg-green-50 fade-in">
+                                <td class="p-3">
+                                    <div class="font-medium">Karthik M</div>
+                                    <div class="text-sm text-gray-500">+91 94321 09876</div>
+                                </td>
+                                <td class="p-3">Evergreen Farm</td>
+                                <td class="p-3">Thanjavur, TN</td>
+                                <td class="p-3">6.5</td>
+                                <td class="p-3">7 years</td>
+                                <td class="p-3">Natural</td>
+                                <td class="p-3">
+                                    <span class="status-rejected px-2 py-1 rounded-full text-xs">Rejected</span>
+                                </td>
+                                <td class="p-3 text-center">
+                                    <button class="text-green-600 hover:text-green-800 p-1 approve-btn" title="Approve">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-800 p-1 edit-btn" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-800 p-1 delete-btn" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="text-purple-600 hover:text-purple-800 p-1 view-btn" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-between items-center">
+                    <div class="text-gray-600">Showing 1 to 5 of 142 farmers</div>
+                    <div class="flex space-x-1">
+                        <button class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"><i class="fas fa-chevron-left"></i></button>
+                        <button class="bg-primary text-white px-3 py-1 rounded">1</button>
+                        <button class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300">2</button>
+                        <button class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300">3</button>
+                        <button class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300">...</button>
+                        <button class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300">28</button>
+                        <button class="bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-  </aside>
 
-  <!-- MAIN CONTENT -->
-  <main class="flex-1 p-8 overflow-y-auto">
-    <h1 class="text-3xl font-bold text-green-900 mb-6">👩‍🌾 Farmer Management</h1>
-
-    <!-- Farmer Table -->
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-xl font-semibold text-green-700 mb-4">📋 Farmers List</h2>
-      <table class="w-full border">
-        <thead class="bg-green-100">
-          <tr>
-            <th class="border p-2">Name</th>
-            <th class="border p-2">Location</th>
-            <th class="border p-2">Status</th>
-            <th class="border p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-t">
-            <td class="border p-2">Arun Kumar</td>
-            <td class="border p-2">Thanjavur</td>
-            <td class="border p-2">Pending</td>
-            <td class="border p-2">
-              <button class="text-green-600 hover:underline">Approve</button> | 
-              <button class="text-blue-600 hover:underline">Edit</button> | 
-              <button class="text-red-600 hover:underline">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- Farmer Detail Modal -->
+    <div id="farmer-modal" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg w-11/12 md:w-3/4 max-h-screen overflow-y-auto slide-in">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 class="text-xl font-semibold text-primary">Farmer Details</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Farmer Name</label>
+                        <div class="bg-gray-50 p-3 rounded-lg">Arun Kumar</div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Farm Name</label>
+                        <div class="bg-gray-50 p-3 rounded-lg">Green Fields</div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Farm Location</label>
+                        <div class="bg-gray-50 p-3 rounded-lg">Thanjavur, Tamil Nadu</div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Farm Size (acres)</label>
+                        <div class="bg-gray-50 p-3 rounded-lg">7.5</div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Phone Number</label>
+                        <div class="bg-gray-50 p-3 rounded-lg">+91 98765 43210</div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Email Address</label>
+                        <div class="bg-gray-50 p-3 rounded-lg">arun@greenfields.com</div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Farming Experience</label>
+                        <div class="bg-gray-50 p-3 rounded-lg">8 years</div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Products Grown</label>
+                        <div class="bg-gray-50 p-3 rounded-lg">Rice, Millets, Vegetables</div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Farming Method</label>
+                        <div class="bg-gray-50 p-3 rounded-lg">Organic</div>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Status</label>
+                        <div class="status-pending px-3 py-1 rounded-lg inline-block">Pending</div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 mb-2">Motivation</label>
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        I've been farming for 8 years and recently transitioned to organic methods. I want to join Suvai Organics to get better market access and learn advanced organic farming techniques to improve my yield and sustainability.
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 mb-2">Additional Notes</label>
+                    <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Add notes about this farmer..."></textarea>
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Save Notes</button>
+                    <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-dark">Approve Farmer</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </main>
 
-</div>
+    <!-- Add Farmer Modal -->
+    <div id="add-farmer-modal" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg w-11/12 md:w-3/4 max-h-screen overflow-y-auto slide-in">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 class="text-xl font-semibold text-primary">Add New Farmer</h3>
+                <button id="close-add-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="farmer-name">Farmer Name</label>
+                            <input type="text" id="farmer-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter name" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="farm-name">Farm Name</label>
+                            <input type="text" id="farm-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter farm name">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="farm-location">Farm Location</label>
+                            <input type="text" id="farm-location" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Village, District" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="farm-size">Farm Size (acres)</label>
+                            <input type="number" id="farm-size" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter farm size" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="farmer-phone">Phone Number</label>
+                            <input type="tel" id="farmer-phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter phone number" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="farmer-email">Email Address</label>
+                            <input type="email" id="farmer-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter email">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="experience">Farming Experience (years)</label>
+                            <input type="number" id="experience" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Years of experience" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="products">Products Grown</label>
+                            <input type="text" id="products" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="List products" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="farming-method">Farming Method</label>
+                            <select id="farming-method" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" required>
+                                <option value="">Select method</option>
+                                <option value="organic">Organic</option>
+                                <option value="natural">Natural Farming</option>
+                                <option value="conventional">Conventional</option>
+                                <option value="mixed">Mixed</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2" for="status">Status</label>
+                            <select id="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" required>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="training">In Training</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2" for="motivation">Motivation for Joining</label>
+                        <textarea id="motivation" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Farmer's motivation for joining Suvai Organics"></textarea>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" id="cancel-add" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">Cancel</button>
+                        <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-dark">Add Farmer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const viewButtons = document.querySelectorAll('.view-btn');
+        const modal = document.getElementById('farmer-modal');
+        const closeModal = document.getElementById('close-modal');
+        
+        const addFarmerBtn = document.getElementById('add-farmer-btn');
+        const addFarmerModal = document.getElementById('add-farmer-modal');
+        const closeAddModal = document.getElementById('close-add-modal');
+        const cancelAdd = document.getElementById('cancel-add');
+        
+        // View details modal
+        viewButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+            });
+        });
+        
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+        
+        // Add farmer modal
+        addFarmerBtn.addEventListener('click', () => {
+            addFarmerModal.classList.remove('hidden');
+        });
+        
+        closeAddModal.addEventListener('click', () => {
+            addFarmerModal.classList.add('hidden');
+        });
+        
+        cancelAdd.addEventListener('click', () => {
+            addFarmerModal.classList.add('hidden');
+        });
+        
+        // Approve button functionality
+        const approveButtons = document.querySelectorAll('.approve-btn');
+        approveButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const statusElement = this.closest('tr').querySelector('td:nth-child(7) span');
+                statusElement.textContent = 'Approved';
+                statusElement.className = 'status-approved px-2 py-1 rounded-full text-xs';
+                
+                // Disable the approve button after click
+                this.disabled = true;
+                this.classList.add('opacity-50', 'cursor-not-allowed');
+            });
+        });
+        
+        // Delete button functionality
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if(confirm('Are you sure you want to delete this farmer record?')) {
+                    const row = this.closest('tr');
+                    row.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                    setTimeout(() => {
+                        row.remove();
+                    }, 300);
+                }
+            });
+        });
+        
+        // Edit button functionality
+        const editButtons = document.querySelectorAll('.edit-btn');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // In a real app, this would open an edit form with farmer data
+                alert('Edit farmer functionality would open here. In a complete implementation, this would load the farmer data into a form for editing.');
+            });
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.add('hidden');
+            if (e.target === addFarmerModal) addFarmerModal.classList.add('hidden');
+        });
+    </script>
 </body>
 </html>

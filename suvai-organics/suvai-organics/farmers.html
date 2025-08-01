@@ -21,6 +21,25 @@
                     fontFamily: {
                         heading: ['Playfair Display', 'serif'],
                         body: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                        'slide-up': 'slideUp 0.7s ease-out forwards',
+                        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: 0 },
+                            '100%': { opacity: 1 }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: 0 },
+                            '100%': { transform: 'translateY(0)', opacity: 1 }
+                        },
+                        pulse: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.5 }
+                        }
                     }
                 }
             }
@@ -30,13 +49,6 @@
         .farm-pattern {
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="20" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="20" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/></svg>');
             background-size: 150px;
-        }
-        .farmer-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .farmer-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
         .support-item {
             position: relative;
@@ -64,12 +76,6 @@
             opacity: 0.7;
             transform: rotate(20deg);
         }
-        .stat-card {
-            transition: transform 0.3s ease;
-        }
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
         /* Navigation underline effect */
         .nav-link {
             position: relative;
@@ -88,6 +94,15 @@
         .nav-link:hover:after {
             width: 100%;
         }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s ease-in-out;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body class="font-body text-dark bg-light">
@@ -104,7 +119,7 @@
                     </a>
                 </div>
                 
-                 <nav class="hidden md:flex space-x-8">
+                <nav class="hidden md:flex space-x-8">
                     <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
                     <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
                     <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
@@ -115,8 +130,8 @@
                 </nav>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="registration.html" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
-                    <button class="md:hidden text-gray-600">
+                    <a href="registration.html" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition transform hover:scale-105">Register</a>
+                    <button id="mobileMenuButton" class="md:hidden text-gray-600">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
@@ -124,32 +139,67 @@
         </div>
     </header>
 
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-0 bg-white z-40 md:hidden">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex justify-between items-center mb-10">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h1 class="text-xl font-heading font-bold text-primary">Suvai Organics</h1>
+                    </a>
+                </div>
+                <button id="closeMobileMenu" class="text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <nav class="flex flex-col space-y-6">
+                <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b">Home</a>
+                <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b">About Us</a>
+                <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b">Our Products</a>
+                <a href="natural-farming.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b">Natural Farming</a>
+                <a href="farmers.html" class="font-medium text-primary hover:text-accent transition py-2 border-b">Our Farmers</a>
+                <a href="gallery.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b">Gallery</a>
+                <a href="contact.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b">Contact Us</a>
+            </nav>
+            
+            <div class="mt-8">
+                <a href="registration.html" class="inline-block bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition transform hover:scale-105 w-full text-center">
+                    Register
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Hero Section -->
-    <section class="farmer-hero py-20 text-center text-white">
+    <section class="farmer-hero py-16 md:py-20 text-center text-white animate-on-scroll">
         <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-6xl font-heading font-bold mb-6">Our Soil Warriors</h1>
-            <p class="text-xl max-w-3xl mx-auto">Meet the farmers bringing purity from our fields to your table</p>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 md:mb-6">Our Soil Warriors</h1>
+            <p class="text-lg sm:text-xl max-w-3xl mx-auto">Meet the farmers bringing purity from our fields to your table</p>
         </div>
     </section>
 
     <!-- Introduction -->
-    <section class="py-16">
+    <section class="py-12 md:py-16 animate-on-scroll">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center gap-10">
-                <div class="md:w-1/2">
+            <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-10">
+                <div class="w-full lg:w-1/2">
                     <div class="relative">
-                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-96"></div>
-                        <div class="absolute -bottom-6 -right-6 bg-primary rounded-lg p-4 shadow-lg w-2/3">
-                            <p class="text-white font-bold text-lg">100+ farmers growing with Suvai Organics</p>
+                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-80 sm:h-96 animate-pulse"></div>
+                        <div class="absolute -bottom-4 sm:-bottom-6 -right-4 sm:-right-6 bg-primary rounded-lg p-4 shadow-lg w-2/3 transform transition hover:scale-105">
+                            <p class="text-white font-bold text-base sm:text-lg">100+ farmers growing with Suvai Organics</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="md:w-1/2">
-                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Our Farming Community</h2>
+                <div class="w-full lg:w-1/2 mt-8 lg:mt-0">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary mb-4 md:mb-6">Our Farming Community</h2>
                     <p class="text-gray-700 mb-6">At Suvai Organics, we believe that farmers are the true heroes of our food system. They are the custodians of our land and the keepers of traditional wisdom.</p>
                     
-                    <div class="bg-light rounded-lg p-6 mb-8">
+                    <div class="bg-light rounded-lg p-6 mb-6 md:mb-8 transition transform hover:scale-[1.02]">
                         <h3 class="text-xl font-bold text-primary mb-4">Why Our Farmers Matter</h3>
                         <ul class="space-y-3">
                             <li class="flex items-start">
@@ -172,13 +222,13 @@
                     </div>
                     
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-primary text-white p-4 rounded-lg text-center">
-                            <div class="text-3xl font-bold mb-1">100+</div>
-                            <p class="text-light">Farmers in our network</p>
+                        <div class="bg-primary text-white p-4 rounded-lg text-center transition transform hover:scale-105">
+                            <div class="text-2xl sm:text-3xl font-bold mb-1">100+</div>
+                            <p class="text-light text-sm sm:text-base">Farmers in our network</p>
                         </div>
-                        <div class="bg-secondary text-dark p-4 rounded-lg text-center">
-                            <div class="text-3xl font-bold mb-1">12</div>
-                            <p>Districts covered</p>
+                        <div class="bg-secondary text-dark p-4 rounded-lg text-center transition transform hover:scale-105">
+                            <div class="text-2xl sm:text-3xl font-bold mb-1">12</div>
+                            <p class="text-sm sm:text-base">Districts covered</p>
                         </div>
                     </div>
                 </div>
@@ -187,28 +237,28 @@
     </section>
 
     <!-- Farmer Profiles -->
-    <section class="py-16 bg-light farm-pattern">
+    <section class="py-12 md:py-16 bg-light farm-pattern animate-on-scroll">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Meet Our Farmers</h2>
-                <p class="text-lg text-gray-700">Real people, real stories, real food</p>
-                <div class="w-24 h-1 bg-accent mx-auto mt-6"></div>
+            <div class="max-w-4xl mx-auto text-center mb-10 md:mb-16">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary mb-3 md:mb-4">Meet Our Farmers</h2>
+                <p class="text-gray-700">Real people, real stories, real food</p>
+                <div class="w-24 h-1 bg-accent mx-auto mt-4 md:mt-6"></div>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Farmer 1 -->
-                <div class="farmer-card bg-white rounded-xl overflow-hidden shadow-md">
-                    <div class="h-64 bg-gray-200 border-2 border-dashed w-full relative">
+                <div class="farmer-card bg-white rounded-xl overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-lg">
+                    <div class="h-56 sm:h-64 bg-gray-200 border-2 border-dashed w-full relative">
                         <div class="absolute bottom-4 left-4 bg-primary text-white px-4 py-2 rounded-lg">
                             Rice Farmer
                         </div>
                     </div>
-                    <div class="p-6">
+                    <div class="p-5 sm:p-6">
                         <h3 class="text-xl font-bold text-primary mb-1">Rajiv Kumar</h3>
                         <p class="text-accent mb-3">Thanjavur District</p>
                         <p class="text-gray-600 mb-4">"After switching to natural farming with Suvai Organics, my soil health improved dramatically. Now I grow three varieties of traditional rice without any chemicals."</p>
                         <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-gray-200 border-2 border-dashed"></div>
+                            <div class="w-10 h-10 rounded-full bg-gray-200 border-2 border-dashed animate-pulse"></div>
                             <div class="ml-3">
                                 <p class="text-sm text-gray-500">Farming since</p>
                                 <p class="font-medium">2008</p>
@@ -218,18 +268,18 @@
                 </div>
                 
                 <!-- Farmer 2 -->
-                <div class="farmer-card bg-white rounded-xl overflow-hidden shadow-md">
-                    <div class="h-64 bg-gray-200 border-2 border-dashed w-full relative">
+                <div class="farmer-card bg-white rounded-xl overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-lg">
+                    <div class="h-56 sm:h-64 bg-gray-200 border-2 border-dashed w-full relative">
                         <div class="absolute bottom-4 left-4 bg-primary text-white px-4 py-2 rounded-lg">
                             Millets & Pulses
                         </div>
                     </div>
-                    <div class="p-6">
+                    <div class="p-5 sm:p-6">
                         <h3 class="text-xl font-bold text-primary mb-1">Meena Devi</h3>
                         <p class="text-accent mb-3">Dindigul District</p>
                         <p class="text-gray-600 mb-4">"Suvai Organics gave me the training and confidence to revive native millet varieties. My income has doubled since I joined their farmer network."</p>
                         <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-gray-200 border-2 border-dashed"></div>
+                            <div class="w-10 h-10 rounded-full bg-gray-200 border-2 border-dashed animate-pulse"></div>
                             <div class="ml-3">
                                 <p class="text-sm text-gray-500">Farming since</p>
                                 <p class="font-medium">2015</p>
@@ -239,18 +289,18 @@
                 </div>
                 
                 <!-- Farmer 3 -->
-                <div class="farmer-card bg-white rounded-xl overflow-hidden shadow-md">
-                    <div class="h-64 bg-gray-200 border-2 border-dashed w-full relative">
+                <div class="farmer-card bg-white rounded-xl overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-lg">
+                    <div class="h-56 sm:h-64 bg-gray-200 border-2 border-dashed w-full relative">
                         <div class="absolute bottom-4 left-4 bg-primary text-white px-4 py-2 rounded-lg">
                             Spices & Herbs
                         </div>
                     </div>
-                    <div class="p-6">
+                    <div class="p-5 sm:p-6">
                         <h3 class="text-xl font-bold text-primary mb-1">Karthikeyan</h3>
                         <p class="text-accent mb-3">Madurai District</p>
                         <p class="text-gray-600 mb-4">"The fair pricing model of Suvai Organics has transformed my small farm into a sustainable business. I'm proud to grow chemical-free turmeric and ginger."</p>
                         <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-gray-200 border-2 border-dashed"></div>
+                            <div class="w-10 h-10 rounded-full bg-gray-200 border-2 border-dashed animate-pulse"></div>
                             <div class="ml-3">
                                 <p class="text-sm text-gray-500">Farming since</p>
                                 <p class="font-medium">2010</p>
@@ -260,8 +310,8 @@
                 </div>
             </div>
             
-            <div class="text-center mt-12">
-                <a href="gallery.html" class="inline-block bg-primary text-white px-8 py-3 rounded-full hover:bg-dark transition">
+            <div class="text-center mt-10 md:mt-12">
+                <a href="gallery.html" class="inline-block bg-primary text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full hover:bg-dark transition transform hover:scale-105">
                     <i class="fas fa-images mr-2"></i>View More Farmer Stories
                 </a>
             </div>
@@ -269,21 +319,21 @@
     </section>
 
     <!-- Farmer Support -->
-    <section class="py-16">
+    <section class="py-12 md:py-16 animate-on-scroll">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">How We Support Our Farmers</h2>
-                <p class="text-lg text-gray-700">Building sustainable livelihoods through partnership</p>
-                <div class="w-24 h-1 bg-accent mx-auto mt-6"></div>
+            <div class="max-w-4xl mx-auto text-center mb-10 md:mb-16">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary mb-3 md:mb-4">How We Support Our Farmers</h2>
+                <p class="text-gray-700">Building sustainable livelihoods through partnership</p>
+                <div class="w-24 h-1 bg-accent mx-auto mt-4 md:mt-6"></div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div class="bg-white rounded-xl shadow-lg p-8 relative overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 relative overflow-hidden transition transform hover:scale-[1.02]">
                     <div class="leaf-icon">
                         <i class="fas fa-seedling"></i>
                     </div>
-                    <h3 class="text-2xl font-heading font-bold text-primary mb-6">Training & Education</h3>
-                    <ul class="space-y-4">
+                    <h3 class="text-xl md:text-2xl font-heading font-bold text-primary mb-4 md:mb-6">Training & Education</h3>
+                    <ul class="space-y-3 md:space-y-4">
                         <li class="support-item">Regular workshops on natural farming techniques</li>
                         <li class="support-item">On-field demonstrations and mentoring</li>
                         <li class="support-item">Seasonal planting guides and crop planning</li>
@@ -292,12 +342,12 @@
                     </ul>
                 </div>
                 
-                <div class="bg-white rounded-xl shadow-lg p-8 relative overflow-hidden">
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 relative overflow-hidden transition transform hover:scale-[1.02]">
                     <div class="leaf-icon">
                         <i class="fas fa-hands-helping"></i>
                     </div>
-                    <h3 class="text-2xl font-heading font-bold text-primary mb-6">Economic Support</h3>
-                    <ul class="space-y-4">
+                    <h3 class="text-xl md:text-2xl font-heading font-bold text-primary mb-4 md:mb-6">Economic Support</h3>
+                    <ul class="space-y-3 md:space-y-4">
                         <li class="support-item">Fair pricing model with premium for organic produce</li>
                         <li class="support-item">Advance payments for seasonal crops</li>
                         <li class="support-item">Direct market access eliminating middlemen</li>
@@ -307,70 +357,70 @@
                 </div>
             </div>
             
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="stat-card bg-secondary p-6 rounded-xl text-center">
-                    <div class="text-5xl font-bold text-primary mb-3">100%</div>
-                    <h4 class="text-xl font-bold text-dark mb-2">Fair Pricing</h4>
-                    <p class="text-gray-700">Farmers receive fair compensation for their organic produce</p>
+            <div class="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                <div class="stat-card bg-secondary p-5 md:p-6 rounded-xl text-center transition transform hover:-translate-y-1">
+                    <div class="text-4xl md:text-5xl font-bold text-primary mb-3">100%</div>
+                    <h4 class="text-lg md:text-xl font-bold text-dark mb-2">Fair Pricing</h4>
+                    <p class="text-gray-700 text-sm md:text-base">Farmers receive fair compensation for their organic produce</p>
                 </div>
                 
-                <div class="stat-card bg-light p-6 rounded-xl text-center">
-                    <div class="text-5xl font-bold text-primary mb-3">250+</div>
-                    <h4 class="text-xl font-bold text-dark mb-2">Training Sessions</h4>
-                    <p class="text-gray-700">Conducted in the last two years across Tamil Nadu</p>
+                <div class="stat-card bg-light p-5 md:p-6 rounded-xl text-center transition transform hover:-translate-y-1">
+                    <div class="text-4xl md:text-5xl font-bold text-primary mb-3">250+</div>
+                    <h4 class="text-lg md:text-xl font-bold text-dark mb-2">Training Sessions</h4>
+                    <p class="text-gray-700 text-sm md:text-base">Conducted in the last two years across Tamil Nadu</p>
                 </div>
                 
-                <div class="stat-card bg-accent p-6 rounded-xl text-center text-white">
-                    <div class="text-5xl font-bold text-white mb-3">40%</div>
-                    <h4 class="text-xl font-bold text-white mb-2">Income Growth</h4>
-                    <p class="text-light">Average increase for farmers in our network</p>
+                <div class="stat-card bg-accent p-5 md:p-6 rounded-xl text-center text-white transition transform hover:-translate-y-1">
+                    <div class="text-4xl md:text-5xl font-bold text-white mb-3">40%</div>
+                    <h4 class="text-lg md:text-xl font-bold text-white mb-2">Income Growth</h4>
+                    <p class="text-light text-sm md:text-base">Average increase for farmers in our network</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Farmer Testimonials -->
-    <section class="py-16 bg-light">
+    <section class="py-12 md:py-16 bg-light animate-on-scroll">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Voices from Our Fields</h2>
-                <p class="text-lg text-gray-700">What our farmers say about working with Suvai Organics</p>
-                <div class="w-24 h-1 bg-accent mx-auto mt-6"></div>
+            <div class="max-w-4xl mx-auto text-center mb-10 md:mb-16">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary mb-3 md:mb-4">Voices from Our Fields</h2>
+                <p class="text-gray-700">What our farmers say about working with Suvai Organics</p>
+                <div class="w-24 h-1 bg-accent mx-auto mt-4 md:mt-6"></div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-md">
-                    <div class="text-accent text-5xl mb-4">"</div>
-                    <p class="text-gray-700 mb-6">Suvai Organics gave me the confidence to transition to natural farming. Their training and fair prices have transformed my small farm into a sustainable business.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md transition transform hover:scale-[1.02]">
+                    <div class="text-accent text-4xl md:text-5xl mb-4">"</div>
+                    <p class="text-gray-700 mb-4 md:mb-6">Suvai Organics gave me the confidence to transition to natural farming. Their training and fair prices have transformed my small farm into a sustainable business.</p>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed"></div>
+                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed animate-pulse"></div>
                         <div class="ml-4">
                             <h4 class="font-bold text-primary">Anandhi R.</h4>
-                            <p class="text-gray-600">Vegetable Farmer, Coimbatore</p>
+                            <p class="text-gray-600 text-sm md:text-base">Vegetable Farmer, Coimbatore</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="bg-white p-8 rounded-xl shadow-md">
-                    <div class="text-accent text-5xl mb-4">"</div>
-                    <p class="text-gray-700 mb-6">After joining Suvai Organics, I no longer worry about market prices. They provide fair compensation and timely payments. Most importantly, they respect farmers.</p>
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md transition transform hover:scale-[1.02]">
+                    <div class="text-accent text-4xl md:text-5xl mb-4">"</div>
+                    <p class="text-gray-700 mb-4 md:mb-6">After joining Suvai Organics, I no longer worry about market prices. They provide fair compensation and timely payments. Most importantly, they respect farmers.</p>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed"></div>
+                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed animate-pulse"></div>
                         <div class="ml-4">
                             <h4 class="font-bold text-primary">Muthuvel K.</h4>
-                            <p class="text-gray-600">Rice Farmer, Thanjavur</p>
+                            <p class="text-gray-600 text-sm md:text-base">Rice Farmer, Thanjavur</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="bg-white p-8 rounded-xl shadow-md">
-                    <div class="text-accent text-5xl mb-4">"</div>
-                    <p class="text-gray-700 mb-6">The community support through Suvai Organics is invaluable. We share knowledge, seeds, and celebrate each other's successes. It feels like a family.</p>
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md transition transform hover:scale-[1.02]">
+                    <div class="text-accent text-4xl md:text-5xl mb-4">"</div>
+                    <p class="text-gray-700 mb-4 md:mb-6">The community support through Suvai Organics is invaluable. We share knowledge, seeds, and celebrate each other's successes. It feels like a family.</p>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed"></div>
+                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed animate-pulse"></div>
                         <div class="ml-4">
                             <h4 class="font-bold text-primary">Geetha P.</h4>
-                            <p class="text-gray-600">Millet Farmer, Dindigul</p>
+                            <p class="text-gray-600 text-sm md:text-base">Millet Farmer, Dindigul</p>
                         </div>
                     </div>
                 </div>
@@ -379,116 +429,115 @@
     </section>
 
     <!-- Join Farmer Network -->
-    <section class="py-16 bg-primary text-white">
+    <section class="py-12 md:py-16 bg-primary text-white animate-on-scroll">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">Join Our Farmer Network</h2>
-                <p class="text-xl mb-8 max-w-2xl mx-auto">Are you practicing natural farming? Partner with Suvai Organics for training, fair prices, and market access.</p>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading font-bold mb-4 md:mb-6">Join Our Farmer Network</h2>
+                <p class="text-lg mb-6 md:mb-8 max-w-2xl mx-auto">Are you practicing natural farming? Partner with Suvai Organics for training, fair prices, and market access.</p>
                 
-                <div class="bg-white rounded-2xl p-8 text-dark max-w-2xl mx-auto">
-                    <h3 class="text-2xl font-heading font-bold text-primary mb-4">Benefits for Farmers</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-white rounded-2xl p-6 md:p-8 text-dark max-w-2xl mx-auto transition transform hover:scale-[1.02]">
+                    <h3 class="text-xl md:text-2xl font-heading font-bold text-primary mb-3 md:mb-4">Benefits for Farmers</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-6">
                         <div class="flex items-start">
                             <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
-                            <span>Guaranteed fair prices for organic produce</span>
+                            <span class="text-sm md:text-base">Guaranteed fair prices for organic produce</span>
                         </div>
                         <div class="flex items-start">
                             <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
-                            <span>Regular training on natural farming techniques</span>
+                            <span class="text-sm md:text-base">Regular training on natural farming techniques</span>
                         </div>
                         <div class="flex items-start">
                             <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
-                            <span>Access to organic seeds and inputs</span>
+                            <span class="text-sm md:text-base">Access to organic seeds and inputs</span>
                         </div>
                         <div class="flex items-start">
                             <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
-                            <span>Timely payments and advance for crops</span>
+                            <span class="text-sm md:text-base">Timely payments and advance for crops</span>
                         </div>
                         <div class="flex items-start">
                             <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
-                            <span>Community support and knowledge sharing</span>
+                            <span class="text-sm md:text-base">Community support and knowledge sharing</span>
                         </div>
                         <div class="flex items-start">
                             <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
-                            <span>Direct market access without middlemen</span>
+                            <span class="text-sm md:text-base">Direct market access without middlemen</span>
                         </div>
                     </div>
                     
-                    <a href="registration.html" class="inline-block bg-primary text-white px-8 py-3 rounded-full hover:bg-dark transition mt-4">
+                    <a href="registration.html" class="inline-block bg-primary text-white px-6 py-3 md:px-8 md:py-3 rounded-full hover:bg-dark transition transform hover:scale-105 mt-3 md:mt-4">
                         Register as a Farmer Partner
                     </a>
                 </div>
                 
-                <div class="mt-8 text-light">
+                <div class="mt-6 md:mt-8 text-light">
                     <p><i class="fas fa-phone-alt mr-2"></i> Call our Farmer Support: +91 98765 43210</p>
                 </div>
             </div>
         </div>
     </section>
 
-   <!-- Footer -->
-<footer class="bg-dark text-white pt-16 pb-8">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
-            
-            <!-- Brand Section -->
-            <div class="flex flex-col items-center md:items-start">
-                <div class="flex items-center mb-4">
-                    <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
-                        <span class="text-light text-xl font-bold">S</span>
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-12 md:pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12 text-center md:text-left">
+                
+                <!-- Brand Section -->
+                <div class="flex flex-col items-center md:items-start">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-300 hover:text-accent transition">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="text-gray-300 hover:text-accent transition">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="text-gray-300 hover:text-accent transition">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="#" class="text-gray-300 hover:text-accent transition">
-                        <i class="fab fa-youtube"></i>
-                    </a>
+
+                <!-- Quick Links -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
+                        <li><a href="products.html" class="text-gray-300 hover:text-accent transition">Our Products</a></li>
+                        <li><a href="natural-farming.html" class="text-gray-300 hover:text-accent transition">Natural Farming</a></li>
+                        <li><a href="farmers.html" class="text-gray-300 hover:text-accent transition">Our Farmers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Us -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
+                            <span>contact@suvaiorganics.com</span>
+                        </li>
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3 text-accent"></i>
+                            <span>+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span>Tamil Nadu, India</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- Quick Links -->
-            <div class="flex flex-col items-center md:items-start">
-                <h4 class="text-lg font-bold mb-4">Quick Links</h4>
-                <ul class="space-y-2">
-                    <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
-                    <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
-                    <li><a href="products.html" class="text-gray-300 hover:text-accent transition">Our Products</a></li>
-                    <li><a href="natural-farming.html" class="text-gray-300 hover:text-accent transition">Natural Farming</a></li>
-                    <li><a href="farmers.html" class="text-gray-300 hover:text-accent transition">Our Farmers</a></li>
-                </ul>
-            </div>
-
-            <!-- Contact Us -->
-            <div class="flex flex-col items-center md:items-start">
-                <h4 class="text-lg font-bold mb-4">Contact Us</h4>
-                <ul class="space-y-3">
-                    <li class="flex items-start justify-center md:justify-start">
-                        <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
-                        <span>contact@suvaiorganics.com</span>
-                    </li>
-                    <li class="flex items-start justify-center md:justify-start">
-                        <i class="fas fa-phone-alt mt-1 mr-3 text-accent"></i>
-                        <span>+91 98765 43210</span>
-                    </li>
-                    <li class="flex items-start justify-center md:justify-start">
-                        <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
-                        <span>Tamil Nadu, India</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-            
-            <div class="pt-8 border-t border-gray-700 text-center">
+            <div class="pt-6 md:pt-8 border-t border-gray-700 text-center">
                 <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
                 <p class="mt-2 text-gray-500 text-sm">Join us in building a healthier tomorrow.</p>
             </div>
@@ -496,29 +545,71 @@
     </footer>
 
     <script>
-        // Simple script for mobile menu toggle
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        if(mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+        
+        if(closeMobileMenu) {
+            closeMobileMenu.addEventListener('click', function() {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        }
+        
+        // Scroll animations
         document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.querySelector('.md\\:hidden');
-            const mobileMenu = document.querySelector('.mobile-menu');
+            const observerOptions = {
+                threshold: 0.1
+            };
             
-            if(mobileMenuButton) {
-                mobileMenuButton.addEventListener('click', function() {
-                    // This would toggle a mobile menu in a real implementation
-                    alert('Mobile menu would open here. In a complete implementation, this would show the navigation menu.');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                    }
                 });
-            }
+            }, observerOptions);
             
-            // Farmer card animation
-            const farmerCards = document.querySelectorAll('.farmer-card');
-            farmerCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-8px)';
-                    this.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1)';
+            document.querySelectorAll('.animate-on-scroll').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Add slide-up animation to farmer cards when they come into view
+            const farmerCardsObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-slide-up');
+                        }, index * 150);
+                    }
                 });
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.farmer-card').forEach(card => {
+                farmerCardsObserver.observe(card);
+            });
+            
+            // Add slide-up animation to stat cards
+            const statCardsObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-slide-up');
+                        }, index * 150);
+                    }
                 });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.stat-card').forEach(card => {
+                statCardsObserver.observe(card);
             });
         });
     </script>
