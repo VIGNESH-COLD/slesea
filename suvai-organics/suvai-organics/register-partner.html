@@ -41,6 +41,24 @@
             opacity: 0.7;
             transform: rotate(25deg);
         }
+        /* Navigation underline effect */
+        .nav-link {
+            position: relative;
+            display: inline-block;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4a6c3c;
+            transition: width 0.4s ease;
+        }
+        .nav-link:hover:after {
+            width: 100%;
+        }
     </style>
 </head>
 <body class="font-body text-dark bg-light">
@@ -58,11 +76,11 @@
                 </div>
                 
                 <nav class="hidden md:flex space-x-8">
-                    <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
-                    <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition">About Us</a>
-                    <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition">Our Products</a>
-                    <a href="registration.html" class="font-medium text-primary hover:text-accent transition">Register</a>
-                    <a href="contact.html" class="font-medium text-gray-600 hover:text-primary transition">Contact Us</a>
+                    <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
+                    <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
+                    <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
+                    <a href="registration.html" class="font-medium text-primary hover:text-accent transition nav-link">Register</a>
+                    <a href="contact.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Contact Us</a>
                 </nav>
                 
                 <div class="flex items-center space-x-4">
@@ -212,76 +230,68 @@
             </div>
         </div>
     </section>
-
- <!-- Footer -->
-    <footer class="bg-dark text-white pt-16 pb-8">
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-8 animate-on-scroll">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
+                
+                <!-- Brand Section -->
+                <div class="flex flex-col items-center md:items-start">
                     <div class="flex items-center mb-4">
-                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transition-transform duration-300 hover:rotate-12">
                             <span class="text-light text-xl font-bold">S</span>
                         </div>
                         <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
                     </div>
-                    <p class="text-gray-300 mb-4">Bringing the purity of nature to your table through sustainable farming and honest products.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
                             <i class="fab fa-whatsapp"></i>
                         </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
                             <i class="fab fa-youtube"></i>
                         </a>
                     </div>
                 </div>
-                
-                <div>
+
+                <!-- Quick Links -->
+                <div class="flex flex-col items-center md:items-start">
                     <h4 class="text-lg font-bold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition">Home</a></li>
-                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition">About Us</a></li>
-                        <li><a href="products.html" class="text-gray-300 hover:text-accent transition">Our Products</a></li>
-                        <li><a href="natural-farming.html" class="text-gray-300 hover:text-accent transition">Natural Farming</a></li>
-                        <li><a href="farmers.html" class="text-gray-300 hover:text-accent transition">Our Farmers</a></li>
+                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a></li>
+                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About Us</a></li>
+                        <li><a href="products.html" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Products</a></li>
+                        <li><a href="natural-farming.html" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural Farming</a></li>
+                        <li><a href="farmers.html" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Farmers</a></li>
                     </ul>
                 </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Resources</h4>
-                    <ul class="space-y-2">
-                        <li><a href="gallery.html" class="text-gray-300 hover:text-accent transition">Gallery</a></li>
-                        <li><a href="blog.html" class="text-gray-300 hover:text-accent transition">Blog</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-accent transition">Recipes</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-accent transition">Farming Guides</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-accent transition">FAQs</a></li>
-                    </ul>
-                </div>
-                
-                <div>
+
+                <!-- Contact Us -->
+                <div class="flex flex-col items-center md:items-start">
                     <h4 class="text-lg font-bold mb-4">Contact Us</h4>
                     <ul class="space-y-3">
-                        <li class="flex items-start">
+                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
                             <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
                             <span>contact@suvaiorganics.com</span>
                         </li>
-                        <li class="flex items-start">
+                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
                             <i class="fas fa-phone-alt mt-1 mr-3 text-accent"></i>
                             <span>+91 98765 43210</span>
                         </li>
-                        <li class="flex items-start">
+                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
                             <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
                             <span>Tamil Nadu, India</span>
                         </li>
                     </ul>
                 </div>
             </div>
-            
+
+            <!-- Footer Bottom -->
             <div class="pt-8 border-t border-gray-700 text-center">
                 <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
                 <p class="mt-2 text-gray-500 text-sm">Join us in building a healthier tomorrow.</p>

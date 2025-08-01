@@ -63,6 +63,24 @@
             opacity: 1;
             transform: translateY(0);
         }
+        /* Navigation underline effect */
+        .nav-link {
+            position: relative;
+            display: inline-block;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4a6c3c;
+            transition: width 0.4s ease;
+        }
+        .nav-link:hover:after {
+            width: 100%;
+        }
     </style>
 </head>
 <body class="font-body text-dark bg-light">
@@ -83,13 +101,13 @@
                 </div>
                 
                 <nav class="hidden md:flex space-x-8">
-                    <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition-all duration-300 hover:scale-105">Home</a>
-                    <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition-all duration-300 hover:scale-105">About Us</a>
-                    <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition-all duration-300 hover:scale-105">Our Products</a>
-                    <a href="natural-farming.html" class="font-medium text-primary hover:text-accent transition-all duration-300 hover:scale-105">Natural Farming</a>
-                    <a href="farmers.html" class="font-medium text-gray-600 hover:text-primary transition-all duration-300 hover:scale-105">Our Farmers</a>
-                    <a href="gallery.html" class="font-medium text-gray-600 hover:text-primary transition-all duration-300 hover:scale-105">Gallery</a>
-                    <a href="contact.html" class="font-medium text-gray-600 hover:text-primary transition-all duration-300 hover:scale-105">Contact Us</a>
+                    <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
+                    <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
+                    <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
+                    <a href="natural-farming.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Natural Farming</a>
+                    <a href="farmers.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Farmers</a>
+                    <a href="gallery.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Gallery</a>
+                    <a href="contact.html" class="font-medium text-primary hover:text-accent transition nav-link">Contact Us</a>
                 </nav>
                 
                 <div class="flex items-center space-x-4">
