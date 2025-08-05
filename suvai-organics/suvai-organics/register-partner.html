@@ -300,15 +300,59 @@
     </footer>
 
     <script>
-        // Mobile menu functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.querySelector('.md\\:hidden');
-            if(mobileMenuButton) {
-                mobileMenuButton.addEventListener('click', function() {
-                    alert('Mobile menu would open here. In a complete implementation, this would show the navigation menu.');
-                });
-            }
-        });
+            const scriptURL = "YOUR_APPS_SCRIPT_URL";
+            const form = document.querySelector("form");
+            const result = document.createElement("div");
+result.className = "mt-4 text-center";
+form.appendChild(result);
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+  
+  const formData = new FormData();
+  formData.append("formType", "partner");
+  formData.append("businessName", document.getElementById("business-name").value);
+  formData.append("businessType", document.getElementById("business-type").value);
+  formData.append("contactName", document.getElementById("contact-name").value);
+  formData.append("contactRole", document.getElementById("contact-role").value);
+  formData.append("partnerPhone", document.getElementById("partner-phone").value);
+  formData.append("partnerEmail", document.getElementById("partner-email").value);
+  formData.append("businessAddress", document.getElementById("business-address").value);
+  formData.append("businessDescription", document.getElementById("business-description").value);
+  formData.append("productInterest", document.getElementById("product-interest").value);
+  formData.append("existingCustomers", document.getElementById("existing-customers").value);
+  
+  fetch(scriptURL, {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    result.innerHTML = `
+      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+        <strong class="font-bold">Success!</strong>
+        <span class="block sm:inline">${data.message}</span>
+      </div>
+    `;
+    form.reset();
+  })
+  .catch(error => {
+    result.innerHTML = `
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+        <strong class="font-bold">Error!</strong>
+        <span class="block sm:inline">${error.message || 'Submission failed. Please try again.'}</span>
+      </div>
+    `;
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Partnership Application';
+  });
+});
     </script>
 </body>
 </html>
