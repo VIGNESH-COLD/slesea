@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmer Registration - Suvai Organics</title>
+    <title>Sales Partner Registration - Suvai Organics</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -28,7 +28,7 @@
     </script>
     <style>
         .registration-hero {
-            background: linear-gradient(rgba(42, 62, 34, 0.85), rgba(42, 62, 34, 0.85)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background: linear-gradient(rgba(42, 62, 34, 0.85), rgba(42, 62, 34, 0.85)), url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
             background-size: cover;
             background-position: center;
         }
@@ -96,8 +96,8 @@
     <!-- Hero Section -->
     <section class="registration-hero py-16 text-center text-white">
         <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">Farmer Registration</h1>
-            <p class="text-xl max-w-3xl mx-auto">Join our network to receive training, support, and direct market access</p>
+            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">Sales Partner Registration</h1>
+            <p class="text-xl max-w-3xl mx-auto">Join our distribution network to stock and sell Suvai Organics products</p>
         </div>
     </section>
 
@@ -109,35 +109,42 @@
                     <div class="leaf-decoration">
                         <i class="fas fa-leaf"></i>
                     </div>
-                    <h3 class="text-2xl font-heading font-bold text-primary mb-2">Apply to Become a Farmer Partner</h3>
-                    <p class="text-gray-600 mb-6">Fill in your details to join our network of organic farmers</p>
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-2">Become a Sales Partner</h3>
+                    <p class="text-gray-600 mb-6">Fill in your business details to apply for partnership</p>
                 </div>
                 
                 <form>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
-                            <label class="block text-gray-700 mb-2" for="farmer-name">Your Name</label>
-                            <input type="text" id="farmer-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter your name" required>
+                            <label class="block text-gray-700 mb-2" for="business-name">Business Name</label>
+                            <input type="text" id="business-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter business name" required>
                         </div>
                         <div>
-                            <label class="block text-gray-700 mb-2" for="farm-name">Farm Name</label>
-                            <input type="text" id="farm-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter your farm name">
+                            <label class="block text-gray-700 mb-2" for="business-type">Business Type</label>
+                            <select id="business-type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" required>
+                                <option value="">Select business type</option>
+                                <option value="distributor">Distributor</option>
+                                <option value="retailer">Retail Store</option>
+                                <option value="wellness">Wellness Center</option>
+                                <option value="restaurant">Restaurant/Cafe</option>
+                                <option value="other">Other</option>
+                            </select>
                         </div>
                         <div>
-                            <label class="block text-gray-700 mb-2" for="farm-location">Farm Location</label>
-                            <input type="text" id="farm-location" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Village, District" required>
+                            <label class="block text-gray-700 mb-2" for="contact-name">Contact Person</label>
+                            <input type="text" id="contact-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Name of contact person" required>
                         </div>
                         <div>
-                            <label class="block text-gray-700 mb-2" for="farm-size">Farm Size (acres)</label>
-                            <input type="number" id="farm-size" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter farm size" required>
+                            <label class="block text-gray-700 mb-2" for="contact-role">Contact Role</label>
+                            <input type="text" id="contact-role" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Role in organization" required>
                         </div>
                         <div>
-                            <label class="block text-gray-700 mb-2" for="farmer-phone">Phone Number</label>
-                            <input type="tel" id="farmer-phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter your phone number" required>
+                            <label class="block text-gray-700 mb-2" for="partner-phone">Phone Number</label>
+                            <input type="tel" id="partner-phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Business phone number" required>
                         </div>
                         <div>
-                            <label class="block text-gray-700 mb-2" for="farmer-email">Email Address</label>
-                            <input type="email" id="farmer-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter your email">
+                            <label class="block text-gray-700 mb-2" for="partner-email">Email Address</label>
+                            <input type="email" id="partner-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Business email" required>
                         </div>
                         <div>
                             <label class="block text-gray-700 mb-2" for="password">Password</label>
@@ -150,44 +157,38 @@
                     </div>
                     
                     <div class="mb-6">
-                        <label class="block text-gray-700 mb-2" for="experience">Farming Experience (years)</label>
-                        <input type="number" id="experience" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Years of experience" required>
+                        <label class="block text-gray-700 mb-2" for="business-address">Business Address</label>
+                        <textarea id="business-address" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Full business address" required></textarea>
                     </div>
                     
                     <div class="mb-6">
-                        <label class="block text-gray-700 mb-2" for="products">Products You Grow</label>
-                        <textarea id="products" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="List the products you currently grow" required></textarea>
+                        <label class="block text-gray-700 mb-2" for="business-description">Tell us about your business</label>
+                        <textarea id="business-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Describe your business and customer base" required></textarea>
                     </div>
                     
                     <div class="mb-6">
-                        <label class="block text-gray-700 mb-2" for="farming-method">Current Farming Method</label>
-                        <select id="farming-method" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" required>
-                            <option value="">Select your farming method</option>
-                            <option value="organic">Organic</option>
-                            <option value="natural">Natural Farming</option>
-                            <option value="conventional">Conventional</option>
-                            <option value="mixed">Mixed</option>
-                        </select>
+                        <label class="block text-gray-700 mb-2" for="product-interest">Which Suvai Organics products are you interested in?</label>
+                        <textarea id="product-interest" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="List products you're interested in carrying" required></textarea>
                     </div>
                     
                     <div class="mb-6">
-                        <label class="block text-gray-700 mb-2" for="motivation">Why do you want to join Suvai Organics?</label>
-                        <textarea id="motivation" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Tell us about your farming journey and goals" required></textarea>
+                        <label class="block text-gray-700 mb-2" for="existing-customers">Approximate number of existing customers</label>
+                        <input type="number" id="existing-customers" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Estimate your customer base">
                     </div>
                     
                     <div class="mb-6">
                         <div class="flex items-start">
-                            <input type="checkbox" id="terms" class="mt-1 mr-2 text-primary focus:ring-primary" required>
-                            <label for="terms" class="text-gray-700">I agree to the <a href="#" class="text-primary hover:underline">Farmer Partnership Terms</a></label>
+                            <input type="checkbox" id="partner-terms" class="mt-1 mr-2 text-primary focus:ring-primary" required>
+                            <label for="partner-terms" class="text-gray-700">I agree to the <a href="#" class="text-primary hover:underline">Partnership Terms & Conditions</a></label>
                         </div>
                     </div>
                     
                     <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-dark transition font-medium">
-                        Submit Application
+                        Submit Partnership Application
                     </button>
                     
                     <div class="mt-6 text-center">
-                        <p class="text-gray-600">Already a partner? <a href="#" class="text-primary hover:underline">Farmer login</a></p>
+                        <p class="text-gray-600">Already a partner? <a href="#" class="text-primary hover:underline">Partner login</a></p>
                     </div>
                 </form>
             </div>
@@ -198,33 +199,33 @@
     <section class="py-16 bg-secondary/10">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Farmer Benefits</h2>
-                <p class="text-lg text-gray-700">What you'll gain as a Suvai Organics farmer partner</p>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Partner Benefits</h2>
+                <p class="text-lg text-gray-700">What you'll gain as a Suvai Organics sales partner</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white rounded-xl p-8 shadow-md text-center">
                     <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-rupee-sign text-white text-2xl"></i>
+                        <i class="fas fa-percentage text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Fair Prices</h3>
-                    <p class="text-gray-700">Receive premium prices for your organic produce through our direct market access.</p>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Competitive Margins</h3>
+                    <p class="text-gray-700">Enjoy attractive profit margins with our wholesale pricing structure.</p>
                 </div>
                 
                 <div class="bg-white rounded-xl p-8 shadow-md text-center">
                     <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                        <i class="fas fa-medal text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Training & Support</h3>
-                    <p class="text-gray-700">Access free training programs on organic farming techniques and best practices.</p>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Premium Products</h3>
+                    <p class="text-gray-700">Offer your customers authentic, high-quality organic products they can trust.</p>
                 </div>
                 
                 <div class="bg-white rounded-xl p-8 shadow-md text-center">
                     <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-seedling text-white text-2xl"></i>
+                        <i class="fas fa-headset text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Quality Inputs</h3>
-                    <p class="text-gray-700">Get access to high-quality organic seeds, compost, and other inputs at discounted rates.</p>
+                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Dedicated Support</h3>
+                    <p class="text-gray-700">Receive personalized support from our partnership team for all your needs.</p>
                 </div>
             </div>
         </div>
@@ -262,11 +263,11 @@
                 <div class="flex flex-col items-center md:items-start">
                     <h4 class="text-lg font-bold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="index.html" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a></li>
-                        <li><a href="about.html" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About Us</a></li>
-                        <li><a href="products.html" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Products</a></li>
-                        <li><a href="natural-farming.html" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural Farming</a></li>
-                        <li><a href="farmers.html" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Farmers</a></li>
+                        <li><a href="{{ url_for('home') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a></li>
+                        <li><a href="{{ url_for('about') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About Us</a></li>
+                        <li><a href="{{ url_for('products') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Products</a></li>
+                        <li><a href="{{ url_for('natural_farming') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural Farming</a></li>
+                        <li><a href="{{ url_for('farmers') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Farmers</a></li>
                     </ul>
                 </div>
 
@@ -299,15 +300,59 @@
     </footer>
 
     <script>
-        // Mobile menu functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.querySelector('.md\\:hidden');
-            if(mobileMenuButton) {
-                mobileMenuButton.addEventListener('click', function() {
-                    alert('Mobile menu would open here. In a complete implementation, this would show the navigation menu.');
-                });
-            }
-        });
+            const scriptURL = "YOUR_APPS_SCRIPT_URL";
+            const form = document.querySelector("form");
+            const result = document.createElement("div");
+result.className = "mt-4 text-center";
+form.appendChild(result);
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+  
+  const formData = new FormData();
+  formData.append("formType", "partner");
+  formData.append("businessName", document.getElementById("business-name").value);
+  formData.append("businessType", document.getElementById("business-type").value);
+  formData.append("contactName", document.getElementById("contact-name").value);
+  formData.append("contactRole", document.getElementById("contact-role").value);
+  formData.append("partnerPhone", document.getElementById("partner-phone").value);
+  formData.append("partnerEmail", document.getElementById("partner-email").value);
+  formData.append("businessAddress", document.getElementById("business-address").value);
+  formData.append("businessDescription", document.getElementById("business-description").value);
+  formData.append("productInterest", document.getElementById("product-interest").value);
+  formData.append("existingCustomers", document.getElementById("existing-customers").value);
+  
+  fetch(scriptURL, {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    result.innerHTML = `
+      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+        <strong class="font-bold">Success!</strong>
+        <span class="block sm:inline">${data.message}</span>
+      </div>
+    `;
+    form.reset();
+  })
+  .catch(error => {
+    result.innerHTML = `
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+        <strong class="font-bold">Error!</strong>
+        <span class="block sm:inline">${error.message || 'Submission failed. Please try again.'}</span>
+      </div>
+    `;
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Partnership Application';
+  });
+});
     </script>
 </body>
 </html>

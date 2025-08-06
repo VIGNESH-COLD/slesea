@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Suvai Organics | Taste the Purity of Nature</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4a6c3c',
+                        secondary: '#a8c48f',
+                        accent: '#d4a76a',
+                        light: '#f8f5e9',
+                        dark: '#2c3e22',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: 0 },
+                            '100%': { opacity: 1 }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: 0 },
+                            '100%': { transform: 'translateY(0)', opacity: 1 }
+                        },
+                        pulse: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.6 }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .animate-gallery-item {
+            animation: fadeIn 0.8s ease-out forwards, slideUp 0.8s ease-out forwards;
+        }
+        
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.7s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.8s; }
+        .gallery-item:nth-child(9) { animation-delay: 0.9s; }
+        .gallery-item:nth-child(10) { animation-delay: 1s; }
+        .gallery-item:nth-child(11) { animation-delay: 1.1s; }
+        .gallery-item:nth-child(12) { animation-delay: 1.2s; }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(42, 62, 34, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #d4a76a;
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+            z-index: 10;
+        }
+        
+        .gallery-hero {
+            background: linear-gradient(rgba(42, 62, 34, 0.85), rgba(42, 62, 34, 0.85)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234a6c3c" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .category-btn {
+            transition: all 0.3s ease;
+            border: 2px solid #a8c48f;
+            transform-origin: center;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: #a8c48f;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+        
+        .nav-link {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4a6c3c;
+            transition: width 0.4s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s ease-out;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .menu-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        
+        .menu-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .scroll-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .scroll-section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .btn-animate {
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        
+        .btn-animate:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .loading-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4a6c3c;
+            margin: 0 4px;
+            animation: pulse-slow 1.5s infinite;
+        }
+        
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body class="font-body text-dark bg-light">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
+                    </a>
+                </div>
+                
+               <nav class="hidden md:flex space-x-8">
+                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
+                    <a href="{{ url_for('about') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
+                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
+                    <a href="{{ url_for('natural_farming') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Natural Farming</a>
+                    <a href="{{ url_for('farmers') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Farmers</a>
+                    <a href="{{ url_for('gallery') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Gallery</a>
+                    <a href="{{ url_for('contact') }}" class="font-medium text-primary hover:text-accent transition nav-link">Contact Us</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="registration.html" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition btn-animate">Register</a>
+                    <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="menu-overlay" class="menu-overlay fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+        
+        <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-80 bg-white z-50 shadow-xl">
+            <div class="p-5 flex justify-between items-center border-b">
+                <div class="flex items-center">
+                    <div class="bg-primary rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                        <span class="text-light text-lg font-bold">S</span>
+                    </div>
+                    <h2 class="text-xl font-heading font-bold text-primary">Suvai Organics</h2>
+                </div>
+                <button id="close-menu-btn" class="text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
+                    <a href="{{ url_for('about') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
+                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
+                    <a href="{{ url_for('natural_farming') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Natural Farming</a>
+                    <a href="{{ url_for('farmers') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Farmers</a>
+                    <a href="{{ url_for('gallery') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Gallery</a>
+                    <a href="{{ url_for('contact') }}" class="font-medium text-primary hover:text-accent transition nav-link">Contact Us</a>
+                </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gallery-hero py-20 text-center text-white scroll-section">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-heading font-bold mb-6 animate-fade-in">Our Gallery</h1>
+            <p class="text-xl max-w-3xl mx-auto animate-fade-in animate-delay-300">Witness the journey from soil to shelf through our lens</p>
+        </div>
+    </section>
+
+    <!-- Gallery Navigation -->
+    <section class="py-8 bg-light scroll-section">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-3">
+                <button class="category-btn active px-4 sm:px-6 py-2 rounded-full font-medium">All</button>
+                <button class="category-btn px-4 sm:px-6 py-2 rounded-full font-medium">Farm Life</button>
+                <button class="category-btn px-4 sm:px-6 py-2 rounded-full font-medium">Harvests</button>
+                <button class="category-btn px-4 sm:px-6 py-2 rounded-full font-medium">Production</button>
+                <button class="category-btn px-4 sm:px-6 py-2 rounded-full font-medium">Packaging</button>
+                <button class="category-btn px-4 sm:px-6 py-2 rounded-full font-medium">Community</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="py-12 scroll-section">
+        <div class="container mx-auto px-4">
+            <div class="gallery-grid">
+                <!-- Farm Life Images -->
+                <div class="gallery-item">
+                    <div class="gallery-tag">Farm Life</div>
+                    <img src="https://thumbs.dreamstime.com/b/sustainable-farming-practices-rural-landscapes-sunrise-environmental-conservation-farmer-tending-to-crops-highlighting-342772557.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Morning in the Fields</h3>
+                        <p class="text-secondary">Our farmers begin their day with the sunrise, tending to crops with care</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-tag">Farm Life</div>
+                    <img src="https://media.istockphoto.com/id/1029301814/photo/farmer-ploughing-field.jpg?s=612x612&w=0&k=20&c=DUfDbLJ_gpkdPJZu3Nu3_Y_wdB64MP1lAoNtus1ewXQ=" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Traditional Plowing</h3>
+                        <p class="text-secondary">Preserving ancient farming techniques for sustainable agriculture</p>
+                    </div>
+                </div>
+                
+                <!-- Harvest Images -->
+                <div class="gallery-item">
+                    <div class="gallery-tag">Harvests</div>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyokGKlNAnIN-4CEoS3kjGtkH-cdLgVoz0Zw&s" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Rice Harvest</h3>
+                        <p class="text-secondary">The golden moment when our organic rice is ready for harvesting</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-tag">Harvests</div>
+                    <img src="https://www.apnikheti.com/upload/crops/4073idea99822149277ef0e90f99c9550bd730200a.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Millet Collection</h3>
+                        <p class="text-secondary">Gathering nutrient-rich millets directly from our chemical-free fields</p>
+                    </div>
+                </div>
+                
+                <!-- Production Images -->
+                <div class="gallery-item">
+                    <div class="gallery-tag">Production</div>
+                    <img src="https://thumbs.dreamstime.com/b/hand-holding-various-natural-spices-vibrant-market-stall-carefully-selecting-colorful-display-full-options-347875407.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Spice Preparation</h3>
+                        <p class="text-secondary">Hand-selecting and cleaning aromatic spices from local sources</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-tag">Production</div>
+                    <img src="https://i.ytimg.com/vi/nHUyK0uVMhc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA_ydylepTOl_ZqCYS3igeVzMO9DQ" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Oil Extraction</h3>
+                        <p class="text-secondary">Cold-pressing oils to preserve nutrients and authentic flavors</p>
+                    </div>
+                </div>
+                
+                <!-- Packaging Images -->
+                <div class="gallery-item">
+                    <div class="gallery-tag">Packaging</div>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQ09V79Ju8BdeLQTDHA2Cyfun0xasxuBi4YxuSRkuD4arMCARohPlxakjEvl821GvtxeI&usqp=CAU" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Quality Check</h3>
+                        <p class="text-secondary">Ensuring every product meets our strict quality standards</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-tag">Packaging</div>
+                    <img src="https://www.flavorish.ai/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F13sz3xxy%2Fproduction%2F74bf11fbcb3e73448521ab2d5dc7bf19613fa0b9-1920x1080.png%3Fauto%3Dformat&w=3840&q=75" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Eco-Friendly Packaging</h3>
+                        <p class="text-secondary">Using sustainable materials to protect our products and planet</p>
+                    </div>
+                </div>
+                
+                <!-- Community Images -->
+                <div class="gallery-item">
+                    <div class="gallery-tag">Community</div>
+                    <img src="https://img.khetivyapar.com/images/news/1701161171-young-indian-officer-farmer.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Farmer Training</h3>
+                        <p class="text-secondary">Sharing knowledge about natural farming practices</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-tag">Community</div>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZgTuB-oyIZGo_b2y6pfx4eks_0PUuE-70cQ&s" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Farmers' Meeting</h3>
+                        <p class="text-secondary">Monthly gatherings to discuss sustainable practices and challenges</p>
+                    </div>
+                </div>
+                
+                <!-- Additional Images -->
+                <div class="gallery-item">
+                    <div class="gallery-tag">Farm Life</div>
+                    <img src="https://www.merikheti.com/assets/posts/irrigation-methods-in-agriculture1.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Water Conservation</h3>
+                        <p class="text-secondary">Traditional irrigation methods that preserve water resources</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-tag">Harvests</div>
+                    <img src="https://www.englishgardens.com/wp-content/uploads/Harvesting-Vegetable.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+
+                    <div class="gallery-overlay">
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">Vegetable Harvest</h3>
+                        <p class="text-secondary">Fresh, seasonal produce picked at peak ripeness</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button id="load-more-btn" class="bg-primary text-white px-8 py-3 rounded-full hover:bg-dark transition font-medium btn-animate">
+                    <i class="fas fa-plus mr-2"></i> Load More Images
+                </button>
+                <div id="loading-indicator" class="mt-4 hidden">
+                    <span class="loading-dot"></span>
+                    <span class="loading-dot"></span>
+                    <span class="loading-dot"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Call to Action -->
+    <section class="py-16 bg-primary scroll-section">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-6">Experience Our Farm Firsthand</h2>
+            <p class="text-xl text-secondary max-w-3xl mx-auto mb-8">Join our farm tour program to see natural farming in action and connect with the source of your food.</p>
+            <a href="registration.html" class="inline-block bg-accent text-white px-8 py-4 rounded-full hover:bg-amber-700 transition font-medium btn-animate">
+                Book a Farm Visit
+            </a>
+        </div>
+    </section>
+
+  
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-8 scroll-section">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
+                
+                <!-- Brand Section -->
+                <div class="flex flex-col items-center md:items-start">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-300 hover:text-accent transition transform hover:scale-110">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition transform hover:scale-110">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition transform hover:scale-110">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition transform hover:scale-110">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                       <li><a href="{{ url_for('home') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a></li>
+                        <li><a href="{{ url_for('about') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About Us</a></li>
+                        <li><a href="{{ url_for('products') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Products</a></li>
+                        <li><a href="{{ url_for('natural_farming') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural Farming</a></li>
+                        <li><a href="{{ url_for('farmers') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Farmers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Us -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
+                            <span>contact@suvaiorganics.com</span>
+                        </li>
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3 text-accent"></i>
+                            <span>+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span>Tamil Nadu, India</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                
+            <div class="pt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
+                <p class="mt-2 text-gray-500 text-sm">Join us in building a healthier tomorrow.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple gallery filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuOverlay = document.getElementById('menu-overlay');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('open');
+                menuOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.remove('open');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            menuOverlay.addEventListener('click', function() {
+                mobileMenu.classList.remove('open');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Gallery filter functionality
+            const filterButtons = document.querySelectorAll('.category-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filterValue = this.textContent.trim();
+                    
+                    // Filter gallery items
+                    galleryItems.forEach(item => {
+                        if (filterValue === 'All') {
+                            item.style.display = 'block';
+                        } else {
+                            const itemTag = item.querySelector('.gallery-tag').textContent;
+                            item.style.display = itemTag === filterValue ? 'block' : 'none';
+                        }
+                    });
+                });
+            });
+            
+            // "Load More" functionality
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function() {
+                    // Show loading animation
+                    loadingIndicator.classList.remove('hidden');
+                    
+                    // Simulate loading delay
+                    setTimeout(function() {
+                        // In a real implementation, this would load more images from the server
+                        alert('In a complete implementation, this button would load additional gallery images.');
+                        
+                        // Hide loading indicator
+                        loadingIndicator.classList.add('hidden');
+                    }, 1500);
+                });
+            }
+            
+            // Scroll animations for sections
+            const scrollSections = document.querySelectorAll('.scroll-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            scrollSections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Animate gallery items when they become visible
+            const galleryObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-gallery-item');
+                        galleryObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            galleryItems.forEach(item => {
+                galleryObserver.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
