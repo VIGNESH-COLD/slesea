@@ -165,14 +165,31 @@ def partners():
     return render_template('partners.html')
 
 @app.route('/register')
-def register():
+def register_main():
     return render_template('registration.html')
+
+@app.route('/register-customer')
+def register_customer():
+    return render_template('register-customer.html')
+
+@app.route('/register-partner')
+def register_partner():
+    return render_template('register-partner.html')
+
+@app.route('/register-farmer')
+def register_farmer():
+    return render_template('register-farmer.html')
 
 @app.route('/products')
 def products():
     products = get_products()
     categories = sorted(set(p['category'] for p in products))
     return render_template('products.html', products=products, categories=categories)
+
+# ---------------------------- Safe Static File Serving ----------------------------
+@app.route('/static/<path:filename>')
+def custom_static(filename):
+    return send_from_directory('static', filename)
 
 # ---------------------------- Admin Routes ----------------------------
 @app.route('/admin/products', methods=['GET', 'POST'])
@@ -220,11 +237,34 @@ def move_product(direction, product_id):
     reorder_products(product_id, direction)
     return redirect(url_for('manage_products'))
 
+@app.route('/products-upload')
+def products_upload():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+    return render_template('products-upload.html')
+
+@app.route('/farmers-manage')
+def farmers_manage():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+    return render_template('farmers-manage.html')
+
+@app.route('/gallery-manage')
+def gallery_manage():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+    return render_template('gallery-manage.html')
+
+@app.route('/partners-manage')
+def partners_manage():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin_login'))
+    return render_template('partners-manage.html')
+
 # ---------------------------- Static Catch-all ----------------------------
 @app.route('/<path:filename>')
 def serve_static(filename):
     return send_from_directory('.', filename)
 
 if __name__ == '__main__':
-    # Use host='0.0.0.0' and disable reloader to avoid issues in limited environments
     app.run(debug=True, host='0.0.0.0', use_reloader=False)

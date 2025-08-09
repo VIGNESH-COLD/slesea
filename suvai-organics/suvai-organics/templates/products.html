@@ -81,7 +81,7 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
+                    <a href="{{ url_for('home') }}" class="flex items-center">
                         <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
                             <span class="text-light text-xl font-bold">S</span>
                         </div>
@@ -100,7 +100,7 @@
                 </nav>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="registration.html" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
+                    <a href="{{ url_for('register_main') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
                     <a href="#" class="relative">
                         <i class="fas fa-shopping-cart text-xl text-gray-600 hover:text-primary"></i>
                         <span class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>

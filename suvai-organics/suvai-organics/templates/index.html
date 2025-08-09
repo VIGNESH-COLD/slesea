@@ -108,7 +108,7 @@
                 </nav>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="{{ url_for('register') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105 hover:shadow-lg">Register</a>
+                    <a href="{{ url_for('register_main') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105 hover:shadow-lg">Register</a>
                     <button class="md:hidden text-gray-600 transition-transform duration-300 hover:rotate-90">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
@@ -152,13 +152,13 @@
                     </div>
                     
                     <div class="flex flex-wrap gap-4">
-                        <a href="products.html" class="bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center">
+                        <a href="{{ url_for('products') }}" class="bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center">
                             <i class="fas fa-shopping-cart mr-2"></i> Shop Now
                         </a>
-                        <a href="registration.html" class="text-primary hover:text-accent transition-all duration-300 hover:scale-105 flex items-center">
+                        <a href="{{ url_for('register_main') }}" class="text-primary hover:text-accent transition-all duration-300 hover:scale-105 flex items-center">
                             <i class="fas fa-hands-helping mr-2"></i> Join Us
                         </a>
-                        <a href="farmers.html" class="border border-primary text-primary px-6 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 flex items-center">
+                        <a href="{{ url_for('farmers') }}" class="border border-primary text-primary px-6 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 flex items-center">
                             <i class="fas fa-book-open mr-2"></i> Learn More
                         </a>
                     </div>
@@ -331,7 +331,7 @@
                                 <p class="text-gray-600">Access to organic seeds, natural fertilizers, and farming tools.</p>
                             </div>
                         </div>
-                        <a href="natural-farming.html" class="bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition-all duration-300 hover:scale-105">
+                        <a href="{{ url_for('natural_farming') }}" class="bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition-all duration-300 hover:scale-105">
                             Join Our Farming Movement
                         </a>
                     </div>
@@ -438,7 +438,7 @@
                         
                         <p class="mb-6">Our farmers receive regular support, mentoring, and take pride in producing chemical-free food that nourishes communities.</p>
                         
-                        <a href="farmers.html" class="bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition-all duration-300 hover:scale-105">
+                        <a href="{{ url_for('farmers') }}" class="bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition-all duration-300 hover:scale-105">
                             <i class="fas fa-tractor mr-2"></i> Partner with Us
                         </a>
                     </div>

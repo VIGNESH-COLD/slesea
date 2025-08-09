@@ -123,7 +123,7 @@
         <div class="container mx-auto px-4 sm:px-6">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <a href="#" class="flex items-center transition-transform duration-300 hover:scale-105">
+                    <a href="{{ url_for('home') }}" class="flex items-center transition-transform duration-300 hover:scale-105">
                         <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transition-all duration-300 hover:rotate-12">
                             <span class="text-light text-xl font-bold">S</span>
                         </div>
@@ -143,7 +143,7 @@
                 </nav>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="#" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition duration-300 transform hover:scale-105 text-sm lg:text-base">Register</a>
+                    <a href="{{ url_for('register_main') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition duration-300 transform hover:scale-105 text-sm lg:text-base">Register</a>
                     <button id="mobileMenuButton" class="md:hidden text-gray-600 text-2xl">
                         <i class="fas fa-bars"></i>
                     </button>
@@ -153,14 +153,14 @@
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="mobile-menu md:hidden bg-white">
                 <div class="flex flex-col space-y-4 py-6">
-                    <a href="#" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Home</a>
-                    <a href="#" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">About Us</a>
-                    <a href="#" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Products</a>
-                    <a href="#" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Natural Farming</a>
-                    <a href="#" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Farmers</a>
-                    <a href="#" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Gallery</a>
-                    <a href="#" class="font-medium text-primary hover:text-accent py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Contact</a>
-                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-full text-center hover:bg-dark transition transform hover:scale-105 mx-4">Register</a>
+                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Home</a>
+                    <a href="{{ url_for('about') }}" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">About Us</a>
+                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Products</a>
+                    <a href="{{ url_for('natural_farming') }}" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Natural Farming</a>
+                    <a href="{{ url_for('farmers') }}" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Farmers</a>
+                    <a href="{{ url_for('gallery') }}" class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Gallery</a>
+                    <a href="{{ url_for('contact') }}" class="font-medium text-primary hover:text-accent py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Contact</a>
+                    <a href="{{ url_for('register_main') }}" class="bg-primary text-white px-4 py-2 rounded-full text-center hover:bg-dark transition transform hover:scale-105 mx-4">Register</a>
                 </div>
             </div>
         </div>
@@ -542,7 +542,7 @@
                 <p class="text-base md:text-xl max-w-3xl mx-auto mb-6 md:mb-8">Are you a farmer interested in transitioning to natural farming? Partner with Suvai Organics to grow together.</p>
                 
                 <div class="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
-                    <a href="register-farmer.html" class="bg-accent text-white px-6 py-3 md:px-8 md:py-4 rounded-full hover:bg-amber-700 transition duration-300 transform hover:scale-105">
+                    <a href="{{ url_for('register_farmer') }}" class="bg-accent text-white px-6 py-3 md:px-8 md:py-4 rounded-full hover:bg-amber-700 transition duration-300 transform hover:scale-105">
                         Farmer Registration
                     </a>
                 </div>

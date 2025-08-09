@@ -15,11 +15,11 @@
     <div class="p-6 text-2xl font-bold border-b border-green-700">Suvai Admin</div>
     <nav class="flex-1 p-4">
       <ul class="space-y-4">
-        <li><a href="admin-dashboard.html" class="block p-2 rounded hover:bg-green-700">📊 Dashboard</a></li>
-        <li><a href="products-upload.html" class="block p-2 rounded hover:bg-green-700">🛒 Products</a></li>
-        <li><a href="farmers-manage.html" class="block p-2 rounded hover:bg-green-700">👩‍🌾 Farmers</a></li>
-        <li><a href="gallery-manage.html" class="block p-2 rounded hover:bg-green-700">🖼 Gallery</a></li>
-        <li><a href="partners-manage.html" class="block p-2 rounded bg-green-700">🤝 Partners</a></li>
+         <li><a href="{{ url_for('admin_dashboard')}}" class="block p-2 rounded bg-green-700">📊 Dashboard</a></li>
+        <li><a href="{{ url_for('products_upload')}}" class="block p-2 rounded hover:bg-green-700">🛒 Products</a></li>
+        <li><a href="{{ url_for('farmers_manage')}}" class="block p-2 rounded hover:bg-green-700">👩‍🌾 Farmers</a></li>
+        <li><a href="{{ url_for('gallery_manage')}}" class="block p-2 rounded hover:bg-green-700">🖼 Gallery</a></li>
+        <li><a href="{{ url_for('partners_manage')}}" class="block p-2 rounded hover:bg-green-700">🤝 Partners</a></li>
       </ul>
     </nav>
     <div class="p-4 border-t border-green-700">

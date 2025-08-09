@@ -111,7 +111,7 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
+                    <a href="{{ url_for('home') }}" class="flex items-center">
                         <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
                             <span class="text-light text-xl font-bold">S</span>
                         </div>
@@ -130,7 +130,7 @@
                 </nav>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="{{ url_for('register') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition transform hover:scale-105">Register</a>
+                    <a href="{{ url_for('register_main') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition transform hover:scale-105">Register</a>
                     <button id="mobileMenuButton" class="md:hidden text-gray-600">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
@@ -167,7 +167,7 @@
                 </nav>
             
             <div class="mt-8">
-                <a href="registration.html" class="inline-block bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition transform hover:scale-105 w-full text-center">
+                <a href="{{ url_for('register_main') }}" class="inline-block bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition transform hover:scale-105 w-full text-center">
                     Register
                 </a>
             </div>
@@ -316,7 +316,7 @@
             </div>
             
             <div class="text-center mt-10 md:mt-12">
-                <a href="gallery.html" class="inline-block bg-primary text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full hover:bg-dark transition transform hover:scale-105">
+                <a href="{{ url_for('gallery') }}" class="inline-block bg-primary text-white px-6 py-3 sm:px-8 sm:py-3 rounded-full hover:bg-dark transition transform hover:scale-105">
                     <i class="fas fa-images mr-2"></i>View More Farmer Stories
                 </a>
             </div>
@@ -469,7 +469,7 @@
                         </div>
                     </div>
                     
-                    <a href="registration.html" class="inline-block bg-primary text-white px-6 py-3 md:px-8 md:py-3 rounded-full hover:bg-dark transition transform hover:scale-105 mt-3 md:mt-4">
+                    <a href="{{ url_for('register_main') }}" class="inline-block bg-primary text-white px-6 py-3 md:px-8 md:py-3 rounded-full hover:bg-dark transition transform hover:scale-105 mt-3 md:mt-4">
                         Register as a Farmer Partner
                     </a>
                 </div>

@@ -122,7 +122,7 @@
                 </nav>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="registration.html" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition duration-300 transform hover:scale-105">Register</a>
+                    <a href="{{ url_for('register_main') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition duration-300 transform hover:scale-105">Register</a>
                     <button id="mobile-menu-button" class="md:hidden text-gray-600">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
@@ -132,14 +132,14 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="md:hidden hidden bg-white py-4 mt-2 rounded-lg shadow-xl animate-fade-in">
                 <div class="flex flex-col space-y-4 px-4">
-                    <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Home</a>
-                    <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">About Us</a>
-                    <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Our Products</a>
-                    <a href="natural-farming.html" class="font-medium text-primary hover:text-accent transition py-2 border-b border-gray-100">Natural Farming</a>
-                    <a href="farmers.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Our Farmers</a>
-                    <a href="gallery.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Gallery</a>
-                    <a href="contact.html" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Contact Us</a>
-                    <a href="registration.html" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition text-center">Register</a>
+                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Home</a>
+                    <a href="{{ url_for('about') }}" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">About Us</a>
+                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Our Products</a>
+                    <a href="{{ url_for('natural_farming') }}" class="font-medium text-primary hover:text-accent transition py-2 border-b border-gray-100">Natural Farming</a>
+                    <a href="{{ url_for('farmers') }}" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Our Farmers</a>
+                    <a href="{{ url_for('gallery') }}" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Gallery</a>
+                    <a href="{{ url_for('contact') }}" class="font-medium text-gray-600 hover:text-primary transition py-2 border-b border-gray-100">Contact Us</a>
+                    <a href="{{ url_for('register_main') }}" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition text-center">Register</a>
                 </div>
             </div>
         </div>
@@ -163,7 +163,7 @@
             
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
                 <!-- Customer Tab -->
-                <a href="register-customer.html" class="registration-tab bg-white rounded-xl shadow-md p-4 md:p-6 text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                <a href="{{ url_for('register_customer')}}" class="registration-tab bg-white rounded-xl shadow-md p-4 md:p-6 text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
                     <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-3 md:mb-4 transition duration-300 group-hover:rotate-12">
                         <i class="fas fa-user text-primary text-xl md:text-2xl transition duration-300 group-hover:scale-110"></i>
                     </div>
@@ -175,7 +175,7 @@
                 </a>
                 
                 <!-- Farmer Tab -->
-                <a href="register-farmer.html" class="registration-tab bg-white rounded-xl shadow-md p-4 md:p-6 text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                <a href="{{ url_for('register_farmer')}}" class="registration-tab bg-white rounded-xl shadow-md p-4 md:p-6 text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
                     <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-3 md:mb-4 transition duration-300 group-hover:rotate-12">
                         <i class="fas fa-tractor text-primary text-xl md:text-2xl transition duration-300 group-hover:scale-110"></i>
                     </div>
@@ -187,7 +187,7 @@
                 </a>
                 
                 <!-- Sales Partner Tab -->
-                <a href="register-partner.html" class="registration-tab bg-white rounded-xl shadow-md p-4 md:p-6 text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                <a href="{{ url_for('register_partner')}}" class="registration-tab bg-white rounded-xl shadow-md p-4 md:p-6 text-center transition duration-300 transform hover:-translate-y-1 hover:shadow-lg">
                     <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-3 md:mb-4 transition duration-300 group-hover:rotate-12">
                         <i class="fas fa-handshake text-primary text-xl md:text-2xl transition duration-300 group-hover:scale-110"></i>
                     </div>
@@ -288,13 +288,13 @@
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-heading font-bold mb-4 md:mb-6">Ready to Join Our Organic Movement?</h2>
             <p class="text-lg md:text-xl max-w-3xl mx-auto mb-6 md:mb-8">Whether you're a customer, farmer, or business partner, you're welcome in our community.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
-                <a href="register-customer.html" class="inline-block bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition duration-300 transform hover:scale-105 font-medium">
+                <a href="{{ url_for('register_customer') }}" class="inline-block bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition duration-300 transform hover:scale-105 font-medium">
                     Join as Customer
                 </a>
-                <a href="register-farmer.html" class="inline-block bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition duration-300 transform hover:scale-105 font-medium">
+                <a href="{{ url_for('register_farmer') }}" class="inline-block bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition duration-300 transform hover:scale-105 font-medium">
                     Join as Farmer
                 </a>
-                <a href="register-partner.html" class="inline-block bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition duration-300 transform hover:scale-105 font-medium">
+                <a href="{{ url_for('register_partner') }}" class="inline-block bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition duration-300 transform hover:scale-105 font-medium">
                     Join as Partner
                 </a>
             </div>

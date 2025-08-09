@@ -67,7 +67,7 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
+                    <a href="{{ url_for('home') }}" class="flex items-center">
                         <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
                             <span class="text-light text-xl font-bold">S</span>
                         </div>
@@ -76,15 +76,15 @@
                 </div>
                 
                 <nav class="hidden md:flex space-x-8">
-                    <a href="index.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
-                    <a href="about.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
-                    <a href="products.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
-                    <a href="registration.html" class="font-medium text-primary hover:text-accent transition nav-link">Register</a>
-                    <a href="contact.html" class="font-medium text-gray-600 hover:text-primary transition nav-link">Contact Us</a>
+                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
+                    <a href="{{ url_for('about') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
+                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
+                    <a href="{{ url_for('register_main') }}" class="font-medium text-primary hover:text-accent transition nav-link">Register</a>
+                    <a href="{{ url_for('contact') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Contact Us</a>
                 </nav>
                 
                 <div class="flex items-center space-x-4">
-                    <a href="registration.html" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
+                    <a href="{{ url_for('register_main') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
                     <button class="md:hidden text-gray-600">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
