@@ -127,7 +127,7 @@
         }
         
         .gallery-hero {
-            background: linear-gradient(rgba(42, 62, 34, 0.85), rgba(42, 62, 34, 0.85)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234a6c3c" opacity="0.1"/></svg>');
+            background: linear-gradient(rgba(42, 62, 34, 0.85), rgba(42, 62, 34, 0.85));
             background-size: cover;
             background-position: center;
         }
@@ -309,12 +309,10 @@
     <section class="py-8 bg-light scroll-section">
         <div class="container mx-auto px-4">
             <div class="flex flex-wrap justify-center gap-3">
-                <button class="category-btn active px-4 sm:px-6 py-2 rounded-full font-medium">All</button>
-                <button class="category-btn px-4 sm:px-6 py-2 rounded-full font-medium">Farm Life</button>
-                <button class="category-btn px-4 sm:px-6 py-2 rounded-full font-medium">Harvests</button>
-                <button class="category-btn px-4 sm:px-6 py-2 rounded-full font-medium">Production</button>
-                <button class="category-btn px-4 sm:px-6 py-2 rounded-full font-medium">Packaging</button>
-                <button class="category-btn px-4 sm:px-6 py-2 rounded-full font-medium">Community</button>
+                <button class="category-btn active px-4 sm:px-6 py-2 rounded-full font-medium" data-category="all">All</button>
+                {% for category in categories %}
+                <button class="category-btn px-4 sm:px-6 py-2 rounded-full font-medium" data-category="{{ category }}">{{ category }}</button>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -322,132 +320,28 @@
     <!-- Gallery Grid -->
     <section class="py-12 scroll-section">
         <div class="container mx-auto px-4">
+            {% if gallery_items %}
             <div class="gallery-grid">
-                <!-- Farm Life Images -->
-                <div class="gallery-item">
-                    <div class="gallery-tag">Farm Life</div>
-                    <img src="https://thumbs.dreamstime.com/b/sustainable-farming-practices-rural-landscapes-sunrise-environmental-conservation-farmer-tending-to-crops-highlighting-342772557.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
+                {% for item in gallery_items %}
+                <div class="gallery-item" data-category="{{ item.category }}">
+                    <div class="gallery-tag">{{ item.category }}</div>
+                    <img src="{{ url_for('static', filename='uploads/gallery/' + item.filename) }}" alt="{{ item.caption }}" class="gallery-img rounded-xl w-full h-64 object-cover">
                     <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Morning in the Fields</h3>
-                        <p class="text-secondary">Our farmers begin their day with the sunrise, tending to crops with care</p>
+                        <h3 class="text-xl font-heading font-bold text-white mb-2">{{ item.caption if item.caption else 'Suvai Organics' }}</h3>
+                        <p class="text-secondary">{{ item.category }}</p>
                     </div>
                 </div>
-                
-                <div class="gallery-item">
-                    <div class="gallery-tag">Farm Life</div>
-                    <img src="https://media.istockphoto.com/id/1029301814/photo/farmer-ploughing-field.jpg?s=612x612&w=0&k=20&c=DUfDbLJ_gpkdPJZu3Nu3_Y_wdB64MP1lAoNtus1ewXQ=" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
-
-                    <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Traditional Plowing</h3>
-                        <p class="text-secondary">Preserving ancient farming techniques for sustainable agriculture</p>
-                    </div>
-                </div>
-                
-                <!-- Harvest Images -->
-                <div class="gallery-item">
-                    <div class="gallery-tag">Harvests</div>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyokGKlNAnIN-4CEoS3kjGtkH-cdLgVoz0Zw&s" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
-
-                    <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Rice Harvest</h3>
-                        <p class="text-secondary">The golden moment when our organic rice is ready for harvesting</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <div class="gallery-tag">Harvests</div>
-                    <img src="https://www.apnikheti.com/upload/crops/4073idea99822149277ef0e90f99c9550bd730200a.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
-
-                    <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Millet Collection</h3>
-                        <p class="text-secondary">Gathering nutrient-rich millets directly from our chemical-free fields</p>
-                    </div>
-                </div>
-                
-                <!-- Production Images -->
-                <div class="gallery-item">
-                    <div class="gallery-tag">Production</div>
-                    <img src="https://thumbs.dreamstime.com/b/hand-holding-various-natural-spices-vibrant-market-stall-carefully-selecting-colorful-display-full-options-347875407.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
-
-                    <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Spice Preparation</h3>
-                        <p class="text-secondary">Hand-selecting and cleaning aromatic spices from local sources</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <div class="gallery-tag">Production</div>
-                    <img src="https://i.ytimg.com/vi/nHUyK0uVMhc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA_ydylepTOl_ZqCYS3igeVzMO9DQ" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
-
-                    <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Oil Extraction</h3>
-                        <p class="text-secondary">Cold-pressing oils to preserve nutrients and authentic flavors</p>
-                    </div>
-                </div>
-                
-                <!-- Packaging Images -->
-                <div class="gallery-item">
-                    <div class="gallery-tag">Packaging</div>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQ09V79Ju8BdeLQTDHA2Cyfun0xasxuBi4YxuSRkuD4arMCARohPlxakjEvl821GvtxeI&usqp=CAU" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
-
-                    <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Quality Check</h3>
-                        <p class="text-secondary">Ensuring every product meets our strict quality standards</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <div class="gallery-tag">Packaging</div>
-                    <img src="https://www.flavorish.ai/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F13sz3xxy%2Fproduction%2F74bf11fbcb3e73448521ab2d5dc7bf19613fa0b9-1920x1080.png%3Fauto%3Dformat&w=3840&q=75" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
-
-                    <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Eco-Friendly Packaging</h3>
-                        <p class="text-secondary">Using sustainable materials to protect our products and planet</p>
-                    </div>
-                </div>
-                
-                <!-- Community Images -->
-                <div class="gallery-item">
-                    <div class="gallery-tag">Community</div>
-                    <img src="https://img.khetivyapar.com/images/news/1701161171-young-indian-officer-farmer.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
-
-                    <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Farmer Training</h3>
-                        <p class="text-secondary">Sharing knowledge about natural farming practices</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <div class="gallery-tag">Community</div>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZgTuB-oyIZGo_b2y6pfx4eks_0PUuE-70cQ&s" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
-
-                    <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Farmers' Meeting</h3>
-                        <p class="text-secondary">Monthly gatherings to discuss sustainable practices and challenges</p>
-                    </div>
-                </div>
-                
-                <!-- Additional Images -->
-                <div class="gallery-item">
-                    <div class="gallery-tag">Farm Life</div>
-                    <img src="https://www.merikheti.com/assets/posts/irrigation-methods-in-agriculture1.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
-
-                    <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Water Conservation</h3>
-                        <p class="text-secondary">Traditional irrigation methods that preserve water resources</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <div class="gallery-tag">Harvests</div>
-                    <img src="https://www.englishgardens.com/wp-content/uploads/Harvesting-Vegetable.jpg" alt="Image Description" class="gallery-img rounded-xl w-full h-64 object-cover">
-
-                    <div class="gallery-overlay">
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">Vegetable Harvest</h3>
-                        <p class="text-secondary">Fresh, seasonal produce picked at peak ripeness</p>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+            {% else %}
+            <div class="text-center py-16">
+                <div class="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32 mx-auto mb-6 flex items-center justify-center">
+                    <i class="fas fa-images text-4xl text-gray-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-600 mb-3">Gallery is Empty</h3>
+                <p class="text-gray-500 mb-6">Check back soon for updates from our farms</p>
+            </div>
+            {% endif %}
             
             <!-- Load More Button -->
             <div class="text-center mt-12">
@@ -583,15 +477,15 @@
                     // Add active class to clicked button
                     this.classList.add('active');
                     
-                    const filterValue = this.textContent.trim();
+                    const filterValue = this.getAttribute('data-category');
                     
                     // Filter gallery items
                     galleryItems.forEach(item => {
-                        if (filterValue === 'All') {
+                        if (filterValue === 'all') {
                             item.style.display = 'block';
                         } else {
-                            const itemTag = item.querySelector('.gallery-tag').textContent;
-                            item.style.display = itemTag === filterValue ? 'block' : 'none';
+                            const itemCategory = item.getAttribute('data-category');
+                            item.style.display = itemCategory === filterValue ? 'block' : 'none';
                         }
                     });
                 });
