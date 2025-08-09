@@ -3,182 +3,182 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Management - Suvai Admin</title>
+  <title>Product Upload - Suvai Admin</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    .product-row { transition: all 0.3s ease; }
-    .product-row:hover { background-color: #f0f7e9; }
-    .action-btn { transition: all 0.2s ease; }
-    .action-btn:hover { transform: scale(1.1); }
+    .image-preview {
+      height: 200px;
+      object-fit: contain;
+    }
   </style>
 </head>
 <body class="bg-gray-100 font-sans">
+  <div class="flex h-screen">
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-green-800 text-white flex flex-col">
+      <div class="p-6 text-2xl font-bold border-b border-green-700">Suvai Admin</div>
+      <nav class="flex-1 p-4">
+        <ul class="space-y-4">
+          <li><a href="{{ url_for('admin_dashboard')}}" class="block p-2 rounded hover:bg-green-700">📊 Dashboard</a></li>
+          <li><a href="{{ url_for('products_upload')}}" class="block p-2 rounded bg-green-700">🛒 Products</a></li>
+          <li><a href="{{ url_for('farmers_manage')}}" class="block p-2 rounded hover:bg-green-700">👩‍🌾 Farmers</a></li>
+          <li><a href="{{ url_for('gallery_manage')}}" class="block p-2 rounded hover:bg-green-700">🖼 Gallery</a></li>
+          <li><a href="{{ url_for('partners_manage')}}" class="block p-2 rounded hover:bg-green-700">🤝 Partners</a></li>
+        </ul>
+      </nav>
+      <div class="p-4 border-t border-green-700">
+        <a href="{{ url_for('admin_logout') }}" class="w-full bg-red-500 py-2 rounded hover:bg-red-600 block text-center">🚪 Logout</a>
+      </div>
+    </aside>
 
-<div class="flex h-screen">
-
-  <!-- SIDEBAR -->
-  <aside class="w-64 bg-green-800 text-white flex flex-col">
-    <div class="p-6 text-2xl font-bold border-b border-green-700">Suvai Admin</div>
-    <nav class="flex-1 p-4">
-      <ul class="space-y-4">
-         <li><a href="{{ url_for('admin_dashboard')}}" class="block p-2 rounded bg-green-700">📊 Dashboard</a></li>
-        <li><a href="{{ url_for('products_upload')}}" class="block p-2 rounded hover:bg-green-700">🛒 Products</a></li>
-        <li><a href="{{ url_for('farmers_manage')}}" class="block p-2 rounded hover:bg-green-700">👩‍🌾 Farmers</a></li>
-        <li><a href="{{ url_for('gallery_manage')}}" class="block p-2 rounded hover:bg-green-700">🖼 Gallery</a></li>
-        <li><a href="{{ url_for('partners_manage')}}" class="block p-2 rounded hover:bg-green-700">🤝 Partners</a></li>
-      </ul>
-    </nav>
-    <div class="p-4 border-t border-green-700">
-      <button class="w-full bg-red-500 py-2 rounded hover:bg-red-600">🚪 Logout</button>
-    </div>
-  </aside>
-
-  <!-- MAIN CONTENT -->
-  <main class="flex-1 p-8 overflow-y-auto">
-    <h1 class="text-3xl font-bold text-green-900 mb-6">🛒 Product Management</h1>
-
-    <!-- Add/Edit Product Form -->
-    <div class="bg-white p-6 rounded-lg shadow mb-6">
-      <h2 class="text-xl font-semibold text-green-700 mb-4">➕ Add New Product</h2>
-      <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-gray-700 mb-2">Product Name</label>
-          <input type="text" placeholder="Product Name" class="w-full p-2 border rounded" required>
-        </div>
-        
-        <div>
-          <label class="block text-gray-700 mb-2">Price (₹)</label>
-          <input type="number" placeholder="Price" class="w-full p-2 border rounded" required min="0" step="0.01">
-        </div>
-        
-        <div>
-          <label class="block text-gray-700 mb-2">Category</label>
-          <select class="w-full p-2 border rounded" required>
-            <option value="">Select Category</option>
-            <option value="Organic Grains">Organic Grains</option>
-            <option value="Spices & Herbs">Spices & Herbs</option>
-            <option value="Cold-pressed Oils">Cold-pressed Oils</option>
-            <option value="Health Mixes">Health Mixes</option>
-            <option value="Natural Sweeteners">Natural Sweeteners</option>
-            <option value="Ready-to-eat Snacks">Ready-to-eat Snacks</option>
-            <option value="Seasonal Produce">Seasonal Produce</option>
-          </select>
-        </div>
-        
-        <div>
-          <label class="block text-gray-700 mb-2">Product Image</label>
-          <input type="file" class="w-full p-2 border rounded">
-        </div>
-        
-        <div class="md:col-span-2">
-          <label class="block text-gray-700 mb-2">Description</label>
-          <textarea placeholder="Product Description" class="w-full p-2 border rounded h-32" required></textarea>
-        </div>
-        
-        <div class="md:col-span-2 flex justify-end">
-          <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">
-            Add Product
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <!-- Product Table -->
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-xl font-semibold text-green-700 mb-4">📋 Existing Products</h2>
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 p-8 overflow-y-auto">
+      <h1 class="text-3xl font-bold text-green-900 mb-6">🛒 Product Upload</h1>
       
-      <table class="w-full border">
-        <thead class="bg-green-100">
-          <tr>
-            <th class="border p-2">Position</th>
-            <th class="border p-2">Image</th>
-            <th class="border p-2">Name</th>
-            <th class="border p-2">Price</th>
-            <th class="border p-2">Category</th>
-            <th class="border p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-t product-row">
-            <td class="border p-2 text-center">1</td>
-            <td class="border p-2">
-              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto"></div>
-            </td>
-            <td class="border p-2">Organic Millets</td>
-            <td class="border p-2">₹120</td>
-            <td class="border p-2">Grains</td>
-            <td class="border p-2">
-              <div class="flex flex-wrap gap-2 justify-center">
-                <a href="#" class="action-btn bg-blue-500 text-white p-2 rounded hover:bg-blue-600" title="Edit">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a href="#" class="action-btn bg-red-500 text-white p-2 rounded hover:bg-red-600" title="Delete">
-                  <i class="fas fa-trash"></i>
-                </a>
-                <a href="#" class="action-btn bg-gray-500 text-white p-2 rounded hover:bg-gray-600 opacity-50 cursor-not-allowed" title="Move Up">
-                  <i class="fas fa-arrow-up"></i>
-                </a>
-                <a href="#" class="action-btn bg-gray-500 text-white p-2 rounded hover:bg-gray-600" title="Move Down">
-                  <i class="fas fa-arrow-down"></i>
-                </a>
+      <!-- Flash Messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="mb-6">
+            {% for category, message in messages %}
+              <div class="p-4 rounded {% if category == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                {{ message }}
               </div>
-            </td>
-          </tr>
-          <tr class="border-t product-row">
-            <td class="border p-2 text-center">2</td>
-            <td class="border p-2">
-              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto"></div>
-            </td>
-            <td class="border p-2">Cold Pressed Coconut Oil</td>
-            <td class="border p-2">₹250</td>
-            <td class="border p-2">Oils</td>
-            <td class="border p-2">
-              <div class="flex flex-wrap gap-2 justify-center">
-                <a href="#" class="action-btn bg-blue-500 text-white p-2 rounded hover:bg-blue-600" title="Edit">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a href="#" class="action-btn bg-red-500 text-white p-2 rounded hover:bg-red-600" title="Delete">
-                  <i class="fas fa-trash"></i>
-                </a>
-                <a href="#" class="action-btn bg-gray-500 text-white p-2 rounded hover:bg-gray-600" title="Move Up">
-                  <i class="fas fa-arrow-up"></i>
-                </a>
-                <a href="#" class="action-btn bg-gray-500 text-white p-2 rounded hover:bg-gray-600" title="Move Down">
-                  <i class="fas fa-arrow-down"></i>
-                </a>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      
+      <!-- Add/Edit Product Form -->
+      <div class="bg-white p-6 rounded-lg shadow mb-6">
+        <h2 class="text-xl font-semibold text-green-700 mb-4">➕ Add New Product</h2>
+        <form method="POST" action="{{ url_for('products_upload') }}" enctype="multipart/form-data" id="product-form">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-700 mb-2">SKU *</label>
+              <input type="text" name="sku" placeholder="Product SKU" class="w-full p-2 border rounded" required>
+            </div>
+            
+            <div>
+              <label class="block text-gray-700 mb-2">Name *</label>
+              <input type="text" name="name" placeholder="Product Name" class="w-full p-2 border rounded" required>
+            </div>
+            
+            <div>
+              <label class="block text-gray-700 mb-2">Price (₹) *</label>
+              <input type="number" name="price" placeholder="Price" class="w-full p-2 border rounded" required min="0" step="0.01">
+            </div>
+            
+            <div>
+              <label class="block text-gray-700 mb-2">Category</label>
+              <select name="category" class="w-full p-2 border rounded">
+                <option value="">Select Category</option>
+                <option value="Organic Grains">Organic Grains</option>
+                <option value="Spices & Herbs">Spices & Herbs</option>
+                <option value="Cold-pressed Oils">Cold-pressed Oils</option>
+                <option value="Health Mixes">Health Mixes</option>
+                <option value="Natural Sweeteners">Natural Sweeteners</option>
+                <option value="Ready-to-eat Snacks">Ready-to-eat Snacks</option>
+                <option value="Seasonal Produce">Seasonal Produce</option>
+              </select>
+            </div>
+            
+            <div>
+              <label class="block text-gray-700 mb-2">Stock Quantity</label>
+              <input type="number" name="stock" placeholder="Stock" class="w-full p-2 border rounded" min="0">
+            </div>
+            
+            <div>
+              <label class="block text-gray-700 mb-2">Product Image</label>
+              <input type="file" name="image" id="image-upload" class="w-full p-2 border rounded" accept="image/*">
+              <p class="text-sm text-gray-500 mt-1">Max 2MB (JPG, PNG, GIF)</p>
+            </div>
+            
+            <div class="md:col-span-2">
+              <label class="block text-gray-700 mb-2">Description</label>
+              <textarea name="description" placeholder="Product Description" class="w-full p-2 border rounded h-32"></textarea>
+            </div>
+            
+            <!-- Image Preview -->
+            <div class="md:col-span-2">
+              <div class="border rounded-lg p-4 flex flex-col items-center">
+                <h3 class="text-lg font-medium mb-3">Image Preview</h3>
+                <div id="image-preview-container" class="w-64 h-48 bg-gray-100 border-2 border-dashed rounded-lg flex items-center justify-center">
+                  <p class="text-gray-500">No image selected</p>
+                </div>
               </div>
-            </td>
-          </tr>
-          <tr class="border-t product-row">
-            <td class="border p-2 text-center">3</td>
-            <td class="border p-2">
-              <div class="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto"></div>
-            </td>
-            <td class="border p-2">Turmeric Powder</td>
-            <td class="border p-2">₹180</td>
-            <td class="border p-2">Spices</td>
-            <td class="border p-2">
-              <div class="flex flex-wrap gap-2 justify-center">
-                <a href="#" class="action-btn bg-blue-500 text-white p-2 rounded hover:bg-blue-600" title="Edit">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <a href="#" class="action-btn bg-red-500 text-white p-2 rounded hover:bg-red-600" title="Delete">
-                  <i class="fas fa-trash"></i>
-                </a>
-                <a href="#" class="action-btn bg-gray-500 text-white p-2 rounded hover:bg-gray-600" title="Move Up">
-                  <i class="fas fa-arrow-up"></i>
-                </a>
-                <a href="#" class="action-btn bg-gray-500 text-white p-2 rounded hover:bg-gray-600 opacity-50 cursor-not-allowed" title="Move Down">
-                  <i class="fas fa-arrow-down"></i>
-                </a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </main>
-</div>
+            </div>
+            
+            <div class="md:col-span-2 flex justify-end">
+              <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">
+                Add Product
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const imageUpload = document.getElementById('image-upload');
+      const previewContainer = document.getElementById('image-preview-container');
+      
+      // Image preview handler
+      imageUpload.addEventListener('change', function() {
+        const file = this.files[0];
+        
+        if (file) {
+          // Validate file size
+          if (file.size > 2 * 1024 * 1024) {
+            alert('File size exceeds 2MB limit');
+            this.value = '';
+            previewContainer.innerHTML = '<p class="text-gray-500">No image selected</p>';
+            return;
+          }
+          
+          // Validate file type
+          const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+          if (!validTypes.includes(file.type)) {
+            alert('Only JPG, PNG, and GIF files are allowed');
+            this.value = '';
+            previewContainer.innerHTML = '<p class="text-gray-500">No image selected</p>';
+            return;
+          }
+          
+          // Create preview
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            previewContainer.innerHTML = `<img src="${e.target.result}" alt="Preview" class="image-preview w-full h-full object-contain">`;
+          }
+          reader.readAsDataURL(file);
+        } else {
+          previewContainer.innerHTML = '<p class="text-gray-500">No image selected</p>';
+        }
+      });
+      
+      // Form validation
+      const form = document.getElementById('product-form');
+      form.addEventListener('submit', function(e) {
+        const requiredFields = form.querySelectorAll('[required]');
+        let isValid = true;
+        
+        requiredFields.forEach(field => {
+          if (!field.value.trim()) {
+            isValid = false;
+            field.classList.add('border-red-500');
+          } else {
+            field.classList.remove('border-red-500');
+          }
+        });
+        
+        if (!isValid) {
+          e.preventDefault();
+          alert('Please fill in all required fields');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

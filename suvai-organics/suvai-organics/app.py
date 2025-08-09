@@ -3,6 +3,7 @@ import uuid
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, session, flash
 from openpyxl import Workbook, load_workbook
 from werkzeug.utils import secure_filename
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -18,7 +19,7 @@ def admin_login():
             session['admin_logged_in'] = True
             return redirect(url_for('admin_dashboard'))
         else:
-            flash('Invalid username or password')
+            flash('Invalid username or password', 'error')
 
     return render_template('admin-login.html')
 
@@ -35,15 +36,19 @@ def admin_dashboard():
 
 # ---------------------------- Config ----------------------------
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
-app.config['EXCEL_FILE'] = 'products.xlsx'
+app.config['EXCEL_FILE'] = 'data/products.xlsx'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # 2MB
 
+# Create required directories
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+os.makedirs('data', exist_ok=True)
 
+# Initialize Excel file if not exists
 if not os.path.exists(app.config['EXCEL_FILE']):
     wb = Workbook()
     ws = wb.active
-    ws.append(['ID', 'Name', 'Description', 'Price', 'Category', 'Image', 'Position'])
+    ws.append(['sku', 'name', 'description', 'price', 'category', 'stock', 'image_filename', 'created_at'])
     wb.save(app.config['EXCEL_FILE'])
 
 # ---------------------------- Helpers ----------------------------
@@ -51,88 +56,39 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 def get_products():
+    if not os.path.exists(app.config['EXCEL_FILE']):
+        return []
+    
     wb = load_workbook(app.config['EXCEL_FILE'])
     ws = wb.active
     products = []
     for row in ws.iter_rows(min_row=2, values_only=True):
-        if row:
+        if row[0]:  # Check if SKU exists (not empty row)
             products.append({
-                'id': row[0],
+                'sku': row[0],
                 'name': row[1],
                 'description': row[2],
                 'price': row[3],
                 'category': row[4],
-                'image': row[5],
-                'position': row[6]
+                'stock': row[5],
+                'image_filename': row[6],
+                'created_at': row[7]
             })
-    products.sort(key=lambda x: x['position'])
     return products
 
-def save_product(product):
+def save_product_to_excel(product_data):
     wb = load_workbook(app.config['EXCEL_FILE'])
     ws = wb.active
-
-    if 'id' in product and product['id']:
-        for idx, row in enumerate(ws.iter_rows(min_row=2), start=2):
-            if row[0].value == product['id']:
-                row[1].value = product['name']
-                row[2].value = product['description']
-                row[3].value = product['price']
-                row[4].value = product['category']
-                row[5].value = product['image']
-                row[6].value = product['position']
-                break
-    else:
-        last_position = max([row[6].value for row in ws.iter_rows(min_row=2) if row[6].value] or [0])
-        product['position'] = last_position + 1
-        ws.append([
-            str(uuid.uuid4()),
-            product['name'],
-            product['description'],
-            product['price'],
-            product['category'],
-            product['image'],
-            product['position']
-        ])
-
-    wb.save(app.config['EXCEL_FILE'])
-
-def delete_product(product_id):
-    wb = load_workbook(app.config['EXCEL_FILE'])
-    ws = wb.active
-
-    for idx, row in enumerate(ws.iter_rows(min_row=2), start=2):
-        if row[0].value == product_id:
-            ws.delete_rows(idx)
-            break
-
-    wb.save(app.config['EXCEL_FILE'])
-
-def reorder_products(product_id, direction):
-    products = get_products()
-    current_index = next((i for i, p in enumerate(products) if p['id'] == product_id), None)
-
-    if current_index is None:
-        return
-
-    if direction == 'up' and current_index > 0:
-        swap_index = current_index - 1
-    elif direction == 'down' and current_index < len(products) - 1:
-        swap_index = current_index + 1
-    else:
-        return
-
-    current_position = products[current_index]['position']
-    products[current_index]['position'] = products[swap_index]['position']
-    products[swap_index]['position'] = current_position
-
-    wb = load_workbook(app.config['EXCEL_FILE'])
-    ws = wb.active
-    for product in products:
-        for row in ws.iter_rows(min_row=2):
-            if row[0].value == product['id']:
-                row[6].value = product['position']
-                break
+    ws.append([
+        product_data['sku'],
+        product_data['name'],
+        product_data['description'],
+        product_data['price'],
+        product_data['category'],
+        product_data['stock'],
+        product_data['image_filename'],
+        product_data['created_at']
+    ])
     wb.save(app.config['EXCEL_FILE'])
 
 # ---------------------------- Public Routes ----------------------------
@@ -183,64 +139,69 @@ def register_farmer():
 @app.route('/products')
 def products():
     products = get_products()
-    categories = sorted(set(p['category'] for p in products))
+    categories = sorted(set(p['category'] for p in products if p['category']))
     return render_template('products.html', products=products, categories=categories)
 
-# ---------------------------- Safe Static File Serving ----------------------------
-@app.route('/static/<path:filename>')
-def custom_static(filename):
-    return send_from_directory('static', filename)
-
 # ---------------------------- Admin Routes ----------------------------
-@app.route('/admin/products', methods=['GET', 'POST'])
-def manage_products():
-    if not session.get('admin_logged_in'):
-        return redirect(url_for('admin_login'))
-
-    if request.method == 'POST':
-        product = {
-            'id': request.form.get('id'),
-            'name': request.form['name'],
-            'description': request.form['description'],
-            'price': request.form['price'],
-            'category': request.form['category'],
-            'image': request.form.get('current_image', '')
-        }
-
-        if 'image' in request.files:
-            file = request.files['image']
-            if file.filename != '' and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                unique_filename = f"{uuid.uuid4().hex}_{filename}"
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_filename))
-                product['image'] = unique_filename
-
-        save_product(product)
-        return redirect(url_for('manage_products'))
-
-    products = get_products()
-    return render_template('products-upload.html', products=products)
-
-@app.route('/admin/product/delete/<product_id>')
-def delete_product_route(product_id):
-    if not session.get('admin_logged_in'):
-        return redirect(url_for('admin_login'))
-
-    delete_product(product_id)
-    return redirect(url_for('manage_products'))
-
-@app.route('/admin/product/move/<direction>/<product_id>')
-def move_product(direction, product_id):
-    if not session.get('admin_logged_in'):
-        return redirect(url_for('admin_login'))
-
-    reorder_products(product_id, direction)
-    return redirect(url_for('manage_products'))
-
-@app.route('/products-upload')
+@app.route('/products/upload', methods=['GET', 'POST'])
 def products_upload():
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin_login'))
+    
+    if request.method == 'POST':
+        # Get form data
+        sku = request.form.get('sku')
+        name = request.form.get('name')
+        description = request.form.get('description')
+        price = request.form.get('price')
+        category = request.form.get('category')
+        stock = request.form.get('stock')
+        image_file = request.files.get('image')
+        
+        # Validate required fields
+        if not sku or not name or not price:
+            flash('SKU, Name, and Price are required fields', 'error')
+            return redirect(request.url)
+        
+        try:
+            price = float(price)
+        except ValueError:
+            flash('Invalid price format', 'error')
+            return redirect(request.url)
+        
+        # Handle image upload
+        image_filename = None
+        if image_file and image_file.filename != '':
+            if not allowed_file(image_file.filename):
+                flash('Invalid file type. Allowed: PNG, JPG, JPEG, GIF', 'error')
+                return redirect(request.url)
+            
+            filename = secure_filename(image_file.filename)
+            unique_filename = f"{uuid.uuid4().hex}_{filename}"
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
+            image_file.save(image_path)
+            image_filename = unique_filename
+        
+        # Create product data
+        product_data = {
+            'sku': sku,
+            'name': name,
+            'description': description,
+            'price': price,
+            'category': category,
+            'stock': stock,
+            'image_filename': image_filename,
+            'created_at': datetime.now().isoformat()
+        }
+        
+        # Save to Excel
+        try:
+            save_product_to_excel(product_data)
+            flash('Product uploaded successfully!', 'success')
+            return redirect(url_for('products'))
+        except Exception as e:
+            flash(f'Error saving product: {str(e)}', 'error')
+    
     return render_template('products-upload.html')
 
 @app.route('/farmers-manage')
@@ -261,10 +222,10 @@ def partners_manage():
         return redirect(url_for('admin_login'))
     return render_template('partners-manage.html')
 
-# ---------------------------- Static Catch-all ----------------------------
-@app.route('/<path:filename>')
-def serve_static(filename):
-    return send_from_directory('.', filename)
+# ---------------------------- Safe Static File Serving ----------------------------
+@app.route('/static/<path:filename>')
+def custom_static(filename):
+    return send_from_directory('static', filename)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', use_reloader=False)
+    app.run(debug=True, host='0.0.0.0')
