@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Suvai Organics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4a6c3c',
+                        secondary: '#a8c48f',
+                        accent: '#d4a76a',
+                        light: '#f8f5e9',
+                        dark: '#2c3e22',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .cart-hero {
+            background: linear-gradient(rgba(42, 62, 34, 0.85), rgba(42, 62, 34, 0.85)), url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .cart-item {
+            transition: all 0.3s ease;
+        }
+        .cart-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        .quantity-input {
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+        }
+        .quantity-input::-webkit-outer-spin-button,
+        .quantity-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="font-body text-dark bg-light">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="{{ url_for('home') }}" class="flex items-center">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
+                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary transition">Products</a>
+                    <a href="{{ url_for('view_cart') }}" class="font-medium text-primary hover:text-accent transition">Cart</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-600">Welcome, {{ session.get('customer_name', 'Customer') }}</span>
+                    <a href="{{ url_for('customer_logout') }}" class="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="cart-hero py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 text-white">Shopping Cart</h1>
+            <p class="text-xl text-white opacity-90">Review your items and proceed to checkout</p>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            {% if cart_items %}
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Cart Items -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h2 class="text-2xl font-heading font-bold text-primary mb-6 flex items-center">
+                                <i class="fas fa-shopping-cart mr-3"></i>
+                                Cart Items ({{ cart_items|length }})
+                            </h2>
+                            
+                            <div class="space-y-4">
+                                {% for item in cart_items %}
+                                <div class="cart-item border border-gray-200 rounded-lg p-4">
+                                    <div class="flex items-center space-x-4">
+                                        <!-- Product Image -->
+                                        <div class="flex-shrink-0">
+                                            {% if item.product.image_filename %}
+                                                <img src="{{ url_for('static', filename='uploads/' + item.product.image_filename) }}" 
+                                                     alt="{{ item.product.name }}" 
+                                                     class="w-20 h-20 object-cover rounded-lg">
+                                            {% else %}
+                                                <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
+                                                    <i class="fas fa-image text-gray-400"></i>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        
+                                        <!-- Product Details -->
+                                        <div class="flex-1 min-w-0">
+                                            <h3 class="text-lg font-semibold text-primary truncate">{{ item.product.name }}</h3>
+                                            <p class="text-sm text-gray-600 mb-2">{{ item.product.description[:100] }}{% if item.product.description|length > 100 %}...{% endif %}</p>
+                                            <div class="flex items-center space-x-4">
+                                                <span class="text-accent font-bold text-lg">₹{{ "%.2f"|format(item.item_total) }}</span>
+                                                <span class="text-gray-500 text-sm">₹{{ "%.2f"|format(item.product.price) }} each</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Quantity Controls -->
+                                        <div class="flex items-center space-x-2">
+                                            <button onclick="updateQuantity('{{ item.cart_id }}', -1)" 
+                                                    class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition">
+                                                <i class="fas fa-minus text-sm"></i>
+                                            </button>
+                                            <span class="text-lg font-medium w-12 text-center">{{ item.quantity }}</span>
+                                            <button onclick="updateQuantity('{{ item.cart_id }}', 1)" 
+                                                    class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition">
+                                                <i class="fas fa-plus text-sm"></i>
+                                            </button>
+                                        </div>
+                                        
+                                        <!-- Remove Button -->
+                                        <button onclick="removeItem('{{ item.cart_id }}')" 
+                                                class="text-red-500 hover:text-red-700 transition p-2">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                            <!-- Continue Shopping -->
+                            <div class="mt-6 pt-6 border-t border-gray-200">
+                                <a href="{{ url_for('products') }}" 
+                                   class="inline-flex items-center text-primary hover:text-dark transition">
+                                    <i class="fas fa-arrow-left mr-2"></i>
+                                    Continue Shopping
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Summary -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-white rounded-xl shadow-lg p-6 sticky top-24">
+                            <h3 class="text-xl font-heading font-bold text-primary mb-4">Order Summary</h3>
+                            
+                            <div class="space-y-3 mb-6">
+                                <div class="flex justify-between text-gray-600">
+                                    <span>Subtotal ({{ cart_items|length }} items)</span>
+                                    <span>₹{{ "%.2f"|format(total) }}</span>
+                                </div>
+                                <div class="flex justify-between text-gray-600">
+                                    <span>Shipping</span>
+                                    <span class="text-green-600">Free</span>
+                                </div>
+                                <div class="flex justify-between text-gray-600">
+                                    <span>Tax</span>
+                                    <span>₹{{ "%.2f"|format(total * 0.18) }}</span>
+                                </div>
+                                <div class="border-t border-gray-200 pt-3">
+                                    <div class="flex justify-between text-lg font-bold text-primary">
+                                        <span>Total</span>
+                                        <span>₹{{ "%.2f"|format(total + (total * 0.18)) }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button onclick="proceedToCheckout()" 
+                                    class="w-full bg-primary text-white py-3 px-6 rounded-lg hover:bg-dark transition font-medium text-lg">
+                                <i class="fas fa-credit-card mr-2"></i>
+                                Proceed to Checkout
+                            </button>
+                            
+                            <div class="mt-4 text-center">
+                                <p class="text-sm text-gray-500">
+                                    <i class="fas fa-lock mr-1"></i>
+                                    Secure checkout powered by SSL
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <!-- Empty Cart -->
+                <div class="text-center py-16">
+                    <div class="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32 mx-auto mb-6 flex items-center justify-center">
+                        <i class="fas fa-shopping-cart text-4xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-600 mb-3">Your cart is empty</h3>
+                    <p class="text-gray-500 mb-8">Looks like you haven't added any products to your cart yet.</p>
+                    <a href="{{ url_for('products') }}" 
+                       class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-dark transition font-medium text-lg">
+                        <i class="fas fa-shopping-bag mr-2"></i>
+                        Start Shopping
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
+                
+                <!-- Brand Section -->
+                <div class="flex flex-col items-center md:items-start">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4 max-w-xs">Bringing the purity of nature to your table through sustainable farming practices.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="{{ url_for('home') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a></li>
+                        <li><a href="{{ url_for('products') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Products</a></li>
+                        <li><a href="{{ url_for('about') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About Us</a></li>
+                        <li><a href="{{ url_for('contact') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Us -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
+                            <span>contact@suvaiorganics.com</span>
+                        </li>
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3 text-accent"></i>
+                            <span>+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span>Coimbatore, Tamil Nadu, India</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                
+            <div class="pt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
+                <p class="mt-2 text-gray-500 text-sm">Join us in building a healthier tomorrow.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function updateQuantity(cartId, change) {
+            // This would typically make an AJAX call to update quantity
+            // For now, we'll just reload the page
+            window.location.reload();
+        }
+        
+        function removeItem(cartId) {
+            if (confirm('Are you sure you want to remove this item from your cart?')) {
+                fetch('/remove-from-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        cart_item_id: cartId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    } else {
+                        alert('Error removing item: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error removing item from cart');
+                });
+            }
+        }
+        
+        function proceedToCheckout() {
+            window.location.href = '/checkout';
+        }
+    </script>
+</body>
+</html>

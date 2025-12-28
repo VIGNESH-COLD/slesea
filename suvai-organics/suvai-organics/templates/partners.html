@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Partners - Suvai Organics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white shadow">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <a href="{{ url_for('home') }}" class="flex items-center">
+          <div class="bg-green-700 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+            <span class="text-white text-xl font-bold">S</span>
+          </div>
+          <h1 class="text-xl md:text-2xl font-bold text-green-800">Suvai Organics</h1>
+        </a>
+        <nav class="hidden md:flex space-x-6">
+          <a href="{{ url_for('home') }}" class="hover:text-green-800">Home</a>
+          <a href="{{ url_for('about') }}" class="hover:text-green-800">About</a>
+          <a href="{{ url_for('products') }}" class="hover:text-green-800">Products</a>
+          <a href="{{ url_for('farmers') }}" class="hover:text-green-800">Farmers</a>
+          <a href="{{ url_for('gallery') }}" class="hover:text-green-800">Gallery</a>
+          <a href="{{ url_for('contact') }}" class="text-green-800 font-medium">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="py-16 bg-green-700 text-white text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-3">Our Partners</h2>
+      <p class="text-lg opacity-90">Organizations and people collaborating to spread natural, organic living</p>
+    </div>
+  </section>
+
+  <!-- Partner List -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      {% if partners %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for p in partners %}
+        <div class="bg-white rounded-xl shadow p-6">
+          <h3 class="text-xl font-bold text-green-800">{{ p.name }}</h3>
+          <p class="text-gray-600">{{ p.organization or 'Independent Partner' }}</p>
+          <div class="mt-3 text-sm text-gray-500">
+            <div><span class="font-medium">Email:</span> {{ p.email or '-' }}</div>
+            <div><span class="font-medium">Location:</span> {{ p.location or '-' }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="bg-white rounded-xl shadow p-10 text-center">
+        <p class="text-gray-600">No partners added yet.</p>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-10 mt-8">
+    <div class="container mx-auto px-4 text-center">
+      <p class="text-gray-300">© 2023 Suvai Organics. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+

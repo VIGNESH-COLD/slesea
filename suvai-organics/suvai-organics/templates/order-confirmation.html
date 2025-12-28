@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Suvai Organics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4a6c3c',
+                        secondary: '#a8c48f',
+                        accent: '#d4a76a',
+                        light: '#f8f5e9',
+                        dark: '#2c3e22',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .confirmation-hero {
+            background: linear-gradient(rgba(42, 62, 34, 0.85), rgba(42, 62, 34, 0.85)), url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .success-animation {
+            animation: successPulse 2s ease-in-out;
+        }
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="font-body text-dark bg-light">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="{{ url_for('home') }}" class="flex items-center">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
+                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary transition">Products</a>
+                    <a href="{{ url_for('view_cart') }}" class="font-medium text-gray-600 hover:text-primary transition">Cart</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-600">Welcome, {{ session.get('customer_name', 'Customer') }}</span>
+                    <a href="{{ url_for('customer_logout') }}" class="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="confirmation-hero py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 text-white">Order Confirmed!</h1>
+            <p class="text-xl text-white opacity-90">Thank you for your purchase</p>
+        </div>
+    </section>
+
+    <!-- Confirmation Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <!-- Success Message -->
+                <div class="bg-white rounded-xl shadow-lg p-8 text-center mb-8">
+                    <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 success-animation">
+                        <i class="fas fa-check text-4xl text-green-600"></i>
+                    </div>
+                    <h2 class="text-3xl font-heading font-bold text-green-600 mb-4">Order Placed Successfully!</h2>
+                    <p class="text-lg text-gray-600 mb-6">Your order has been confirmed and is being processed. We'll send you updates on your order status.</p>
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4 inline-block">
+                        <p class="text-green-800 font-medium">
+                            <i class="fas fa-envelope mr-2"></i>
+                            A confirmation email has been sent to your registered email address.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Order Details -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-receipt mr-3"></i>
+                        Order Details
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Order Information -->
+                        <div>
+                            <h4 class="text-lg font-semibold text-primary mb-4">Order Information</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Order ID:</span>
+                                    <span class="font-medium">{{ order.id[:8] }}...</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Order Date:</span>
+                                    <span class="font-medium">{{ order.created_at[:10] }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Order Status:</span>
+                                    <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">
+                                        {{ order.status.title() }}
+                                    </span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Payment Method:</span>
+                                    <span class="font-medium">{{ order.payment_method.upper() }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Customer Information -->
+                        <div>
+                            <h4 class="text-lg font-semibold text-primary mb-4">Customer Information</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Customer Name:</span>
+                                    <span class="font-medium">{{ order.customer_name }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Customer ID:</span>
+                                    <span class="font-medium">{{ order.customer_id[:8] }}...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Items -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-shopping-bag mr-3"></i>
+                        Order Items
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        {% set items = order.items|from_json %}
+                        {% for item in items %}
+                        <div class="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg">
+                            <div class="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-box text-gray-400 text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-medium text-primary">Product SKU: {{ item.sku }}</h4>
+                                <p class="text-sm text-gray-600">Quantity: {{ item.quantity }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Shipping Information -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-shipping-fast mr-3"></i>
+                        Shipping Information
+                    </h3>
+                    
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <p class="text-gray-700">{{ order.shipping_address }}</p>
+                    </div>
+                </div>
+                
+                <!-- Payment Summary -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-calculator mr-3"></i>
+                        Payment Summary
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-lg">
+                            <span class="text-gray-600">Subtotal:</span>
+                            <span class="font-medium">₹{{ "%.2f"|format(order.total_amount) }}</span>
+                        </div>
+                        <div class="flex justify-between text-lg">
+                            <span class="text-gray-600">Shipping:</span>
+                            <span class="text-green-600 font-medium">Free</span>
+                        </div>
+                        <div class="flex justify-between text-lg">
+                            <span class="text-gray-600">Tax (18% GST):</span>
+                            <span class="font-medium">₹{{ "%.2f"|format(order.total_amount * 0.18) }}</span>
+                        </div>
+                        <div class="border-t border-gray-200 pt-3">
+                            <div class="flex justify-between text-xl font-bold text-primary">
+                                <span>Total Amount:</span>
+                                <span>₹{{ "%.2f"|format(order.total_amount + (order.total_amount * 0.18)) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Next Steps -->
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-heading font-bold text-primary mb-6 flex items-center">
+                        <i class="fas fa-info-circle mr-3"></i>
+                        What Happens Next?
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-check text-white text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-primary mb-2">Order Confirmed</h4>
+                            <p class="text-sm text-gray-600">We've received your order and are processing it</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-box text-primary text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-primary mb-2">Processing</h4>
+                            <p class="text-sm text-gray-600">We'll pack your items and prepare for shipping</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-truck text-white text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-primary mb-2">Shipping</h4>
+                            <p class="text-sm text-gray-600">Your order will be delivered within 3-5 business days</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="text-center space-y-4">
+                    <a href="{{ url_for('products') }}" 
+                       class="inline-block bg-primary text-white px-8 py-3 rounded-lg hover:bg-dark transition font-medium text-lg">
+                        <i class="fas fa-shopping-bag mr-2"></i>
+                        Continue Shopping
+                    </a>
+                    
+                    <div class="text-gray-500">
+                        <p>Need help? <a href="{{ url_for('contact') }}" class="text-primary hover:text-dark underline">Contact our support team</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
+                
+                <!-- Brand Section -->
+                <div class="flex flex-col items-center md:items-start">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <span class="text-light text-xl font-bold">S</span>
+                        </div>
+                        <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4 max-w-xs">Bringing the purity of nature to your table through sustainable farming practices.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-accent transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="{{ url_for('home') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a></li>
+                        <li><a href="{{ url_for('products') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Products</a></li>
+                        <li><a href="{{ url_for('about') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About Us</a></li>
+                        <li><a href="{{ url_for('contact') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Us -->
+                <div class="flex flex-col items-center md:items-start">
+                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
+                            <span>contact@suvaiorganics.com</span>
+                        </li>
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3 text-accent"></i>
+                            <span>+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                            <span>Coimbatore, Tamil Nadu, India</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                
+            <div class="pt-8 border-t border-gray-700 text-center">
+                <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
+                <p class="mt-2 text-gray-500 text-sm">Join us in building a healthier tomorrow.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
