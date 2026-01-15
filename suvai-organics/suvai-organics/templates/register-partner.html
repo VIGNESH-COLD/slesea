@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales Partner Registration - Suvai Organics</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -32,6 +35,7 @@
             background-size: cover;
             background-position: center;
         }
+
         .leaf-decoration {
             position: absolute;
             right: -20px;
@@ -41,11 +45,13 @@
             opacity: 0.7;
             transform: rotate(25deg);
         }
+
         /* Navigation underline effect */
         .nav-link {
             position: relative;
             display: inline-block;
         }
+
         .nav-link:after {
             content: '';
             position: absolute;
@@ -56,11 +62,33 @@
             background: #4a6c3c;
             transition: width 0.4s ease;
         }
+
         .nav-link:hover:after {
             width: 100%;
         }
+
+        /* Mobile menu styling */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s ease-in-out;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: white;
+            z-index: 50;
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
     </style>
 </head>
+
 <body class="font-body text-dark bg-light">
     <!-- Header -->
     <header class="sticky top-0 z-50 bg-white shadow-md">
@@ -68,26 +96,116 @@
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
                     <a href="{{ url_for('home') }}" class="flex items-center">
-                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
-                            <span class="text-light text-xl font-bold">S</span>
-                        </div>
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                            class="w-10 h-10 rounded-full mr-3 object-cover">
                         <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
                     </a>
                 </div>
-                
-                <nav class="hidden md:flex space-x-8">
-                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
-                    <a href="{{ url_for('about') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
-                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
-                    <a href="{{ url_for('register_main') }}" class="font-medium text-primary hover:text-accent transition nav-link">Register</a>
-                    <a href="{{ url_for('contact') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Contact Us</a>
+
+                <nav class="hidden md:flex space-x-6 xl:space-x-8">
+                    <a href="{{ url_for('home') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
+                    <a href="{{ url_for('about') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
+                    <a href="{{ url_for('products') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
+                    <a href="{{ url_for('natural_farming') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Natural Farming</a>
+                    <a href="{{ url_for('farmers') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Farmers</a>
+                    <a href="{{ url_for('gallery') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Gallery</a>
+                    <a href="{{ url_for('contact') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Contact Us</a>
                 </nav>
-                
+
                 <div class="flex items-center space-x-4">
-                    <a href="{{ url_for('register_main') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
-                    <button class="md:hidden text-gray-600">
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('profile') }}"
+                        class="hidden md:block text-gray-600 hover:text-primary transition" title="My Profile">
+                        <i class="fas fa-user-circle text-xl"></i>
+                    </a>
+                    <a href="{{ url_for('customer_logout') }}"
+                        class="hidden md:block bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition text-sm">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('customer_login') }}"
+                        class="hidden md:block text-gray-600 hover:text-primary transition font-medium">Login</a>
+                    <a href="{{ url_for('register_customer') }}"
+                        class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition text-sm">Register</a>
+                    {% endif %}
+
+                    <a href="{{ url_for('view_cart') }}" class="relative text-gray-600 hover:text-primary transition">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span
+                            class="absolute -top-2 -right-2 bg-accent text-white text-xs font-bold px-1.5 py-0.5 rounded-full cart-count">0</span>
+                    </a>
+
+                    <button id="mobileMenuButton" class="md:hidden text-gray-600">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu md:hidden bg-white overflow-y-auto">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex justify-between items-center mb-8">
+                    <div class="flex items-center">
+                        <a href="{{ url_for('home') }}" class="flex items-center">
+                            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                                class="w-10 h-10 rounded-full mr-3 object-cover">
+                            <h1 class="text-xl font-heading font-bold text-primary">Suvai Organics</h1>
+                        </a>
+                    </div>
+                    <button id="closeMobileMenu" class="text-gray-600 text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="flex flex-col space-y-4">
+                    <a href="{{ url_for('home') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Home</a>
+                    <a href="{{ url_for('about') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">About
+                        Us</a>
+                    <a href="{{ url_for('products') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Products</a>
+                    <a href="{{ url_for('natural_farming') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Natural
+                        Farming</a>
+                    <a href="{{ url_for('farmers') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Farmers</a>
+                    <a href="{{ url_for('gallery') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Gallery</a>
+                    <a href="{{ url_for('contact') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Contact
+                        Us</a>
+                </div>
+
+                <div class="mt-8 pt-4 px-4">
+                    {% if current_user.is_authenticated %}
+                    <div class="flex items-center mb-6">
+                        <div
+                            class="bg-primary/10 rounded-full w-10 h-10 flex items-center justify-center mr-3 text-primary">
+                            {{ current_user.username[0].upper() }}
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800">{{ current_user.username }}</p>
+                            <p class="text-xs text-gray-500">{{ current_user.email }}</p>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('profile') }}"
+                        class="block text-center w-full border border-gray-300 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-50 transition mb-3">My
+                        Profile</a>
+                    <a href="{{ url_for('customer_logout') }}"
+                        class="block text-center w-full bg-red-50 text-red-600 px-6 py-3 rounded-full hover:bg-red-100 transition">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('customer_login') }}"
+                        class="block text-center w-full border border-primary text-primary px-6 py-3 rounded-full hover:bg-primary/5 transition mb-3">Login</a>
+                    <a href="{{ url_for('register_customer') }}"
+                        class="block text-center w-full bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition">Register</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -97,7 +215,8 @@
     <section class="registration-hero py-16 text-center text-white">
         <div class="container mx-auto px-4">
             <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">Sales Partner Registration</h1>
-            <p class="text-xl max-w-3xl mx-auto">Join our distribution network to stock and sell Suvai Organics products</p>
+            <p class="text-xl max-w-3xl mx-auto">Join our distribution network to stock and sell Suvai Organics products
+            </p>
         </div>
     </section>
 
@@ -112,16 +231,20 @@
                     <h3 class="text-2xl font-heading font-bold text-primary mb-2">Become a Sales Partner</h3>
                     <p class="text-gray-600 mb-6">Fill in your business details to apply for partnership</p>
                 </div>
-                
-                <form>
+
+                <form action="{{ url_for('register_partner') }}" method="POST">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block text-gray-700 mb-2" for="business-name">Business Name</label>
-                            <input type="text" id="business-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter business name" required>
+                            <input type="text" id="business-name" name="business_name"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                                placeholder="Enter business name" required>
                         </div>
                         <div>
                             <label class="block text-gray-700 mb-2" for="business-type">Business Type</label>
-                            <select id="business-type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" required>
+                            <select id="business-type" name="type"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                                required>
                                 <option value="">Select business type</option>
                                 <option value="distributor">Distributor</option>
                                 <option value="retailer">Retail Store</option>
@@ -132,63 +255,90 @@
                         </div>
                         <div>
                             <label class="block text-gray-700 mb-2" for="contact-name">Contact Person</label>
-                            <input type="text" id="contact-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Name of contact person" required>
+                            <input type="text" id="contact-name" name="contact_person"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                                placeholder="Name of contact person" required>
                         </div>
                         <div>
                             <label class="block text-gray-700 mb-2" for="contact-role">Contact Role</label>
-                            <input type="text" id="contact-role" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Role in organization" required>
+                            <input type="text" id="contact-role" name="contact_role"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                                placeholder="Role in organization" required>
                         </div>
                         <div>
                             <label class="block text-gray-700 mb-2" for="partner-phone">Phone Number</label>
-                            <input type="tel" id="partner-phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Business phone number" required>
+                            <input type="tel" id="partner-phone" name="phone"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                                placeholder="Business phone number" required>
                         </div>
                         <div>
                             <label class="block text-gray-700 mb-2" for="partner-email">Email Address</label>
-                            <input type="email" id="partner-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Business email" required>
+                            <input type="email" id="partner-email" name="email"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                                placeholder="Business email" required>
                         </div>
                         <div>
                             <label class="block text-gray-700 mb-2" for="password">Password</label>
-                            <input type="password" id="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Create a password" required>
+                            <input type="password" id="password"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                                placeholder="Create a password" required>
                         </div>
                         <div>
                             <label class="block text-gray-700 mb-2" for="confirm-password">Confirm Password</label>
-                            <input type="password" id="confirm-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Confirm your password" required>
+                            <input type="password" id="confirm-password"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                                placeholder="Confirm your password" required>
                         </div>
                     </div>
-                    
+
                     <div class="mb-6">
                         <label class="block text-gray-700 mb-2" for="business-address">Business Address</label>
-                        <textarea id="business-address" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Full business address" required></textarea>
+                        <textarea id="business-address" rows="2"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                            placeholder="Full business address" required></textarea>
                     </div>
-                    
+
                     <div class="mb-6">
-                        <label class="block text-gray-700 mb-2" for="business-description">Tell us about your business</label>
-                        <textarea id="business-description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Describe your business and customer base" required></textarea>
+                        <label class="block text-gray-700 mb-2" for="business-description">Tell us about your
+                            business</label>
+                        <textarea id="business-description" rows="3"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                            placeholder="Describe your business and customer base" required></textarea>
                     </div>
-                    
+
                     <div class="mb-6">
-                        <label class="block text-gray-700 mb-2" for="product-interest">Which Suvai Organics products are you interested in?</label>
-                        <textarea id="product-interest" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="List products you're interested in carrying" required></textarea>
+                        <label class="block text-gray-700 mb-2" for="product-interest">Which Suvai Organics products are
+                            you interested in?</label>
+                        <textarea id="product-interest" rows="2"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                            placeholder="List products you're interested in carrying" required></textarea>
                     </div>
-                    
+
                     <div class="mb-6">
-                        <label class="block text-gray-700 mb-2" for="existing-customers">Approximate number of existing customers</label>
-                        <input type="number" id="existing-customers" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Estimate your customer base">
+                        <label class="block text-gray-700 mb-2" for="existing-customers">Approximate number of existing
+                            customers</label>
+                        <input type="number" id="existing-customers"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+                            placeholder="Estimate your customer base">
                     </div>
-                    
+
                     <div class="mb-6">
                         <div class="flex items-start">
-                            <input type="checkbox" id="partner-terms" class="mt-1 mr-2 text-primary focus:ring-primary" required>
-                            <label for="partner-terms" class="text-gray-700">I agree to the <a href="#" class="text-primary hover:underline">Partnership Terms & Conditions</a></label>
+                            <input type="checkbox" id="partner-terms" class="mt-1 mr-2 text-primary focus:ring-primary"
+                                required>
+                            <label for="partner-terms" class="text-gray-700">I agree to the <a href="#"
+                                    class="text-primary hover:underline">Partnership Terms & Conditions</a></label>
                         </div>
                     </div>
-                    
-                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-dark transition font-medium">
+
+                    <button type="submit"
+                        class="w-full bg-primary text-white py-3 rounded-lg hover:bg-dark transition font-medium">
                         Submit Partnership Application
                     </button>
-                    
+
                     <div class="mt-6 text-center">
-                        <p class="text-gray-600">Already a partner? <a href="#" class="text-primary hover:underline">Partner login</a></p>
+                        <p class="text-gray-600">Already a partner? <a href="#"
+                                class="text-primary hover:underline">Partner login</a></p>
                     </div>
                 </form>
             </div>
@@ -202,7 +352,7 @@
                 <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Partner Benefits</h2>
                 <p class="text-lg text-gray-700">What you'll gain as a Suvai Organics sales partner</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white rounded-xl p-8 shadow-md text-center">
                     <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
@@ -211,21 +361,23 @@
                     <h3 class="text-xl font-heading font-bold text-primary mb-3">Competitive Margins</h3>
                     <p class="text-gray-700">Enjoy attractive profit margins with our wholesale pricing structure.</p>
                 </div>
-                
+
                 <div class="bg-white rounded-xl p-8 shadow-md text-center">
                     <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-medal text-white text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-heading font-bold text-primary mb-3">Premium Products</h3>
-                    <p class="text-gray-700">Offer your customers authentic, high-quality organic products they can trust.</p>
+                    <p class="text-gray-700">Offer your customers authentic, high-quality organic products they can
+                        trust.</p>
                 </div>
-                
+
                 <div class="bg-white rounded-xl p-8 shadow-md text-center">
                     <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-headset text-white text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-heading font-bold text-primary mb-3">Dedicated Support</h3>
-                    <p class="text-gray-700">Receive personalized support from our partnership team for all your needs.</p>
+                    <p class="text-gray-700">Receive personalized support from our partnership team for all your needs.
+                    </p>
                 </div>
             </div>
         </div>
@@ -234,26 +386,29 @@
     <footer class="bg-dark text-white pt-16 pb-8 animate-on-scroll">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
-                
+
                 <!-- Brand Section -->
                 <div class="flex flex-col items-center md:items-start">
                     <div class="flex items-center mb-4">
-                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transition-transform duration-300 hover:rotate-12">
-                            <span class="text-light text-xl font-bold">S</span>
-                        </div>
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                            class="w-10 h-10 rounded-full mr-3 object-cover">
                         <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
                     </div>
                     <div class="flex space-x-6">
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
+                        <a href="#"
+                            class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
+                        <a href="#"
+                            class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
+                        <a href="#"
+                            class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
                             <i class="fab fa-whatsapp"></i>
                         </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
+                        <a href="#"
+                            class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
                             <i class="fab fa-youtube"></i>
                         </a>
                     </div>
@@ -263,11 +418,21 @@
                 <div class="flex flex-col items-center md:items-start">
                     <h4 class="text-lg font-bold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ url_for('home') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a></li>
-                        <li><a href="{{ url_for('about') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About Us</a></li>
-                        <li><a href="{{ url_for('products') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Products</a></li>
-                        <li><a href="{{ url_for('natural_farming') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural Farming</a></li>
-                        <li><a href="{{ url_for('farmers') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Farmers</a></li>
+                        <li><a href="{{ url_for('home') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a>
+                        </li>
+                        <li><a href="{{ url_for('about') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About
+                                Us</a></li>
+                        <li><a href="{{ url_for('products') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our
+                                Products</a></li>
+                        <li><a href="{{ url_for('natural_farming') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural
+                                Farming</a></li>
+                        <li><a href="{{ url_for('farmers') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our
+                                Farmers</a></li>
                     </ul>
                 </div>
 
@@ -275,15 +440,18 @@
                 <div class="flex flex-col items-center md:items-start">
                     <h4 class="text-lg font-bold mb-4">Contact Us</h4>
                     <ul class="space-y-3">
-                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
+                        <li
+                            class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
                             <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
                             <span>contact@suvaiorganics.com</span>
                         </li>
-                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
+                        <li
+                            class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
                             <i class="fas fa-phone-alt mt-1 mr-3 text-accent"></i>
                             <span>+91 98765 43210</span>
                         </li>
-                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
+                        <li
+                            class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
                             <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
                             <span>Tamil Nadu, India</span>
                         </li>
@@ -300,59 +468,28 @@
     </footer>
 
     <script>
-            const scriptURL = "YOUR_APPS_SCRIPT_URL";
-            const form = document.querySelector("form");
-            const result = document.createElement("div");
-result.className = "mt-4 text-center";
-form.appendChild(result);
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  
-  const submitBtn = form.querySelector('button[type="submit"]');
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
-  
-  const formData = new FormData();
-  formData.append("formType", "partner");
-  formData.append("businessName", document.getElementById("business-name").value);
-  formData.append("businessType", document.getElementById("business-type").value);
-  formData.append("contactName", document.getElementById("contact-name").value);
-  formData.append("contactRole", document.getElementById("contact-role").value);
-  formData.append("partnerPhone", document.getElementById("partner-phone").value);
-  formData.append("partnerEmail", document.getElementById("partner-email").value);
-  formData.append("businessAddress", document.getElementById("business-address").value);
-  formData.append("businessDescription", document.getElementById("business-description").value);
-  formData.append("productInterest", document.getElementById("product-interest").value);
-  formData.append("existingCustomers", document.getElementById("existing-customers").value);
-  
-  fetch(scriptURL, {
-    method: "POST",
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    result.innerHTML = `
-      <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
-        <strong class="font-bold">Success!</strong>
-        <span class="block sm:inline">${data.message}</span>
-      </div>
-    `;
-    form.reset();
-  })
-  .catch(error => {
-    result.innerHTML = `
-      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-        <strong class="font-bold">Error!</strong>
-        <span class="block sm:inline">${error.message || 'Submission failed. Please try again.'}</span>
-      </div>
-    `;
-  })
-  .finally(() => {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Submit Partnership Application';
-  });
-});
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function () {
+                    mobileMenu.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            const closeMobileMenu = document.getElementById('closeMobileMenu');
+            if (closeMobileMenu) {
+                closeMobileMenu.addEventListener('click', function () {
+                    mobileMenu.classList.remove('open');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
     </script>
 </body>
+
 </html>
+```

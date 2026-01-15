@@ -1,397 +1,226 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Registration - Suvai Organics</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#4a6c3c',
-                        secondary: '#a8c48f',
-                        accent: '#d4a76a',
-                        light: '#f8f5e9',
-                        dark: '#2c3e22',
-                    },
-                    fontFamily: {
-                        heading: ['Playfair Display', 'serif'],
-                        body: ['Poppins', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .registration-hero {
-            background: linear-gradient(rgba(42, 62, 34, 0.85), rgba(42, 62, 34, 0.85)), url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-        .leaf-decoration {
-            position: absolute;
-            right: -20px;
-            top: -20px;
-            font-size: 40px;
-            color: #a8c48f;
-            opacity: 0.7;
-            transform: rotate(25deg);
-        }
-        .nav-link {
-            position: relative;
-            display: inline-block;
-        }
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #4a6c3c;
-            transition: width 0.4s ease;
-        }
-        .nav-link:hover:after {
-            width: 100%;
-        }
-        .password-container {
-            position: relative;
-        }
-        .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #4a6c3c;
-        }
-    </style>
-</head>
-<body class="font-body text-dark bg-light">
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white shadow-md">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <a href="{{ url_for('home') }}" class="flex items-center">
-                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
-                            <span class="text-light text-xl font-bold">S</span>
-                        </div>
-                        <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
-                    </a>
-                </div>
-                
-                <nav class="hidden md:flex space-x-8">
-                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
-                    <a href="{{ url_for('about') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
-                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
-                    <a href="{{ url_for('register_main') }}" class="font-medium text-primary hover:text-accent transition nav-link">Register</a>
-                    <a href="{{ url_for('contact') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Contact Us</a>
-                </nav>
-                
-                <div class="flex items-center space-x-4">
-                    <a href="{{ url_for('register_main') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
-                    <button class="md:hidden text-gray-600">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
+{% extends "layout.html" %}
 
-    <!-- Hero Section -->
-    <section class="registration-hero py-16 text-center text-white">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">Customer Registration</h1>
-            <p class="text-xl max-w-3xl mx-auto">Join our community for exclusive access to recipes, discounts, and health updates</p>
-        </div>
-    </section>
+{% block title %}Customer Registration - Suvai Organics{% endblock %}
 
-    <!-- Registration Form -->
-    <section class="py-12 bg-light">
-        <div class="container mx-auto px-4">
-            <div class="bg-white rounded-xl shadow-lg p-8 max-w-3xl mx-auto">
-                <div class="relative">
-                    <div class="leaf-decoration">
-                        <i class="fas fa-leaf"></i>
-                    </div>
-                    <h3 class="text-2xl font-heading font-bold text-primary mb-2">Create Your Account</h3>
-                    <p class="text-gray-600 mb-6">Fill in your details to join the Suvai Organics community</p>
+{% block styles %}
+<style>
+    .registration-hero {
+        background: linear-gradient(rgba(42, 62, 34, 0.85), rgba(42, 62, 34, 0.85)), url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .leaf-decoration {
+        position: absolute;
+        right: -20px;
+        top: -20px;
+        font-size: 40px;
+        color: #a8c48f;
+        opacity: 0.7;
+        transform: rotate(25deg);
+    }
+
+    /* Custom checkmark for checkboxes */
+    input[type="checkbox"]:checked {
+        background-color: #4a6c3c;
+        border-color: #4a6c3c;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="registration-hero py-16 text-center text-white">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4">Customer Registration</h1>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto opacity-90">Join our community for exclusive access to recipes,
+            discounts, and health updates</p>
+    </div>
+</section>
+
+<!-- Registration Form -->
+<section class="py-12 bg-light">
+    <div class="container mx-auto px-4">
+        <div class="bg-white rounded-xl shadow-lg p-8 max-w-3xl mx-auto relative overflow-hidden">
+            <div class="relative z-10">
+                <div class="leaf-decoration hidden md:block">
+                    <i class="fas fa-leaf"></i>
                 </div>
-                
-                <form id="registrationForm">
+                <h3 class="text-2xl font-heading font-bold text-primary mb-2">Create Your Account</h3>
+                <p class="text-gray-600 mb-6">Fill in your details to join the Suvai Organics community</p>
+
+                <form action="{{ url_for('register_customer') }}" method="POST">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
-                            <label class="block text-gray-700 mb-2" for="full-name">Full Name</label>
-                            <input type="text" id="full-name" name="full-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter your full name" required>
+                            <label class="block text-gray-700 font-medium mb-2" for="username">Username</label>
+                            <input type="text" id="username" name="username"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                                placeholder="Choose a username" required>
                         </div>
                         <div>
-                            <label class="block text-gray-700 mb-2" for="email">Email Address</label>
-                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter your email" required>
+                            <label class="block text-gray-700 font-medium mb-2" for="full-name">Full Name
+                                (Optional)</label>
+                            <input type="text" id="full-name" name="full_name"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                                placeholder="Enter your full name">
                         </div>
                         <div>
-                            <label class="block text-gray-700 mb-2" for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Enter your phone number" required>
+                            <label class="block text-gray-700 font-medium mb-2" for="email">Email Address</label>
+                            <input type="email" id="email" name="email"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                                placeholder="Enter your email" required>
                         </div>
                         <div>
-                            <label class="block text-gray-700 mb-2" for="location">Location</label>
-                            <input type="text" id="location" name="location" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="City, State" required>
+                            <label class="block text-gray-700 font-medium mb-2" for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                                placeholder="Enter your phone number" required>
                         </div>
-                        <div class="password-container">
-                            <label class="block text-gray-700 mb-2" for="password">Password</label>
-                            <input type="password" id="password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Create a password" required>
-                            <i class="toggle-password fas fa-eye" onclick="togglePassword('password')"></i>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2" for="location">Location</label>
+                            <input type="text" id="location" name="location"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+                                placeholder="City, State" required>
                         </div>
-                        <div class="password-container">
-                            <label class="block text-gray-700 mb-2" for="confirm-password">Confirm Password</label>
-                            <input type="password" id="confirm-password" name="confirm-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary" placeholder="Confirm your password" required>
-                            <i class="toggle-password fas fa-eye" onclick="togglePassword('confirm-password')"></i>
+
+                        <!-- Empty div to balance grid if needed, or spanned cols -->
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="relative">
+                            <label class="block text-gray-700 font-medium mb-2" for="password">Password</label>
+                            <div class="relative">
+                                <input type="password" id="password" name="password"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition pr-10"
+                                    placeholder="Create a password" required>
+                                <button type="button"
+                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary focus:outline-none"
+                                    onclick="togglePassword('password')">
+                                    <i class="fas fa-eye" id="icon-password"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label class="block text-gray-700 font-medium mb-2" for="confirm_password">Confirm
+                                Password</label>
+                            <div class="relative">
+                                <input type="password" id="confirm_password" name="confirm_password"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition pr-10"
+                                    placeholder="Confirm your password" required>
+                                <button type="button"
+                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary focus:outline-none"
+                                    onclick="togglePassword('confirm_password')">
+                                    <i class="fas fa-eye" id="icon-confirm_password"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    
+
                     <div class="mb-6">
-                        <label class="block text-gray-700 mb-2" for="interests">Interests (Select all that apply)</label>
+                        <label class="block text-gray-700 font-medium mb-3">Interests (Select all that apply)</label>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            <div class="flex items-center">
-                                <input type="checkbox" id="recipes" name="interests" value="Recipes" class="mr-2 text-primary focus:ring-primary">
-                                <label for="recipes">Recipes</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="checkbox" id="health" name="interests" value="Health Tips" class="mr-2 text-primary focus:ring-primary">
-                                <label for="health">Health Tips</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="checkbox" id="discounts" name="interests" value="Discounts" class="mr-2 text-primary focus:ring-primary">
-                                <label for="discounts">Discounts</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="checkbox" id="events" name="interests" value="Farm Events" class="mr-2 text-primary focus:ring-primary">
-                                <label for="events">Farm Events</label>
-                            </div>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" name="interests" value="Recipes"
+                                    class="w-5 h-5 rounded text-primary focus:ring-primary border-gray-300 mr-2">
+                                <span class="text-gray-700">Recipes</span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" name="interests" value="Health Tips"
+                                    class="w-5 h-5 rounded text-primary focus:ring-primary border-gray-300 mr-2">
+                                <span class="text-gray-700">Health Tips</span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" name="interests" value="Discounts"
+                                    class="w-5 h-5 rounded text-primary focus:ring-primary border-gray-300 mr-2">
+                                <span class="text-gray-700">Discounts</span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" name="interests" value="Farm Events"
+                                    class="w-5 h-5 rounded text-primary focus:ring-primary border-gray-300 mr-2">
+                                <span class="text-gray-700">Farm Events</span>
+                            </label>
                         </div>
                     </div>
-                    
-                    <div class="mb-6">
-                        <div class="flex items-start">
-                            <input type="checkbox" id="terms" name="terms" class="mt-1 mr-2 text-primary focus:ring-primary" required>
-                            <label for="terms" class="text-gray-700">I agree to receive communications from Suvai Organics and accept the <a href="#" class="text-primary hover:underline">Terms & Conditions</a></label>
-                        </div>
+
+                    <div class="mb-8">
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" name="terms" required
+                                class="mt-1 w-5 h-5 rounded text-primary focus:ring-primary border-gray-300 mr-2">
+                            <span class="text-gray-700">I agree to receive communications from Suvai Organics and accept
+                                the <a href="#" class="text-primary hover:underline font-medium">Terms &
+                                    Conditions</a></span>
+                        </label>
                     </div>
-                    
-                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-dark transition font-medium">
+
+                    <button type="submit"
+                        class="w-full bg-primary text-white py-3 rounded-lg hover:bg-dark transition font-medium text-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                         Create Account
                     </button>
-                    
-                    <div id="result" class="mt-4 text-center"></div>
-                    
+
                     <div class="mt-6 text-center">
-                        <p class="text-gray-600">Already have an account? <a href="#" class="text-primary hover:underline">Sign in</a></p>
+                        <p class="text-gray-600">Already have an account? <a href="{{ url_for('customer_login') }}"
+                                class="text-primary hover:underline font-bold">Sign in</a></p>
                     </div>
                 </form>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Benefits Section -->
-    <section class="py-16 bg-secondary/10">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Customer Benefits</h2>
-                <p class="text-lg text-gray-700">What you'll enjoy as a Suvai Organics customer</p>
+<!-- Benefits Section -->
+<section class="py-16 bg-secondary/10 border-t border-gray-200">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Customer Benefits</h2>
+            <p class="text-lg text-gray-700">What you'll enjoy as a Suvai Organics customer</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-xl p-8 shadow-md text-center hover:shadow-xl transition duration-300">
+                <div
+                    class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6 shadow-inner">
+                    <i class="fas fa-tag text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-heading font-bold text-primary mb-3">Exclusive Discounts</h3>
+                <p class="text-gray-600">Get special offers and early access to new products before anyone else.</p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl p-8 shadow-md text-center">
-                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-tag text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Exclusive Discounts</h3>
-                    <p class="text-gray-700">Get special offers and early access to new products before anyone else.</p>
+
+            <div class="bg-white rounded-xl p-8 shadow-md text-center hover:shadow-xl transition duration-300">
+                <div
+                    class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6 shadow-inner">
+                    <i class="fas fa-utensils text-white text-2xl"></i>
                 </div>
-                
-                <div class="bg-white rounded-xl p-8 shadow-md text-center">
-                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-utensils text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Healthy Recipes</h3>
-                    <p class="text-gray-700">Receive seasonal recipes featuring our organic products, curated by nutritionists.</p>
+                <h3 class="text-xl font-heading font-bold text-primary mb-3">Healthy Recipes</h3>
+                <p class="text-gray-600">Receive seasonal recipes featuring our organic products, curated by
+                    nutritionists.</p>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 shadow-md text-center hover:shadow-xl transition duration-300">
+                <div
+                    class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6 shadow-inner">
+                    <i class="fas fa-truck text-white text-2xl"></i>
                 </div>
-                
-                <div class="bg-white rounded-xl p-8 shadow-md text-center">
-                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-truck text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-heading font-bold text-primary mb-3">Priority Delivery</h3>
-                    <p class="text-gray-700">Enjoy faster delivery options and order tracking for all your purchases.</p>
-                </div>
+                <h3 class="text-xl font-heading font-bold text-primary mb-3">Priority Delivery</h3>
+                <p class="text-gray-600">Enjoy faster delivery options and order tracking for all your purchases.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white pt-16 pb-8">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
-                
-                <!-- Brand Section -->
-                <div class="flex flex-col items-center md:items-start">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transition-transform duration-300 hover:rotate-12">
-                            <span class="text-light text-xl font-bold">S</span>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
-                    </div>
-                    <div class="flex space-x-6">
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
+<script>
+    function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById('icon-' + inputId);
 
-                <!-- Quick Links -->
-                <div class="flex flex-col items-center md:items-start">
-                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="{{ url_for('home') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a></li>
-                        <li><a href="{{ url_for('about') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About Us</a></li>
-                        <li><a href="{{ url_for('products') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Products</a></li>
-                        <li><a href="{{ url_for('natural_farming') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural Farming</a></li>
-                        <li><a href="{{ url_for('farmers') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Farmers</a></li>
-                    </ul>
-                </div>
-
-                <!-- Contact Us -->
-                <div class="flex flex-col items-center md:items-start">
-                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
-                    <ul class="space-y-3">
-                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
-                            <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
-                            <span>contact@suvaiorganics.com</span>
-                        </li>
-                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
-                            <i class="fas fa-phone-alt mt-1 mr-3 text-accent"></i>
-                            <span>+91 98765 43210</span>
-                        </li>
-                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
-                            <span>Tamil Nadu, India</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Footer Bottom -->
-            <div class="pt-8 border-t border-gray-700 text-center">
-                <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
-                <p class="mt-2 text-gray-500 text-sm">Join us in building a healthier tomorrow.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Toggle password visibility
-        function togglePassword(fieldId) {
-            const field = document.getElementById(fieldId);
-            const icon = document.querySelector(`#${fieldId} + .toggle-password`);
-            if (field.type === "password") {
-                field.type = "text";
-                icon.classList.replace("fa-eye", "fa-eye-slash");
-            } else {
-                field.type = "password";
-                icon.classList.replace("fa-eye-slash", "fa-eye");
-            }
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
         }
-
-        // Form submission
-        const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
-        const form = document.getElementById("registrationForm");
-        const result = document.getElementById("result");
-
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            
-            // Validate passwords match
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirm-password").value;
-            
-            if (password !== confirmPassword) {
-                result.innerHTML = `
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                        <strong class="font-bold">Error!</strong>
-                        <span class="block sm:inline">Passwords do not match.</span>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Show loading state
-            const submitBtn = form.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
-            
-            // Prepare form data
-            const formData = new FormData();
-            formData.append("formType", "customer");
-            formData.append("timestamp", new Date().toISOString());
-            formData.append("fullName", document.getElementById("full-name").value);
-            formData.append("email", document.getElementById("email").value);
-            formData.append("phone", document.getElementById("phone").value);
-            formData.append("location", document.getElementById("location").value);
-            
-            // Get checked interests
-            const interests = [];
-            if (document.getElementById("recipes").checked) interests.push("Recipes");
-            if (document.getElementById("health").checked) interests.push("Health Tips");
-            if (document.getElementById("discounts").checked) interests.push("Discounts");
-            if (document.getElementById("events").checked) interests.push("Farm Events");
-            formData.append("interests", interests.join(", "));
-            
-            try {
-                const response = await fetch(scriptURL, {
-                    method: "POST",
-                    body: formData
-                });
-                
-                const data = await response.json();
-                
-                if (data.status === "success") {
-                    result.innerHTML = `
-                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-                            <strong class="font-bold">Success!</strong>
-                            <span class="block sm:inline">${data.message || 'Registration successful!'}</span>
-                        </div>
-                    `;
-                    form.reset();
-                } else {
-                    throw new Error(data.message || 'Submission failed');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                result.innerHTML = `
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                        <strong class="font-bold">Error!</strong>
-                        <span class="block sm:inline">${error.message || 'Failed to submit form. Please try again.'}</span>
-                    </div>
-                `;
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Create Account';
-                result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        });
-    </script>
-</body>
-</html>
+    }
+</script>
+{% endblock %}

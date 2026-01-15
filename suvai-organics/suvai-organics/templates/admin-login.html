@@ -1,60 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Login - Suvai Organics</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 font-sans flex items-center justify-center h-screen">
 
   <div class="bg-white p-8 rounded-lg shadow-lg w-96">
     <h2 class="text-2xl font-bold text-green-800 mb-4 text-center">Admin Login</h2>
 
     <!-- 🔐 LOGIN FORM -->
-    <form method="POST" class="space-y-4">
-  <div>
-    <label class="block text-gray-700 font-medium mb-1">Username</label>
-    <input type="text" name="username" class="w-full px-4 py-2 border rounded" required>
+    <form method="POST" action="{{ url_for('admin_login') }}" class="space-y-4">
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Username</label>
+        <input type="text" name="username" class="w-full px-4 py-2 border rounded" required>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Password</label>
+        <input type="password" name="password" class="w-full px-4 py-2 border rounded" required>
+      </div>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <p class="text-red-600 text-sm">{{ message }}</p>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+      <button type="submit" class="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800">Login</button>
+    </form>
   </div>
-
-  <div>
-    <label class="block text-gray-700 font-medium mb-1">Password</label>
-    <input type="password" name="password" class="w-full px-4 py-2 border rounded" required>
-  </div>
-
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <p class="text-red-600 text-sm">{{ messages[0] }}</p>
-    {% endif %}
-  {% endwith %}
-
-  <button type="submit" class="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800">Login</button>
-</form>
-
-  </div>
-
-  <!-- ✅ LOGIN VALIDATION SCRIPT -->
-  <script>
-    const ADMIN_USER = "Admin@suvai_organics";
-    const ADMIN_PASS = "suvai_1209";
-
-    const form = document.getElementById("adminLoginForm");
-    const errorMsg = document.getElementById("errorMsg");
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault(); // Stop default form submission
-
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      if (username === ADMIN_USER && password === ADMIN_PASS) {
-        window.location.href = "admin-dashboard.html"; // ✅ NEW redirect target
-      } else {
-        errorMsg.classList.remove("hidden"); // ❌ Show error
-      }
-    });
-  </script>
-
 </body>
+
 </html>

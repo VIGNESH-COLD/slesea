@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order #{{ order.id }} - Suvai Organics Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-green-800 text-white flex flex-col">
+            <div class="p-6 text-2xl font-bold border-b border-green-700">
+                Suvai Admin
+            </div>
+            <nav class="flex-1 p-4">
+                <ul class="space-y-4">
+                    <li><a href="{{ url_for('admin_dashboard')}}" class="block p-2 rounded hover:bg-green-700">📊
+                            Dashboard</a></li>
+                    <li><a href="{{ url_for('products_upload')}}" class="block p-2 rounded hover:bg-green-700">🛒
+                            Products</a></li>
+                    <li><a href="{{ url_for('farmers_manage')}}" class="block p-2 rounded hover:bg-green-700">👩‍🌾
+                            Farmers</a></li>
+                    <li><a href="{{ url_for('gallery_manage')}}" class="block p-2 rounded hover:bg-green-700">🖼
+                            Gallery</a></li>
+                    <li><a href="{{ url_for('partners_manage')}}" class="block p-2 rounded hover:bg-green-700">🤝
+                            Partners</a></li>
+                    <li><a href="{{ url_for('orders_manage')}}" class="block p-2 rounded bg-green-700">📦 Orders</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-green-700">
+                <a href="{{ url_for('admin_logout') }}"
+                    class="block w-full bg-red-500 text-center py-2 rounded hover:bg-red-600">🚪 Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            <div class="max-w-4xl mx-auto">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center">
+                        <a href="{{ url_for('orders_manage') }}" class="mr-4 text-gray-500 hover:text-green-700">
+                            <i class="fas fa-arrow-left text-xl"></i>
+                        </a>
+                        <h1 class="text-3xl font-bold text-green-900">Order #{{ order.id }}</h1>
+                    </div>
+
+                    <!-- Status Badge -->
+                    <div class="flex items-center space-x-4">
+                        <span class="px-4 py-2 rounded-full font-bold text-sm
+                            {% if order.status == 'completed' %} bg-green-100 text-green-800
+                            {% elif order.status == 'processing' %} bg-blue-100 text-blue-800
+                            {% elif order.status == 'cancelled' %} bg-red-100 text-red-800
+                            {% else %} bg-yellow-100 text-yellow-800 {% endif %}">
+                            {{ order.status|upper }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div
+                    class="mb-4 p-4 rounded {% if category == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Left Column: Order Info & Items -->
+                    <div class="md:col-span-2 space-y-6">
+                        <!-- Items -->
+                        <div class="bg-white rounded-lg shadow overflow-hidden">
+                            <div class="p-6 border-b border-gray-100">
+                                <h2 class="text-xl font-bold text-gray-800">Order Items</h2>
+                            </div>
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                                            Product</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                                            Price</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Qty
+                                        </th>
+                                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                                            Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    {% for item in order.items %}
+                                    <tr>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm font-medium text-gray-900">{{ item.product.name }}</div>
+                                            <div class="text-xs text-gray-500">SKU: {{ item.product.sku }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-gray-500">₹{{ "%.2f"|format(item.price) }}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-gray-900">{{ item.quantity }}</td>
+                                        <td class="px-6 py-4 text-sm font-bold text-right">₹{{ "%.2f"|format(item.price
+                                            * item.quantity) }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot class="bg-gray-50">
+                                    <tr>
+                                        <td colspan="3" class="px-6 py-4 text-right font-bold text-gray-700">Total
+                                            Amount</td>
+                                        <td class="px-6 py-4 text-right font-bold text-green-700 text-xl">₹{{
+                                            "%.2f"|format(order.total_amount) }}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <!-- Customer Notes -->
+                        {% if order.notes %}
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Customer Notes</h2>
+                            <p class="text-gray-600 italic bg-gray-50 p-4 rounded border border-gray-200">"{{
+                                order.notes }}"</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Right Column: Customer & Actions -->
+                    <div class="space-y-6">
+                        <!-- Customer Details -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Customer Details</h2>
+                            <div class="space-y-3">
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase">Name</p>
+                                    <p class="font-medium">{{ order.customer_name }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase">Phone</p>
+                                    <p class="font-medium">{{ order.phone }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase">Order Date</p>
+                                    <p class="font-medium">{{ order.created_at.strftime('%d %b %Y, %I:%M %p') }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase">Payment Method</p>
+                                    <p class="font-medium">{{ order.payment_method }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shipping Address -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Shipping Address</h2>
+                            <p class="text-gray-700 whitespace-pre-line">{{ order.shipping_address }}</p>
+                            <p class="text-gray-700 mt-2">{{ order.city }} - {{ order.pin_code }}</p>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <h2 class="text-xl font-bold text-gray-800 mb-4">Update Status</h2>
+                            <form action="{{ url_for('update_order_status', order_id=order.id) }}" method="POST"
+                                class="space-y-3">
+                                <button name="status" value="processing" type="submit"
+                                    class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition flex items-center justify-center">
+                                    <i class="fas fa-truck mr-2"></i> Mark as Processing
+                                </button>
+                                <button name="status" value="completed" type="submit"
+                                    class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition flex items-center justify-center">
+                                    <i class="fas fa-check-circle mr-2"></i> Mark as Completed
+                                </button>
+                                <button name="status" value="cancelled" type="submit"
+                                    class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition flex items-center justify-center">
+                                    <i class="fas fa-times-circle mr-2"></i> Cancel Order
+                                </button>
+                                <button name="status" value="pending" type="submit"
+                                    class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600 transition flex items-center justify-center">
+                                    <i class="fas fa-undo mr-2"></i> Revert to Pending
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

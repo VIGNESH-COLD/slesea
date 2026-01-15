@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Suvai Organics | Taste the Purity of Nature</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -55,6 +58,7 @@
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="20" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="20" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="50" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="20" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="50" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/><circle cx="80" cy="80" r="3" fill="%234a6c3c" opacity="0.1"/></svg>');
             background-size: 150px;
         }
+
         .journey-line {
             position: absolute;
             top: 0;
@@ -65,11 +69,13 @@
             transform: translateX(-50%);
             z-index: 1;
         }
+
         .values-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
         }
+
         .leaf-icon {
             position: absolute;
             top: -20px;
@@ -79,37 +85,43 @@
             opacity: 0.7;
             transform: rotate(20deg);
         }
+
         .about-hero {
             background: linear-gradient(rgba(42, 62, 34, 0.7), rgba(42, 62, 34, 0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234a6c3c" opacity="0.1"/></svg>');
             background-size: cover;
             background-position: center;
         }
-        
+
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
+
         ::-webkit-scrollbar-track {
             background: #f8f5e9;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #a8c48f;
             border-radius: 4px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: #4a6c3c;
         }
-        
+
         /* Initial state for animated sections */
         .animate-section {
             opacity: 0;
             transform: translateY(20px);
         }
+
         /* Navigation underline effect */
         .nav-link {
             position: relative;
             display: inline-block;
         }
+
         .nav-link:after {
             content: '';
             position: absolute;
@@ -120,41 +132,209 @@
             background: #4a6c3c;
             transition: width 0.4s ease;
         }
+
         .nav-link:hover:after {
             width: 100%;
         }
+
+        /* Mobile menu styling */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s ease-in-out;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: white;
+            z-index: 50;
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Journey Section Redesign */
+        .neon-glow {
+            box-shadow: 0 0 10px #d4a76a, 0 0 20px #a8c48f;
+        }
+
+        .timeline-spine {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #d4a76a;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px #d4a76a, 0 0 30px #a8c48f;
+            z-index: 10;
+        }
+
+        .timeline-spine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -2px;
+            right: -2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, #d4a76a, #d4a76a, transparent);
+            filter: blur(4px);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 167, 106, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .journey-dot {
+            width: 20px;
+            height: 20px;
+            background: #d4a76a;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px #d4a76a, 0 0 20px #d4a76a;
+            z-index: 20;
+        }
+
+        /* Mobile specific adjustments for timeline */
+        @media (max-width: 768px) {
+            .timeline-spine {
+                left: 20px;
+            }
+
+            .journey-dot {
+                left: 20px;
+            }
+        }
     </style>
 </head>
+
 <body class="font-body text-dark bg-light animate-fade-in">
     <!-- Header -->
     <header class="sticky top-0 z-50 bg-white shadow-md transition-all duration-500">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <a href="{{ url_for('home') }}" class="flex items-center transition-all duration-300 hover:scale-105">
-                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transition-all duration-300 hover:rotate-12">
-                            <span class="text-light text-xl font-bold">S</span>
-                        </div>
+                    <a href="{{ url_for('home') }}"
+                        class="flex items-center transition-all duration-300 hover:scale-105">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                            class="w-10 h-10 rounded-full mr-3 object-cover">
                         <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
                     </a>
                 </div>
-                
-               <nav class="hidden md:flex space-x-8">
-                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
-                    <a href="{{ url_for('about') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
-                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
-                    <a href="{{ url_for('natural_farming') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Natural Farming</a>
-                    <a href="{{ url_for('farmers') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Farmers</a>
-                    <a href="{{ url_for('gallery') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Gallery</a>
-                    <a href="{{ url_for('contact') }}" class="font-medium text-primary hover:text-accent transition nav-link">Contact Us</a>
+
+                <nav class="hidden md:flex space-x-6 xl:space-x-8">
+                    <a href="{{ url_for('home') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
+                    <a href="{{ url_for('about') }}"
+                        class="font-medium text-primary hover:text-accent transition nav-link">About Us</a>
+                    <a href="{{ url_for('products') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
+                    <a href="{{ url_for('natural_farming') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Natural Farming</a>
+                    <a href="{{ url_for('farmers') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Farmers</a>
+                    <a href="{{ url_for('gallery') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Gallery</a>
+                    <a href="{{ url_for('contact') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Contact Us</a>
                 </nav>
 
-                
                 <div class="flex items-center space-x-4">
-                    <a href="{{ url_for('register_main') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105 hover:shadow-lg">Register</a>
-                    <button class="md:hidden text-gray-600 transition-transform duration-300 hover:rotate-90">
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('profile') }}"
+                        class="hidden md:block text-gray-600 hover:text-primary transition" title="My Profile">
+                        <i class="fas fa-user-circle text-xl"></i>
+                    </a>
+                    <a href="{{ url_for('customer_logout') }}"
+                        class="hidden md:block bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition text-sm">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('customer_login') }}"
+                        class="hidden md:block text-gray-600 hover:text-primary transition font-medium">Login</a>
+                    <a href="{{ url_for('register_customer') }}"
+                        class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition text-sm">Register</a>
+                    {% endif %}
+
+                    <a href="{{ url_for('view_cart') }}" class="relative text-gray-600 hover:text-primary transition">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span
+                            class="absolute -top-2 -right-2 bg-accent text-white text-xs font-bold px-1.5 py-0.5 rounded-full cart-count">0</span>
+                    </a>
+
+                    <button id="mobileMenuButton"
+                        class="md:hidden text-gray-600 transition-transform duration-300 hover:rotate-90">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu md:hidden bg-white overflow-y-auto">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex justify-between items-center mb-8">
+                    <div class="flex items-center">
+                        <a href="{{ url_for('home') }}" class="flex items-center">
+                            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                                class="w-10 h-10 rounded-full mr-3 object-cover">
+                            <h1 class="text-xl font-heading font-bold text-primary">Suvai Organics</h1>
+                        </a>
+                    </div>
+                    <button id="closeMobileMenu" class="text-gray-600 text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="flex flex-col space-y-4">
+                    <a href="{{ url_for('home') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Home</a>
+                    <a href="{{ url_for('about') }}"
+                        class="font-medium text-primary hover:text-accent py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">About
+                        Us</a>
+                    <a href="{{ url_for('products') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Products</a>
+                    <a href="{{ url_for('natural_farming') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Natural
+                        Farming</a>
+                    <a href="{{ url_for('farmers') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Farmers</a>
+                    <a href="{{ url_for('gallery') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Gallery</a>
+                    <a href="{{ url_for('contact') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Contact</a>
+                </div>
+
+                <div class="mt-8 pt-4 px-4">
+                    {% if current_user.is_authenticated %}
+                    <div class="flex items-center mb-6">
+                        <div
+                            class="bg-primary/10 rounded-full w-10 h-10 flex items-center justify-center mr-3 text-primary">
+                            {{ current_user.username[0].upper() }}
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800">{{ current_user.username }}</p>
+                            <p class="text-xs text-gray-500">{{ current_user.email }}</p>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('profile') }}"
+                        class="block text-center w-full border border-gray-300 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-50 transition mb-3">My
+                        Profile</a>
+                    <a href="{{ url_for('customer_logout') }}"
+                        class="block text-center w-full bg-red-50 text-red-600 px-6 py-3 rounded-full hover:bg-red-100 transition">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('customer_login') }}"
+                        class="block text-center w-full border border-primary text-primary px-6 py-3 rounded-full hover:bg-primary/5 transition mb-3">Login</a>
+                    <a href="{{ url_for('register_customer') }}"
+                        class="block text-center w-full bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition">Register</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -175,41 +355,54 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-center mb-16 animate-section" data-animate="slide-up">
                 <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Who We Are</h2>
-                <p class="text-lg text-gray-700 mb-8">Suvai Organics is a mission-driven initiative offering organic, chemical-free snacks and staples. We connect health-conscious consumers with farmer-grown produce.</p>
+                <p class="text-lg text-gray-700 mb-8">Suvai Organics is a mission-driven initiative offering organic,
+                    chemical-free snacks and staples. We connect health-conscious consumers with farmer-grown produce.
+                </p>
                 <div class="w-24 h-1 bg-accent mx-auto"></div>
             </div>
-            
+
             <div class="flex flex-col md:flex-row items-center gap-10">
                 <div class="md:w-1/2 animate-section" data-animate="slide-up">
                     <div class="relative transition-all duration-500 hover:scale-[1.02]">
-                         <img src="https://cms.thewire.in/wp-content/uploads/2017/07/sadiyaval-village.jpg" alt="Traditional-Farmers" class="w-full product-image">
-                        <div class="absolute -bottom-6 -right-6 bg-primary rounded-lg p-4 shadow-lg w-2/3 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                            <p class="text-white font-bold text-lg">First-generation farmers with a vision for sustainable agriculture</p>
+                        <img src="https://cms.thewire.in/wp-content/uploads/2017/07/sadiyaval-village.jpg"
+                            alt="Traditional-Farmers" class="w-full product-image">
+                        <div
+                            class="absolute -bottom-6 -right-6 bg-primary rounded-lg p-4 shadow-lg w-2/3 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                            <p class="text-white font-bold text-lg">First-generation farmers with a vision for
+                                sustainable agriculture</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="md:w-1/2">
                     <div class="animate-section" data-animate="slide-up">
                         <h3 class="text-2xl font-heading font-bold text-primary mb-4">Born from the Soil</h3>
-                        <p class="text-gray-700 mb-4">Suvai Organics was founded by a small group of first-generation farmers from Tamil Nadu who shared a common vision: to bring pure, chemical-free food to every household while preserving traditional farming practices.</p>
-                        <p class="text-gray-700 mb-6">Inspired by the growing demand for clean, healthy food, we combined our agricultural heritage with a modern business approach to create a brand that celebrates the purity of nature.</p>
+                        <p class="text-gray-700 mb-4">Suvai Organics was founded by a small group of first-generation
+                            farmers from Tamil Nadu who shared a common vision: to bring pure, chemical-free food to
+                            every household while preserving traditional farming practices.</p>
+                        <p class="text-gray-700 mb-6">Inspired by the growing demand for clean, healthy food, we
+                            combined our agricultural heritage with a modern business approach to create a brand that
+                            celebrates the purity of nature.</p>
                     </div>
-                    
+
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-light p-4 rounded-lg animate-section transition-all duration-300 hover:scale-105 hover:shadow-lg" data-animate="slide-up" data-delay="100">
+                        <div class="bg-light p-4 rounded-lg animate-section transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                            data-animate="slide-up" data-delay="100">
                             <div class="text-3xl font-bold text-primary mb-2">2018</div>
                             <p class="text-gray-600">Founded with 5 farmers</p>
                         </div>
-                        <div class="bg-light p-4 rounded-lg animate-section transition-all duration-300 hover:scale-105 hover:shadow-lg" data-animate="slide-up" data-delay="200">
+                        <div class="bg-light p-4 rounded-lg animate-section transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                            data-animate="slide-up" data-delay="200">
                             <div class="text-3xl font-bold text-primary mb-2">100+</div>
                             <p class="text-gray-600">Farmers in our network</p>
                         </div>
-                        <div class="bg-light p-4 rounded-lg animate-section transition-all duration-300 hover:scale-105 hover:shadow-lg" data-animate="slide-up" data-delay="300">
+                        <div class="bg-light p-4 rounded-lg animate-section transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                            data-animate="slide-up" data-delay="300">
                             <div class="text-3xl font-bold text-primary mb-2">50+</div>
                             <p class="text-gray-600">Organic products</p>
                         </div>
-                        <div class="bg-light p-4 rounded-lg animate-section transition-all duration-300 hover:scale-105 hover:shadow-lg" data-animate="slide-up" data-delay="400">
+                        <div class="bg-light p-4 rounded-lg animate-section transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                            data-animate="slide-up" data-delay="400">
                             <div class="text-3xl font-bold text-primary mb-2">10K+</div>
                             <p class="text-gray-600">Happy customers</p>
                         </div>
@@ -226,17 +419,20 @@
                 <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Our Purpose</h2>
                 <p class="text-lg text-gray-700">The driving force behind everything we do</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div class="bg-white rounded-xl shadow-lg p-8 relative overflow-hidden animate-section transition-all duration-300 hover:scale-[1.02] hover:shadow-xl" data-animate="slide-up">
+                <div class="bg-white rounded-xl shadow-lg p-8 relative overflow-hidden animate-section transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                    data-animate="slide-up">
                     <div class="leaf-icon animate-float">
                         <i class="fas fa-seedling"></i>
                     </div>
-                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-6 transition-all duration-500 hover:rotate-12">
+                    <div
+                        class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-6 transition-all duration-500 hover:rotate-12">
                         <i class="fas fa-bullseye text-white text-2xl"></i>
                     </div>
                     <h3 class="text-2xl font-heading font-bold text-primary mb-4">Our Mission</h3>
-                    <p class="text-gray-700 mb-4">To promote sustainable agriculture and provide healthy alternatives to every household. We believe that access to pure, chemical-free food is a fundamental right.</p>
+                    <p class="text-gray-700 mb-4">To promote sustainable agriculture and provide healthy alternatives to
+                        every household. We believe that access to pure, chemical-free food is a fundamental right.</p>
                     <ul class="space-y-2">
                         <li class="flex items-start transition-all duration-300 hover:translate-x-1">
                             <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
@@ -252,16 +448,19 @@
                         </li>
                     </ul>
                 </div>
-                
-                <div class="bg-white rounded-xl shadow-lg p-8 relative overflow-hidden animate-section transition-all duration-300 hover:scale-[1.02] hover:shadow-xl" data-animate="slide-up" data-delay="100">
+
+                <div class="bg-white rounded-xl shadow-lg p-8 relative overflow-hidden animate-section transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                    data-animate="slide-up" data-delay="100">
                     <div class="leaf-icon animate-float">
                         <i class="fas fa-leaf"></i>
                     </div>
-                    <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-6 transition-all duration-500 hover:rotate-12">
+                    <div
+                        class="w-16 h-16 rounded-full bg-primary flex items-center justify-center mb-6 transition-all duration-500 hover:rotate-12">
                         <i class="fas fa-eye text-white text-2xl"></i>
                     </div>
                     <h3 class="text-2xl font-heading font-bold text-primary mb-4">Our Vision</h3>
-                    <p class="text-gray-700 mb-4">A thriving natural farming ecosystem where farmers prosper and people eat clean. We envision a world where agriculture nourishes both people and the planet.</p>
+                    <p class="text-gray-700 mb-4">A thriving natural farming ecosystem where farmers prosper and people
+                        eat clean. We envision a world where agriculture nourishes both people and the planet.</p>
                     <ul class="space-y-2">
                         <li class="flex items-start transition-all duration-300 hover:translate-x-1">
                             <i class="fas fa-check-circle text-secondary mt-1 mr-3"></i>
@@ -282,84 +481,138 @@
     </section>
 
     <!-- Our Journey -->
-    <section class="py-16 bg-light">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center mb-16 animate-section" data-animate="slide-up">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Our Journey</h2>
-                <p class="text-lg text-gray-700">From humble beginnings to a growing movement</p>
+    <section class="py-20 bg-dark relative overflow-hidden">
+        <!-- Background Elements -->
+        <div
+            class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10">
+        </div>
+        <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-light to-transparent z-10 opacity-10"></div>
+
+        <div class="container mx-auto px-4 relative z-20">
+            <div class="max-w-4xl mx-auto text-center mb-20 animate-section" data-animate="slide-up">
+                <h2
+                    class="text-4xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent mb-6 drop-shadow-lg">
+                    Our Journey</h2>
+                <p class="text-xl text-gray-300">Illuminating the path from tradition to future</p>
             </div>
-            
-            <div class="relative">
-                <!-- Timeline line -->
-                <div class="journey-line hidden md:block"></div>
-                
-                <div class="space-y-12">
-                    <!-- Timeline item 1 -->
-                    <div class="relative md:flex items-center">
-                        <div class="md:w-1/2 md:pr-16 md:text-right mb-6 md:mb-0">
-                            <div class="inline-block bg-white p-6 rounded-xl shadow-md animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl" data-animate="slide-up">
-                                <div class="text-accent font-bold mb-2">2015</div>
-                                <h3 class="text-xl font-heading font-bold text-primary mb-3">The Seed is Planted</h3>
-                                <p class="text-gray-700">Five small farmers in Tamil Nadu begin experimenting with chemical-free farming techniques, inspired by traditional practices.</p>
+
+            <div class="relative py-10">
+                <!-- Glowing Timeline Spine -->
+                <div class="timeline-spine"></div>
+
+                <div class="space-y-24">
+                    <!-- Timeline Item 1 (Left) -->
+                    <div class="relative md:flex items-center justify-between group">
+                        <!-- Dot -->
+                        <div class="journey-dot top-1/2 -mt-3 hidden md:block"></div>
+
+                        <!-- Card (Left) -->
+                        <div class="md:w-[45%] mb-8 md:mb-0 md:pr-12 md:text-right relative">
+                            <!-- Connector -->
+                            <div
+                                class="hidden md:block absolute top-1/2 right-0 w-12 h-[2px] bg-accent shadow-[0_0_10px_#d4a76a]">
+                            </div>
+
+                            <div class="glass-card p-8 rounded-2xl animate-section transition-all duration-500 hover:scale-105 hover:bg-white/10 group-hover:border-accent"
+                                data-animate="slide-up">
+                                <div
+                                    class="text-3xl font-bold text-accent mb-4 drop-shadow-[0_0_5px_rgba(212,167,106,0.5)]">
+                                    2015</div>
+                                <h3 class="text-2xl font-heading font-bold text-white mb-3">The Seed is Planted <span
+                                        class="inline-block animate-pulse">🌱</span></h3>
+                                <p class="text-gray-300 leading-relaxed">Five small farmers in Tamil Nadu begin
+                                    experimenting with chemical-free farming techniques, inspired by traditional
+                                    practices.</p>
                             </div>
                         </div>
-                        <div class="hidden md:flex items-center justify-center md:w-1/2 relative">
-                            <div class="w-6 h-6 rounded-full bg-primary z-10 animate-pulse-slow"></div>
-                        </div>
-                        <div class="md:w-1/2 md:pl-16">
-                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 md:hidden animate-pulse-slow"></div>
-                        </div>
+
+                        <!-- Empty Space (Right) -->
+                        <div class="md:w-[45%] md:pl-12"></div>
+
+                        <!-- Mobile Dot & Line -->
+                        <div class="md:hidden absolute left-[11px] top-0 bottom-0 w-[2px] bg-accent/50"></div>
+                        <div class="md:hidden journey-dot top-8 left-[2px]"></div>
                     </div>
-                    
-                    <!-- Timeline item 2 -->
-                    <div class="relative md:flex items-center">
-                        <div class="md:w-1/2 md:pr-16 hidden md:block">
-                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 animate-pulse-slow"></div>
-                        </div>
-                        <div class="hidden md:flex items-center justify-center md:w-1/2 relative">
-                            <div class="w-6 h-6 rounded-full bg-primary z-10 animate-pulse-slow"></div>
-                        </div>
-                        <div class="md:w-1/2 md:pl-16 mb-6 md:mb-0">
-                            <div class="inline-block bg-white p-6 rounded-xl shadow-md animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl" data-animate="slide-up" data-delay="100">
-                                <div class="text-accent font-bold mb-2">2018</div>
-                                <h3 class="text-xl font-heading font-bold text-primary mb-3">Suvai Organics is Born</h3>
-                                <p class="text-gray-700">Formal establishment of Suvai Organics with a mission to bring pure, organic food to consumers while supporting farmers.</p>
+
+                    <!-- Timeline Item 2 (Right) -->
+                    <div class="relative md:flex items-center justify-between group">
+                        <div class="journey-dot top-1/2 -mt-3 hidden md:block"></div>
+
+                        <div class="md:w-[45%] md:pr-12"></div>
+
+                        <div class="md:w-[45%] mb-8 md:mb-0 md:pl-12 relative">
+                            <div
+                                class="hidden md:block absolute top-1/2 left-0 w-12 h-[2px] bg-accent shadow-[0_0_10px_#d4a76a]">
+                            </div>
+
+                            <div class="glass-card p-8 rounded-2xl animate-section transition-all duration-500 hover:scale-105 hover:bg-white/10 group-hover:border-accent"
+                                data-animate="slide-up" data-delay="100">
+                                <div
+                                    class="text-3xl font-bold text-accent mb-4 drop-shadow-[0_0_5px_rgba(212,167,106,0.5)]">
+                                    2018</div>
+                                <h3 class="text-2xl font-heading font-bold text-white mb-3">Suvai Organics is Born <span
+                                        class="inline-block animate-bounce">✨</span></h3>
+                                <p class="text-gray-300 leading-relaxed">Formal establishment of Suvai Organics with a
+                                    mission to bring pure, organic food to consumers while supporting farmers.</p>
                             </div>
                         </div>
+
+                        <div class="md:hidden absolute left-[11px] top-0 bottom-0 w-[2px] bg-accent/50"></div>
+                        <div class="md:hidden journey-dot top-8 left-[2px]"></div>
                     </div>
-                    
-                    <!-- Timeline item 3 -->
-                    <div class="relative md:flex items-center">
-                        <div class="md:w-1/2 md:pr-16 md:text-right mb-6 md:mb-0">
-                            <div class="inline-block bg-white p-6 rounded-xl shadow-md animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl" data-animate="slide-up" data-delay="200">
-                                <div class="text-accent font-bold mb-2">2020</div>
-                                <h3 class="text-xl font-heading font-bold text-primary mb-3">Expanding Our Reach</h3>
-                                <p class="text-gray-700">Launched our e-commerce platform, enabling direct delivery of farm-fresh products to customers across Tamil Nadu.</p>
+
+                    <!-- Timeline Item 3 (Left) -->
+                    <div class="relative md:flex items-center justify-between group">
+                        <div class="journey-dot top-1/2 -mt-3 hidden md:block"></div>
+
+                        <div class="md:w-[45%] mb-8 md:mb-0 md:pr-12 md:text-right relative">
+                            <div
+                                class="hidden md:block absolute top-1/2 right-0 w-12 h-[2px] bg-accent shadow-[0_0_10px_#d4a76a]">
+                            </div>
+
+                            <div class="glass-card p-8 rounded-2xl animate-section transition-all duration-500 hover:scale-105 hover:bg-white/10 group-hover:border-accent"
+                                data-animate="slide-up" data-delay="200">
+                                <div
+                                    class="text-3xl font-bold text-accent mb-4 drop-shadow-[0_0_5px_rgba(212,167,106,0.5)]">
+                                    2020</div>
+                                <h3 class="text-2xl font-heading font-bold text-white mb-3">Expanding Our Reach <span
+                                        class="inline-block animate-pulse">🚀</span></h3>
+                                <p class="text-gray-300 leading-relaxed">Launched our e-commerce platform, enabling
+                                    direct delivery of farm-fresh products to customers across Tamil Nadu.</p>
                             </div>
                         </div>
-                        <div class="hidden md:flex items-center justify-center md:w-1/2 relative">
-                            <div class="w-6 h-6 rounded-full bg-primary z-10 animate-pulse-slow"></div>
-                        </div>
-                        <div class="md:w-1/2 md:pl-16">
-                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 md:hidden animate-pulse-slow"></div>
-                        </div>
+
+                        <div class="md:w-[45%] md:pl-12"></div>
+
+                        <div class="md:hidden absolute left-[11px] top-0 bottom-0 w-[2px] bg-accent/50"></div>
+                        <div class="md:hidden journey-dot top-8 left-[2px]"></div>
                     </div>
-                    
-                    <!-- Timeline item 4 -->
-                    <div class="relative md:flex items-center">
-                        <div class="md:w-1/2 md:pr-16 hidden md:block">
-                            <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 animate-pulse-slow"></div>
-                        </div>
-                        <div class="hidden md:flex items-center justify-center md:w-1/2 relative">
-                            <div class="w-6 h-6 rounded-full bg-primary z-10 animate-pulse-slow"></div>
-                        </div>
-                        <div class="md:w-1/2 md:pl-16 mb-6 md:mb-0">
-                            <div class="inline-block bg-white p-6 rounded-xl shadow-md animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl" data-animate="slide-up" data-delay="300">
-                                <div class="text-accent font-bold mb-2">2023</div>
-                                <h3 class="text-xl font-heading font-bold text-primary mb-3">Thriving Community</h3>
-                                <p class="text-gray-700">Now supporting over 100 farmers and serving thousands of customers with a wide range of organic products.</p>
+
+                    <!-- Timeline Item 4 (Right) -->
+                    <div class="relative md:flex items-center justify-between group">
+                        <div class="journey-dot top-1/2 -mt-3 hidden md:block"></div>
+
+                        <div class="md:w-[45%] md:pr-12"></div>
+
+                        <div class="md:w-[45%] mb-8 md:mb-0 md:pl-12 relative">
+                            <div
+                                class="hidden md:block absolute top-1/2 left-0 w-12 h-[2px] bg-accent shadow-[0_0_10px_#d4a76a]">
+                            </div>
+
+                            <div class="glass-card p-8 rounded-2xl animate-section transition-all duration-500 hover:scale-105 hover:bg-white/10 group-hover:border-accent"
+                                data-animate="slide-up" data-delay="300">
+                                <div
+                                    class="text-3xl font-bold text-accent mb-4 drop-shadow-[0_0_5px_rgba(212,167,106,0.5)]">
+                                    2023</div>
+                                <h3 class="text-2xl font-heading font-bold text-white mb-3">Thriving Community <span
+                                        class="inline-block animate-bounce">🤝</span></h3>
+                                <p class="text-gray-300 leading-relaxed">Now supporting over 100 farmers and serving
+                                    thousands of customers with a wide range of organic products.</p>
                             </div>
                         </div>
+
+                        <div class="md:hidden absolute left-[11px] top-0 bottom-0 w-[2px] bg-accent/50"></div>
+                        <div class="md:hidden journey-dot top-8 left-[2px]"></div>
                     </div>
                 </div>
             </div>
@@ -373,38 +626,50 @@
                 <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Our Core Values</h2>
                 <p class="text-lg text-gray-700">Principles that guide everything we do</p>
             </div>
-            
+
             <div class="values-grid">
-                <div class="bg-white rounded-xl p-8 shadow-md text-center animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl" data-animate="slide-up">
-                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6 transition-all duration-500 hover:rotate-12">
+                <div class="bg-white rounded-xl p-8 shadow-md text-center animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                    data-animate="slide-up">
+                    <div
+                        class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6 transition-all duration-500 hover:rotate-12">
                         <i class="fas fa-hand-holding-heart text-primary text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-heading font-bold text-primary mb-3">Integrity</h3>
-                    <p class="text-gray-700">We are transparent in our practices and honest about our products. What you see is what you get.</p>
+                    <p class="text-gray-700">We are transparent in our practices and honest about our products. What you
+                        see is what you get.</p>
                 </div>
-                
-                <div class="bg-white rounded-xl p-8 shadow-md text-center animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl" data-animate="slide-up" data-delay="100">
-                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6 transition-all duration-500 hover:rotate-12">
+
+                <div class="bg-white rounded-xl p-8 shadow-md text-center animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                    data-animate="slide-up" data-delay="100">
+                    <div
+                        class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6 transition-all duration-500 hover:rotate-12">
                         <i class="fas fa-leaf text-primary text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-heading font-bold text-primary mb-3">Sustainability</h3>
-                    <p class="text-gray-700">We prioritize methods that nurture the earth and ensure resources for future generations.</p>
+                    <p class="text-gray-700">We prioritize methods that nurture the earth and ensure resources for
+                        future generations.</p>
                 </div>
-                
-                <div class="bg-white rounded-xl p-8 shadow-md text-center animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl" data-animate="slide-up" data-delay="200">
-                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6 transition-all duration-500 hover:rotate-12">
+
+                <div class="bg-white rounded-xl p-8 shadow-md text-center animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                    data-animate="slide-up" data-delay="200">
+                    <div
+                        class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6 transition-all duration-500 hover:rotate-12">
                         <i class="fas fa-users text-primary text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-heading font-bold text-primary mb-3">Community</h3>
-                    <p class="text-gray-700">We build relationships based on mutual respect between farmers, customers, and the land.</p>
+                    <p class="text-gray-700">We build relationships based on mutual respect between farmers, customers,
+                        and the land.</p>
                 </div>
-                
-                <div class="bg-white rounded-xl p-8 shadow-md text-center animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl" data-animate="slide-up" data-delay="300">
-                    <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6 transition-all duration-500 hover:rotate-12">
+
+                <div class="bg-white rounded-xl p-8 shadow-md text-center animate-section transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                    data-animate="slide-up" data-delay="300">
+                    <div
+                        class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6 transition-all duration-500 hover:rotate-12">
                         <i class="fas fa-seedling text-primary text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-heading font-bold text-primary mb-3">Tradition</h3>
-                    <p class="text-gray-700">We honor and preserve time-tested farming wisdom while adapting to modern needs.</p>
+                    <p class="text-gray-700">We honor and preserve time-tested farming wisdom while adapting to modern
+                        needs.</p>
                 </div>
             </div>
         </div>
@@ -415,55 +680,73 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-center mb-16 animate-section" data-animate="slide-up">
                 <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Our Collective</h2>
-                <p class="text-lg text-gray-700">A network of farmers, agriculture enthusiasts, and wellness supporters</p>
+                <p class="text-lg text-gray-700">A network of farmers, agriculture enthusiasts, and wellness supporters
+                </p>
             </div>
-            
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Team Member 1 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-md animate-section transition-all duration-500 hover:scale-105 hover:shadow-xl" data-animate="slide-up">
-                    <div class="h-64 bg-gray-200 border-2 border-dashed w-full animate-pulse-slow"></div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md animate-section transition-all duration-500 hover:scale-105 hover:shadow-xl"
+                    data-animate="slide-up">
+                    <div class="h-64 bg-gray-100 w-full flex items-center justify-center text-gray-300">
+                        <i class="fas fa-user-circle text-6xl"></i>
+                    </div>
                     <div class="p-6 text-center">
                         <h3 class="text-xl font-bold text-primary mb-1">Rajiv Kumar</h3>
                         <p class="text-accent mb-3">Founder & Farmer</p>
-                        <p class="text-gray-600">3rd generation farmer with expertise in traditional rice cultivation</p>
+                        <p class="text-gray-600">3rd generation farmer with expertise in traditional rice cultivation
+                        </p>
                     </div>
                 </div>
-                
+
                 <!-- Team Member 2 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-md animate-section transition-all duration-500 hover:scale-105 hover:shadow-xl" data-animate="slide-up" data-delay="100">
-                    <div class="h-64 bg-gray-200 border-2 border-dashed w-full animate-pulse-slow"></div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md animate-section transition-all duration-500 hover:scale-105 hover:shadow-xl"
+                    data-animate="slide-up" data-delay="100">
+                    <div class="h-64 bg-gray-100 w-full flex items-center justify-center text-gray-300">
+                        <i class="fas fa-user-circle text-6xl"></i>
+                    </div>
                     <div class="p-6 text-center">
                         <h3 class="text-xl font-bold text-primary mb-1">Priya Sundaram</h3>
                         <p class="text-accent mb-3">Co-founder & Nutritionist</p>
                         <p class="text-gray-600">Passionate about connecting traditional foods with modern health</p>
                     </div>
                 </div>
-                
+
                 <!-- Team Member 3 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-md animate-section transition-all duration-500 hover:scale-105 hover:shadow-xl" data-animate="slide-up" data-delay="200">
-                    <div class="h-64 bg-gray-200 border-2 border-dashed w-full animate-pulse-slow"></div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md animate-section transition-all duration-500 hover:scale-105 hover:shadow-xl"
+                    data-animate="slide-up" data-delay="200">
+                    <div class="h-64 bg-gray-100 w-full flex items-center justify-center text-gray-300">
+                        <i class="fas fa-user-circle text-6xl"></i>
+                    </div>
                     <div class="p-6 text-center">
                         <h3 class="text-xl font-bold text-primary mb-1">Karthik M.</h3>
                         <p class="text-accent mb-3">Farmer Network Coordinator</p>
                         <p class="text-gray-600">Facilitates training and support for our farming partners</p>
                     </div>
                 </div>
-                
+
                 <!-- Team Member 4 -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-md animate-section transition-all duration-500 hover:scale-105 hover:shadow-xl" data-animate="slide-up" data-delay="300">
-                    <div class="h-64 bg-gray-200 border-2 border-dashed w-full animate-pulse-slow"></div>
+                <div class="bg-white rounded-xl overflow-hidden shadow-md animate-section transition-all duration-500 hover:scale-105 hover:shadow-xl"
+                    data-animate="slide-up" data-delay="300">
+                    <div class="h-64 bg-gray-100 w-full flex items-center justify-center text-gray-300">
+                        <i class="fas fa-user-circle text-6xl"></i>
+                    </div>
                     <div class="p-6 text-center">
                         <h3 class="text-xl font-bold text-primary mb-1">Meena R.</h3>
                         <p class="text-accent mb-3">Product Development</p>
-                        <p class="text-gray-600">Creates delicious snacks using traditional recipes with organic ingredients</p>
+                        <p class="text-gray-600">Creates delicious snacks using traditional recipes with organic
+                            ingredients</p>
                     </div>
                 </div>
             </div>
-            
-            <div class="mt-16 bg-primary rounded-2xl p-8 md:p-12 text-white text-center animate-section transition-all duration-500 hover:scale-[1.02]" data-animate="slide-up">
+
+            <div class="mt-16 bg-primary rounded-2xl p-8 md:p-12 text-white text-center animate-section transition-all duration-500 hover:scale-[1.02]"
+                data-animate="slide-up">
                 <h3 class="text-2xl md:text-3xl font-heading font-bold mb-6">Join Our Movement</h3>
-                <p class="text-xl max-w-3xl mx-auto mb-8">Whether you're a farmer, consumer, or simply believe in our mission, there's a place for you in the Suvai Organics family.</p>
-                <a href="{{ url_for('register_main') }}" class="inline-block bg-accent text-white px-8 py-4 rounded-full hover:bg-amber-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                <p class="text-xl max-w-3xl mx-auto mb-8">Whether you're a farmer, consumer, or simply believe in our
+                    mission, there's a place for you in the Suvai Organics family.</p>
+                <a href="{{ url_for('register_main') }}"
+                    class="inline-block bg-accent text-white px-8 py-4 rounded-full hover:bg-amber-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
                     Become Part of Our Story
                 </a>
             </div>
@@ -474,13 +757,12 @@
     <footer class="bg-dark text-white pt-16 pb-8">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
-                
+
                 <!-- Brand Section -->
                 <div class="flex flex-col items-center md:items-start">
                     <div class="flex items-center mb-4">
-                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transition-all duration-500 hover:rotate-12">
-                            <span class="text-light text-xl font-bold">S</span>
-                        </div>
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                            class="w-10 h-10 rounded-full mr-3 object-cover">
                         <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
                     </div>
                     <div class="flex space-x-6">
@@ -503,11 +785,21 @@
                 <div class="flex flex-col items-center md:items-start">
                     <h4 class="text-lg font-bold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ url_for('home') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a></li>
-                        <li><a href="{{ url_for('about') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About Us</a></li>
-                        <li><a href="{{ url_for('products') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Products</a></li>
-                        <li><a href="{{ url_for('natural_farming') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural Farming</a></li>
-                        <li><a href="{{ url_for('farmers') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Farmers</a></li>
+                        <li><a href="{{ url_for('home') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a>
+                        </li>
+                        <li><a href="{{ url_for('about') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About
+                                Us</a></li>
+                        <li><a href="{{ url_for('products') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our
+                                Products</a></li>
+                        <li><a href="{{ url_for('natural_farming') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural
+                                Farming</a></li>
+                        <li><a href="{{ url_for('farmers') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our
+                                Farmers</a></li>
                     </ul>
                 </div>
 
@@ -540,40 +832,49 @@
 
     <script>
         // Simple script for mobile menu toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.querySelector('.md\\:hidden');
-            const mobileMenu = document.querySelector('.mobile-menu');
-            
-            if(mobileMenuButton) {
-                mobileMenuButton.addEventListener('click', function() {
-                    // This would toggle a mobile menu in a real implementation
-                    alert('Mobile menu would open here. In a complete implementation, this would show the navigation menu.');
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function () {
+                    mobileMenu.classList.add('open');
+                    document.body.style.overflow = 'hidden';
                 });
             }
-            
+
+            const closeMobileMenu = document.getElementById('closeMobileMenu');
+            if (closeMobileMenu) {
+                closeMobileMenu.addEventListener('click', function () {
+                    mobileMenu.classList.remove('open');
+                    document.body.style.overflow = '';
+                });
+            }
+
             // Page fade-in animation
             document.body.classList.add('opacity-0');
             setTimeout(() => {
                 document.body.classList.add('transition-opacity', 'duration-1000');
                 document.body.classList.remove('opacity-0');
             }, 50);
-            
+
             // Scroll animations for sections
             const animateSections = () => {
                 const sections = document.querySelectorAll('.animate-section');
-                
+
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             const animationType = entry.target.getAttribute('data-animate') || 'fade-in';
                             const delay = entry.target.getAttribute('data-delay') || 0;
-                            
+
                             setTimeout(() => {
                                 entry.target.style.opacity = '1';
                                 entry.target.style.transform = 'translateY(0)';
                                 entry.target.classList.add(`animate-${animationType}`);
                             }, delay);
-                            
+
                             observer.unobserve(entry.target);
                         }
                     });
@@ -581,19 +882,19 @@
                     threshold: 0.1,
                     rootMargin: '0px 0px -50px 0px'
                 });
-                
+
                 sections.forEach(section => {
                     observer.observe(section);
                 });
             };
-            
+
             animateSections();
-            
+
             // Smooth scrolling for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
+                anchor.addEventListener('click', function (e) {
                     e.preventDefault();
-                    
+
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
                         target.scrollIntoView({
@@ -603,7 +904,7 @@
                     }
                 });
             });
-            
+
             // Add subtle pulse animation to leaf icons
             const leafIcons = document.querySelectorAll('.leaf-icon');
             leafIcons.forEach((icon, index) => {
@@ -614,4 +915,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Suvai Organics{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4a6c3c',
+                        secondary: '#a8c48f',
+                        accent: '#d4a76a',
+                        light: '#f8f5e9',
+                        dark: '#2c3e22',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .nav-link {
+            position: relative;
+            display: inline-block;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4a6c3c;
+            transition: width 0.4s ease;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+    </style>
+    {% block styles %}{% endblock %}
+</head>
+
+<body class="font-body text-dark bg-light flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="{{ url_for('home') }}" class="flex items-center">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                            class="w-10 h-10 rounded-full mr-3 object-cover">
+                        <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="{{ url_for('home') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
+                    <a href="{{ url_for('about') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
+                    <a href="{{ url_for('products') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
+                    <a href="{{ url_for('natural_farming') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Natural Farming</a>
+                    <a href="{{ url_for('farmers') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Farmers</a>
+                    <a href="{{ url_for('gallery') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Gallery</a>
+                    <a href="{{ url_for('contact') }}"
+                        class="font-medium text-primary hover:text-accent transition nav-link">Contact Us</a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <a href="{{ url_for('view_cart') }}" class="relative text-gray-600 hover:text-primary">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        {% if session.get('cart') %}
+                        <span
+                            class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{
+                            session['cart']|length }}</span>
+                        {% endif %}
+                    </a>
+
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('profile') }}"
+                        class="hidden md:block text-primary font-medium hover:text-dark transition">Hi, {{
+                        current_user.username }}</a>
+                    <a href="{{ url_for('customer_logout') }}"
+                        class="hidden md:block bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition text-sm">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('customer_login') }}"
+                        class="hidden md:block text-gray-600 hover:text-primary font-medium transition">Login</a>
+                    <a href="{{ url_for('register_main') }}"
+                        class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
+                    {% endif %}
+
+                    <button class="md:hidden text-gray-600" id="mobile-menu-button">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-menu md:hidden bg-white border-t mt-2" id="mobile-menu">
+                <div class="px-4 py-5 space-y-3">
+                    <a href="{{ url_for('home') }}"
+                        class="block font-medium text-gray-600 hover:text-primary transition">Home</a>
+                    <a href="{{ url_for('about') }}"
+                        class="block font-medium text-gray-600 hover:text-primary transition">About Us</a>
+                    <a href="{{ url_for('products') }}"
+                        class="block font-medium text-gray-600 hover:text-primary transition">Our Products</a>
+                    <a href="{{ url_for('natural_farming') }}"
+                        class="block font-medium text-gray-600 hover:text-primary transition">Natural Farming</a>
+                    <a href="{{ url_for('farmers') }}"
+                        class="block font-medium text-gray-600 hover:text-primary transition">Our Farmers</a>
+                    <a href="{{ url_for('gallery') }}"
+                        class="block font-medium text-gray-600 hover:text-primary transition">Gallery</a>
+                    <a href="{{ url_for('contact') }}"
+                        class="block font-medium text-primary hover:text-accent transition">Contact Us</a>
+                    {% if current_user.is_authenticated %}
+                    <div class="border-t border-gray-100 pt-3 mt-3">
+                        <p class="text-sm text-gray-500 mb-2">Signed in as {{ current_user.username }}</p>
+                        <a href="{{ url_for('profile') }}"
+                            class="block font-medium text-primary hover:text-dark transition mb-2">My Profile</a>
+                        <a href="{{ url_for('customer_logout') }}"
+                            class="block font-medium text-red-500 hover:text-red-700 transition">Logout</a>
+                    </div>
+                    {% else %}
+                    <div class="border-t border-gray-100 pt-3 mt-3 flex flex-col space-y-2">
+                        <a href="{{ url_for('customer_login') }}"
+                            class="block text-center border border-primary text-primary px-4 py-2 rounded-full">Login</a>
+                        <a href="{{ url_for('register_main') }}"
+                            class="block text-center bg-primary text-white px-4 py-2 rounded-full">Register</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="container mx-auto px-4 mt-6">
+            {% for category, message in messages %}
+            <div
+                class="p-4 rounded mb-4 {% if category == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                            class="w-10 h-10 rounded-full mr-3 object-cover">
+                        <h3 class="text-xl font-heading font-bold">Suvai Organics</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">Bringing the purity of nature straight to your table. Grown with love,
+                        served with care.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-accent">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="{{ url_for('home') }}" class="text-gray-400 hover:text-white transition">Home</a>
+                        </li>
+                        <li><a href="{{ url_for('products') }}"
+                                class="text-gray-400 hover:text-white transition">Shop</a></li>
+                        <li><a href="{{ url_for('farmers') }}"
+                                class="text-gray-400 hover:text-white transition">Farmers</a></li>
+                        <li><a href="{{ url_for('about') }}" class="text-gray-400 hover:text-white transition">About
+                                Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-accent">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> 123 Organic Way, Green Valley</li>
+                        <li><i class="fas fa-phone mr-2"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope mr-2"></i> hello@suvaiorganics.com</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-accent">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe for updates and healthy recipes.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email"
+                            class="px-4 py-2 rounded-l-lg w-full text-dark focus:outline-none">
+                        <button type="submit" class="bg-primary px-4 py-2 rounded-r-lg hover:bg-opacity-90 transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 Suvai Organics. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+
+</html>

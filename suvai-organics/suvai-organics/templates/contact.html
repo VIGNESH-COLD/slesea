@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Suvai Organics | Taste the Purity of Nature</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -48,23 +51,27 @@
             background-size: cover;
             background-position: center;
         }
+
         .contact-form-bg {
             background-color: #f8f5e9;
             background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23a8c48f' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
+
         .map-container {
             position: relative;
             overflow: hidden;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             transform: perspective(1000px) rotateX(0) rotateY(0);
             transform-style: preserve-3d;
             transition: transform 0.6s cubic-bezier(0.17, 0.67, 0.83, 0.67), box-shadow 0.4s ease;
         }
+
         .map-container:hover {
             transform: perspective(1000px) rotateX(1deg) rotateY(-1deg);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
+
         .contact-icon {
             width: 60px;
             height: 60px;
@@ -78,19 +85,23 @@
             margin-bottom: 20px;
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+
         .contact-card {
             transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
             border-bottom: 3px solid #a8c48f;
             transform: translateY(0);
         }
+
         .contact-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
+
         .contact-card:hover .contact-icon {
             transform: scale(1.1) rotate(5deg);
             background-color: #4a6c3c;
         }
+
         .form-input {
             border: 1px solid #cbd5e0;
             border-radius: 8px;
@@ -99,23 +110,25 @@
             transition: all 0.3s ease;
             background-color: #fff;
         }
+
         .form-input:focus {
             outline: none;
             border-color: #a8c48f;
             box-shadow: 0 0 0 3px rgba(168, 196, 143, 0.2);
         }
-        
+
         /* Scroll animation styles */
         .scroll-section {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
+
         .scroll-section.animate {
             opacity: 1;
             transform: translateY(0);
         }
-        
+
         /* Loading spinner */
         .loader {
             display: inline-block;
@@ -128,53 +141,59 @@
             margin-right: 10px;
             vertical-align: middle;
         }
-        
+
         /* Smooth page transitions */
         html {
             scroll-behavior: smooth;
         }
-        
+
         /* FAQ animations */
         .faq-answer {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.6s ease;
         }
+
         .faq-answer.open {
             max-height: 500px;
         }
+
         .faq-question i {
             transition: transform 0.4s ease;
         }
+
         .faq-question.open i {
             transform: rotate(180deg);
         }
-        
+
         /* Button animations */
         .btn-hover {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform: translateY(0) scale(1);
         }
+
         .btn-hover:hover {
             transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* Header animation */
         header {
             transition: all 0.3s ease;
         }
+
         .header-scrolled {
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             padding-top: 8px;
             padding-bottom: 8px;
         }
-        
+
         /* Link hover effects */
         .nav-link {
             position: relative;
             display: inline-block;
         }
+
         .nav-link:after {
             content: '';
             position: absolute;
@@ -185,40 +204,151 @@
             background: #4a6c3c;
             transition: width 0.4s ease;
         }
+
         .nav-link:hover:after {
             width: 100%;
         }
+
+        /* Mobile menu styling */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s ease-in-out;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: white;
+            z-index: 50;
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
     </style>
 </head>
+
 <body class="font-body text-dark bg-light">
     <!-- Header -->
     <header class="sticky top-0 z-50 bg-white shadow-md transition-all duration-300">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <a href="{{ url_for('home') }}" class="flex items-center transition-transform duration-300 hover:scale-105">
-                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transform transition-transform duration-500 hover:rotate-12">
-                            <span class="text-light text-xl font-bold">S</span>
-                        </div>
+                    <a href="{{ url_for('home') }}"
+                        class="flex items-center transition-transform duration-300 hover:scale-105">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                            class="w-10 h-10 rounded-full mr-3 object-cover">
                         <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
                     </a>
                 </div>
-                
-               <nav class="hidden md:flex space-x-8">
-                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
-                    <a href="{{ url_for('about') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
-                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
-                    <a href="{{ url_for('natural_farming') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Natural Farming</a>
-                    <a href="{{ url_for('farmers') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Farmers</a>
-                    <a href="{{ url_for('gallery') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Gallery</a>
-                    <a href="{{ url_for('contact') }}" class="font-medium text-primary hover:text-accent transition nav-link">Contact Us</a>
+
+                <nav class="hidden md:flex space-x-6 xl:space-x-8">
+                    <a href="{{ url_for('home') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
+                    <a href="{{ url_for('about') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
+                    <a href="{{ url_for('products') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
+                    <a href="{{ url_for('natural_farming') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Natural Farming</a>
+                    <a href="{{ url_for('farmers') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Farmers</a>
+                    <a href="{{ url_for('gallery') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition nav-link">Gallery</a>
+                    <a href="{{ url_for('contact') }}"
+                        class="font-medium text-primary hover:text-accent transition nav-link">Contact Us</a>
                 </nav>
-                
+
                 <div class="flex items-center space-x-4">
-                    <a href="{{ url_for('register_main') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition btn-hover transform hover:scale-105">Register</a>
-                    <button class="md:hidden text-gray-600 transition-transform duration-300 hover:rotate-90">
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('profile') }}"
+                        class="hidden md:block text-gray-600 hover:text-primary transition" title="My Profile">
+                        <i class="fas fa-user-circle text-xl"></i>
+                    </a>
+                    <a href="{{ url_for('customer_logout') }}"
+                        class="hidden md:block bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition text-sm">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('customer_login') }}"
+                        class="hidden md:block text-gray-600 hover:text-primary transition font-medium">Login</a>
+                    <a href="{{ url_for('register_customer') }}"
+                        class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition text-sm">Register</a>
+                    {% endif %}
+
+                    <a href="{{ url_for('view_cart') }}" class="relative text-gray-600 hover:text-primary transition">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span
+                            class="absolute -top-2 -right-2 bg-accent text-white text-xs font-bold px-1.5 py-0.5 rounded-full cart-count">0</span>
+                    </a>
+
+                    <button id="mobileMenuButton"
+                        class="md:hidden text-gray-600 transition-transform duration-300 hover:rotate-90">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu md:hidden bg-white overflow-y-auto">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex justify-between items-center mb-8">
+                    <div class="flex items-center">
+                        <a href="{{ url_for('home') }}" class="flex items-center">
+                            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                                class="w-10 h-10 rounded-full mr-3 object-cover">
+                            <h1 class="text-xl font-heading font-bold text-primary">Suvai Organics</h1>
+                        </a>
+                    </div>
+                    <button id="closeMobileMenu" class="text-gray-600 text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="flex flex-col space-y-4">
+                    <a href="{{ url_for('home') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Home</a>
+                    <a href="{{ url_for('about') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">About
+                        Us</a>
+                    <a href="{{ url_for('products') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Products</a>
+                    <a href="{{ url_for('natural_farming') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Natural
+                        Farming</a>
+                    <a href="{{ url_for('farmers') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Farmers</a>
+                    <a href="{{ url_for('gallery') }}"
+                        class="font-medium text-gray-600 hover:text-primary py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Gallery</a>
+                    <a href="{{ url_for('contact') }}"
+                        class="font-medium text-primary hover:text-accent py-2 px-4 border-b border-gray-100 transition duration-300 hover:bg-light">Contact</a>
+                </div>
+
+                <div class="mt-8 pt-4 px-4">
+                    {% if current_user.is_authenticated %}
+                    <div class="flex items-center mb-6">
+                        <div
+                            class="bg-primary/10 rounded-full w-10 h-10 flex items-center justify-center mr-3 text-primary">
+                            {{ current_user.username[0].upper() }}
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800">{{ current_user.username }}</p>
+                            <p class="text-xs text-gray-500">{{ current_user.email }}</p>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('profile') }}"
+                        class="block text-center w-full border border-gray-300 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-50 transition mb-3">My
+                        Profile</a>
+                    <a href="{{ url_for('customer_logout') }}"
+                        class="block text-center w-full bg-red-50 text-red-600 px-6 py-3 rounded-full hover:bg-red-100 transition">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('customer_login') }}"
+                        class="block text-center w-full border border-primary text-primary px-6 py-3 rounded-full hover:bg-primary/5 transition mb-3">Login</a>
+                    <a href="{{ url_for('register_customer') }}"
+                        class="block text-center w-full bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition">Register</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -228,7 +358,8 @@
     <section class="contact-hero py-20 text-center text-white">
         <div class="container mx-auto px-4">
             <h1 class="text-4xl md:text-6xl font-heading font-bold mb-6 animate-fade-in">Get in Touch</h1>
-            <p class="text-xl max-w-3xl mx-auto animate-slide-up opacity-0" style="animation-delay: 0.2s">We'd love to hear from you! Reach out to us with any questions or feedback.</p>
+            <p class="text-xl max-w-3xl mx-auto animate-slide-up opacity-0" style="animation-delay: 0.2s">We'd love to
+                hear from you! Reach out to us with any questions or feedback.</p>
         </div>
     </section>
 
@@ -237,13 +368,15 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-center mb-16 scroll-section">
                 <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">How to Reach Us</h2>
-                <p class="text-lg text-gray-700 mb-8">Whether you have questions about our products, farming practices, or want to partner with us, we're here to help.</p>
+                <p class="text-lg text-gray-700 mb-8">Whether you have questions about our products, farming practices,
+                    or want to partner with us, we're here to help.</p>
                 <div class="w-24 h-1 bg-accent mx-auto animate-pulse-slow"></div>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Contact Card 1 -->
-                <div class="contact-card bg-white p-8 rounded-xl shadow-md text-center scroll-section" style="transition-delay: 0.1s">
+                <div class="contact-card bg-white p-8 rounded-xl shadow-md text-center scroll-section"
+                    style="transition-delay: 0.1s">
                     <div class="contact-icon mx-auto">
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
@@ -252,9 +385,10 @@
                     <p class="text-gray-600">123 Organic Farm Road</p>
                     <p class="text-gray-600">Tamil Nadu, India - 600001</p>
                 </div>
-                
+
                 <!-- Contact Card 2 -->
-                <div class="contact-card bg-white p-8 rounded-xl shadow-md text-center scroll-section" style="transition-delay: 0.2s">
+                <div class="contact-card bg-white p-8 rounded-xl shadow-md text-center scroll-section"
+                    style="transition-delay: 0.2s">
                     <div class="contact-icon mx-auto">
                         <i class="fas fa-phone-alt"></i>
                     </div>
@@ -263,9 +397,10 @@
                     <p class="text-gray-600">+91 98765 43210</p>
                     <p class="text-gray-600">+91 87654 32109</p>
                 </div>
-                
+
                 <!-- Contact Card 3 -->
-                <div class="contact-card bg-white p-8 rounded-xl shadow-md text-center scroll-section" style="transition-delay: 0.3s">
+                <div class="contact-card bg-white p-8 rounded-xl shadow-md text-center scroll-section"
+                    style="transition-delay: 0.3s">
                     <div class="contact-icon mx-auto">
                         <i class="fas fa-envelope"></i>
                     </div>
@@ -275,21 +410,26 @@
                     <p class="text-gray-600">support@suvaiorganics.com</p>
                 </div>
             </div>
-            
+
             <div class="mt-16 bg-primary rounded-2xl p-8 md:p-12 text-white text-center scroll-section">
                 <h3 class="text-2xl md:text-3xl font-heading font-bold mb-6">Join Our Community</h3>
-                <p class="text-xl max-w-3xl mx-auto mb-8">Connect with us on social media for daily updates, farming tips, and special offers.</p>
+                <p class="text-xl max-w-3xl mx-auto mb-8">Connect with us on social media for daily updates, farming
+                    tips, and special offers.</p>
                 <div class="flex justify-center space-x-6">
-                    <a href="#" class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition transform hover:scale-110">
+                    <a href="#"
+                        class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition transform hover:scale-110">
                         <i class="fab fa-facebook-f text-primary text-xl"></i>
                     </a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition transform hover:scale-110">
+                    <a href="#"
+                        class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition transform hover:scale-110">
                         <i class="fab fa-instagram text-primary text-xl"></i>
                     </a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition transform hover:scale-110">
+                    <a href="#"
+                        class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition transform hover:scale-110">
                         <i class="fab fa-whatsapp text-primary text-xl"></i>
                     </a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition transform hover:scale-110">
+                    <a href="#"
+                        class="w-12 h-12 rounded-full bg-white flex items-center justify-center hover:bg-accent transition transform hover:scale-110">
                         <i class="fab fa-youtube text-primary text-xl"></i>
                     </a>
                 </div>
@@ -304,27 +444,35 @@
                 <!-- Contact Form -->
                 <div class="bg-white rounded-xl shadow-lg p-8 scroll-section">
                     <h2 class="text-3xl font-heading font-bold text-primary mb-6">Send Us a Message</h2>
-                    <p class="text-gray-700 mb-8">Have questions about our products, farming practices, or partnerships? Fill out the form below and we'll get back to you soon.</p>
-                    
-                    <form class="space-y-6">
+                    <p class="text-gray-700 mb-8">Have questions about our products, farming practices, or partnerships?
+                        Fill out the form below and we'll get back to you soon.</p>
+
+                    <form action="{{ url_for('contact') }}" method="POST" class="space-y-6">
                         <div>
                             <label for="name" class="block text-gray-700 mb-2">Your Name</label>
-                            <input type="text" id="name" class="form-input transition-all duration-300 hover:shadow-md" placeholder="Enter your name">
+                            <input type="text" id="name" name="name"
+                                class="form-input transition-all duration-300 hover:shadow-md"
+                                placeholder="Enter your name" required>
                         </div>
-                        
+
                         <div>
                             <label for="email" class="block text-gray-700 mb-2">Email Address</label>
-                            <input type="email" id="email" class="form-input transition-all duration-300 hover:shadow-md" placeholder="Enter your email">
+                            <input type="email" id="email" name="email"
+                                class="form-input transition-all duration-300 hover:shadow-md"
+                                placeholder="Enter your email" required>
                         </div>
-                        
+
                         <div>
                             <label for="phone" class="block text-gray-700 mb-2">Phone Number (Optional)</label>
-                            <input type="tel" id="phone" class="form-input transition-all duration-300 hover:shadow-md" placeholder="Enter your phone number">
+                            <input type="tel" id="phone" name="phone"
+                                class="form-input transition-all duration-300 hover:shadow-md"
+                                placeholder="Enter your phone number">
                         </div>
-                        
+
                         <div>
                             <label for="subject" class="block text-gray-700 mb-2">Subject</label>
-                            <select id="subject" class="form-input transition-all duration-300 hover:shadow-md">
+                            <select id="subject" name="subject"
+                                class="form-input transition-all duration-300 hover:shadow-md" required>
                                 <option value="" disabled selected>Select a subject</option>
                                 <option value="product">Product Inquiry</option>
                                 <option value="order">Order Support</option>
@@ -333,24 +481,25 @@
                                 <option value="other">Other</option>
                             </select>
                         </div>
-                        
+
                         <div>
                             <label for="message" class="block text-gray-700 mb-2">Your Message</label>
-                            <textarea id="message" rows="5" class="form-input transition-all duration-300 hover:shadow-md" placeholder="Type your message here..."></textarea>
+                            <textarea id="message" name="message" rows="5"
+                                class="form-input transition-all duration-300 hover:shadow-md"
+                                placeholder="Type your message here..." required></textarea>
                         </div>
-                        
-                        <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-dark transition font-medium btn-hover">
+
+                        <button type="submit"
+                            class="w-full bg-primary text-white py-3 rounded-lg hover:bg-dark transition font-medium btn-hover">
                             <span id="button-text">Send Message</span>
-                            <span id="button-spinner" class="hidden ml-2">
-                                <i class="fas fa-spinner animate-spin-slow"></i>
-                            </span>
                         </button>
                     </form>
                 </div>
-                
+
                 <!-- Map -->
                 <div class="map-container scroll-section" style="transition-delay: 0.2s">
-                    <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-full min-h-[500px] flex items-center justify-center">
+                    <div
+                        class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-full min-h-[500px] flex items-center justify-center">
                         <div class="text-center p-8">
                             <i class="fas fa-map-marked-alt text-6xl text-primary mb-4 animate-pulse-slow"></i>
                             <h3 class="text-2xl font-heading font-bold text-primary mb-2">Our Farm Location</h3>
@@ -367,24 +516,28 @@
     <section class="py-16">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-center mb-16 scroll-section">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Frequently Asked Questions</h2>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Frequently Asked Questions
+                </h2>
                 <p class="text-lg text-gray-700">Find answers to common questions about Suvai Organics</p>
             </div>
-            
+
             <div class="max-w-3xl mx-auto space-y-6 scroll-section" style="transition-delay: 0.1s">
                 <!-- FAQ 1 -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
                     <button class="faq-question w-full flex justify-between items-center p-6 text-left">
-                        <h3 class="text-lg font-medium text-primary">How can I place an order for your organic products?</h3>
+                        <h3 class="text-lg font-medium text-primary">How can I place an order for your organic products?
+                        </h3>
                         <i class="fas fa-chevron-down text-accent"></i>
                     </button>
                     <div class="faq-answer">
                         <div class="px-6 pb-6 text-gray-700">
-                            <p>You can place orders through our website by visiting the "Our Products" section. Select the items you want, add them to your cart, and proceed to checkout. We offer delivery across Tamil Nadu with options for both cash on delivery and online payments.</p>
+                            <p>You can place orders through our website by visiting the "Our Products" section. Select
+                                the items you want, add them to your cart, and proceed to checkout. We offer delivery
+                                across Tamil Nadu with options for both cash on delivery and online payments.</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- FAQ 2 -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
                     <button class="faq-question w-full flex justify-between items-center p-6 text-left">
@@ -393,11 +546,13 @@
                     </button>
                     <div class="faq-answer">
                         <div class="px-6 pb-6 text-gray-700">
-                            <p>Yes, we welcome visitors to experience our natural farming practices firsthand. We organize farm tours on the first Saturday of every month. Please contact us at least one week in advance to schedule your visit and for more details about the tour program.</p>
+                            <p>Yes, we welcome visitors to experience our natural farming practices firsthand. We
+                                organize farm tours on the first Saturday of every month. Please contact us at least one
+                                week in advance to schedule your visit and for more details about the tour program.</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- FAQ 3 -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
                     <button class="faq-question w-full flex justify-between items-center p-6 text-left">
@@ -406,11 +561,14 @@
                     </button>
                     <div class="faq-answer">
                         <div class="px-6 pb-6 text-gray-700">
-                            <p>We're always looking to partner with farmers practicing or interested in transitioning to natural farming. Visit our "Farmer Registration" page to fill out an application. We provide training, resources, and a guaranteed market for your chemical-free produce at fair prices.</p>
+                            <p>We're always looking to partner with farmers practicing or interested in transitioning to
+                                natural farming. Visit our "Farmer Registration" page to fill out an application. We
+                                provide training, resources, and a guaranteed market for your chemical-free produce at
+                                fair prices.</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- FAQ 4 -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
                     <button class="faq-question w-full flex justify-between items-center p-6 text-left">
@@ -419,11 +577,14 @@
                     </button>
                     <div class="faq-answer">
                         <div class="px-6 pb-6 text-gray-700">
-                            <p>All our products are certified organic by the Tamil Nadu Organic Certification Department. We also follow PGS (Participatory Guarantee System) certification which involves peer review and community-based verification. Our farming practices adhere to NPOP (National Programme for Organic Production) standards.</p>
+                            <p>All our products are certified organic by the Tamil Nadu Organic Certification
+                                Department. We also follow PGS (Participatory Guarantee System) certification which
+                                involves peer review and community-based verification. Our farming practices adhere to
+                                NPOP (National Programme for Organic Production) standards.</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- FAQ 5 -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
                     <button class="faq-question w-full flex justify-between items-center p-6 text-left">
@@ -432,7 +593,9 @@
                     </button>
                     <div class="faq-answer">
                         <div class="px-6 pb-6 text-gray-700">
-                            <p>Yes, we have special wholesale programs for retailers, wellness centers, and businesses. Please register as a "Sales Partner" through our registration page or contact our partnership team at partnerships@suvaiorganics.com for pricing details and terms.</p>
+                            <p>Yes, we have special wholesale programs for retailers, wellness centers, and businesses.
+                                Please register as a "Sales Partner" through our registration page or contact our
+                                partnership team at partnerships@suvaiorganics.com for pricing details and terms.</p>
                         </div>
                     </div>
                 </div>
@@ -444,13 +607,12 @@
     <footer class="bg-dark text-white pt-16 pb-8">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
-                
+
                 <!-- Brand Section -->
                 <div class="flex flex-col items-center md:items-start scroll-section" style="transition-delay: 0.1s">
                     <div class="flex items-center mb-4">
-                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transform transition-transform duration-500 hover:rotate-12">
-                            <span class="text-light text-xl font-bold">S</span>
-                        </div>
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                            class="w-10 h-10 rounded-full mr-3 object-cover">
                         <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
                     </div>
                     <div class="flex space-x-6">
@@ -473,11 +635,21 @@
                 <div class="flex flex-col items-center md:items-start scroll-section" style="transition-delay: 0.2s">
                     <h4 class="text-lg font-bold mb-4">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ url_for('home') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a></li>
-                        <li><a href="{{ url_for('about') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About Us</a></li>
-                        <li><a href="{{ url_for('products') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Products</a></li>
-                        <li><a href="{{ url_for('natural_farming') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural Farming</a></li>
-                        <li><a href="{{ url_for('farmers') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Farmers</a></li>
+                        <li><a href="{{ url_for('home') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a>
+                        </li>
+                        <li><a href="{{ url_for('about') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About
+                                Us</a></li>
+                        <li><a href="{{ url_for('products') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our
+                                Products</a></li>
+                        <li><a href="{{ url_for('natural_farming') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural
+                                Farming</a></li>
+                        <li><a href="{{ url_for('farmers') }}"
+                                class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our
+                                Farmers</a></li>
                     </ul>
                 </div>
 
@@ -501,7 +673,7 @@
                 </div>
             </div>
 
-                
+
             <div class="pt-8 border-t border-gray-700 text-center">
                 <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
                 <p class="mt-2 text-gray-500 text-sm animate-pulse-slow">Join us in building a healthier tomorrow.</p>
@@ -515,7 +687,7 @@
             button.addEventListener('click', () => {
                 const answer = button.nextElementSibling;
                 const icon = button.querySelector('i');
-                
+
                 // Toggle answer visibility with animation
                 if (answer.classList.contains('open')) {
                     answer.classList.remove('open');
@@ -526,28 +698,49 @@
                 }
             });
         });
-        
+
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function () {
+                    mobileMenu.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            const closeMobileMenu = document.getElementById('closeMobileMenu');
+            if (closeMobileMenu) {
+                closeMobileMenu.addEventListener('click', function () {
+                    mobileMenu.classList.remove('open');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+
         // Form submission simulation with loading animation
         const contactForm = document.querySelector('form');
-        if(contactForm) {
+        if (contactForm) {
             contactForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                
+
                 const buttonText = document.getElementById('button-text');
                 const buttonSpinner = document.getElementById('button-spinner');
                 const button = contactForm.querySelector('button[type="submit"]');
-                
+
                 // Show loading state
                 buttonText.textContent = 'Sending...';
                 buttonSpinner.classList.remove('hidden');
                 button.disabled = true;
-                
+
                 // Simulate API call
                 setTimeout(() => {
                     // Hide loading state
                     buttonText.textContent = 'Message Sent!';
                     buttonSpinner.classList.add('hidden');
-                    
+
                     // Show success state
                     setTimeout(() => {
                         alert('Thank you for your message! We will get back to you soon.');
@@ -558,14 +751,14 @@
                 }, 2000);
             });
         }
-        
+
         // Scroll animation observer
         const observerOptions = {
             root: null,
             rootMargin: '0px',
             threshold: 0.1
         };
-        
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -573,12 +766,12 @@
                 }
             });
         }, observerOptions);
-        
+
         // Observe all scroll sections
         document.querySelectorAll('.scroll-section').forEach(section => {
             observer.observe(section);
         });
-        
+
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
@@ -588,7 +781,7 @@
                 header.classList.remove('header-scrolled');
             }
         });
-        
+
         // Initial animations for hero elements
         document.querySelectorAll('.animate-fade-in, .animate-slide-up').forEach(el => {
             setTimeout(() => {
@@ -597,4 +790,5 @@
         });
     </script>
 </body>
+
 </html>

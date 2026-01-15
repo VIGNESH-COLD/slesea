@@ -1,184 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Upload - Suvai Admin</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    .image-preview {
-      height: 200px;
-      object-fit: contain;
-    }
-  </style>
-</head>
-<body class="bg-gray-100 font-sans">
-  <div class="flex h-screen">
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-green-800 text-white flex flex-col">
-      <div class="p-6 text-2xl font-bold border-b border-green-700">Suvai Admin</div>
-      <nav class="flex-1 p-4">
-        <ul class="space-y-4">
-          <li><a href="{{ url_for('admin_dashboard')}}" class="block p-2 rounded hover:bg-green-700">📊 Dashboard</a></li>
-          <li><a href="{{ url_for('products_upload')}}" class="block p-2 rounded bg-green-700">🛒 Products</a></li>
-          <li><a href="{{ url_for('farmers_manage')}}" class="block p-2 rounded hover:bg-green-700">👩‍🌾 Farmers</a></li>
-          <li><a href="{{ url_for('gallery_manage')}}" class="block p-2 rounded hover:bg-green-700">🖼 Gallery</a></li>
-          <li><a href="{{ url_for('partners_manage')}}" class="block p-2 rounded hover:bg-green-700">🤝 Partners</a></li>
-        </ul>
-      </nav>
-      <div class="p-4 border-t border-green-700">
-        <a href="{{ url_for('admin_logout') }}" class="w-full bg-red-500 py-2 rounded hover:bg-red-600 block text-center">🚪 Logout</a>
-      </div>
-    </aside>
+{% extends "admin-layout.html" %}
+{% set admin_active_page = 'products' %}
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-1 p-8 overflow-y-auto">
-      <h1 class="text-3xl font-bold text-green-900 mb-6">🛒 Product Upload</h1>
-      
-      <!-- Flash Messages -->
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          <div class="mb-6">
-            {% for category, message in messages %}
-              <div class="p-4 rounded {% if category == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
-                {{ message }}
-              </div>
-            {% endfor %}
+{% block title %}Products Management - Suvai Admin{% endblock %}
+
+{% block page_title %}Products Management{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <!-- Add Product Form -->
+  <div class="lg:col-span-1">
+    <div class="bg-white rounded-xl shadow-sm p-6 sticky top-24">
+      <h3 class="text-lg font-bold text-gray-800 mb-4">
+        <i class="fas fa-plus-circle text-admin-accent mr-2"></i>Add New Product
+      </h3>
+
+      <form action="{{ url_for('products_upload') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Product SKU</label>
+          <input type="text" name="sku" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-transparent"
+            placeholder="e.g., RICE-001">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+          <input type="text" name="name" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-transparent"
+            placeholder="e.g., Organic Basmati Rice">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+          <textarea name="description" rows="3"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-transparent resize-none"
+            placeholder="Product description..."></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Price (₹)</label>
+            <input type="number" name="price" step="0.01" required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-transparent"
+              placeholder="0.00">
           </div>
-        {% endif %}
-      {% endwith %}
-      
-      <!-- Add/Edit Product Form -->
-      <div class="bg-white p-6 rounded-lg shadow mb-6">
-        <h2 class="text-xl font-semibold text-green-700 mb-4">➕ Add New Product</h2>
-        <form method="POST" action="{{ url_for('products_upload') }}" enctype="multipart/form-data" id="product-form">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-gray-700 mb-2">SKU *</label>
-              <input type="text" name="sku" placeholder="Product SKU" class="w-full p-2 border rounded" required>
-            </div>
-            
-            <div>
-              <label class="block text-gray-700 mb-2">Name *</label>
-              <input type="text" name="name" placeholder="Product Name" class="w-full p-2 border rounded" required>
-            </div>
-            
-            <div>
-              <label class="block text-gray-700 mb-2">Price (₹) *</label>
-              <input type="number" name="price" placeholder="Price" class="w-full p-2 border rounded" required min="0" step="0.01">
-            </div>
-            
-            <div>
-              <label class="block text-gray-700 mb-2">Category</label>
-              <select name="category" class="w-full p-2 border rounded">
-                <option value="">Select Category</option>
-                <option value="Organic Grains">Organic Grains</option>
-                <option value="Spices & Herbs">Spices & Herbs</option>
-                <option value="Cold-pressed Oils">Cold-pressed Oils</option>
-                <option value="Health Mixes">Health Mixes</option>
-                <option value="Natural Sweeteners">Natural Sweeteners</option>
-                <option value="Ready-to-eat Snacks">Ready-to-eat Snacks</option>
-                <option value="Seasonal Produce">Seasonal Produce</option>
-              </select>
-            </div>
-            
-            <div>
-              <label class="block text-gray-700 mb-2">Stock Quantity</label>
-              <input type="number" name="stock" placeholder="Stock" class="w-full p-2 border rounded" min="0">
-            </div>
-            
-            <div>
-              <label class="block text-gray-700 mb-2">Product Image</label>
-              <input type="file" name="image" id="image-upload" class="w-full p-2 border rounded" accept="image/*">
-              <p class="text-sm text-gray-500 mt-1">Max 2MB (JPG, PNG, GIF)</p>
-            </div>
-            
-            <div class="md:col-span-2">
-              <label class="block text-gray-700 mb-2">Description</label>
-              <textarea name="description" placeholder="Product Description" class="w-full p-2 border rounded h-32"></textarea>
-            </div>
-            
-            <!-- Image Preview -->
-            <div class="md:col-span-2">
-              <div class="border rounded-lg p-4 flex flex-col items-center">
-                <h3 class="text-lg font-medium mb-3">Image Preview</h3>
-                <div id="image-preview-container" class="w-64 h-48 bg-gray-100 border-2 border-dashed rounded-lg flex items-center justify-center">
-                  <p class="text-gray-500">No image selected</p>
-                </div>
-              </div>
-            </div>
-            
-            <div class="md:col-span-2 flex justify-end">
-              <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">
-                Add Product
-              </button>
-            </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Stock</label>
+            <input type="number" name="stock" value="0"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-transparent"
+              placeholder="0">
           </div>
-        </form>
-      </div>
-    </main>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+          <select name="category" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-transparent">
+            <option value="">Select Category</option>
+            <option value="Rice">Rice</option>
+            <option value="Millets">Millets</option>
+            <option value="Oils">Oils</option>
+            <option value="Spices">Spices</option>
+            <option value="Sweeteners">Sweeteners</option>
+            <option value="Snacks">Snacks</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Product Image</label>
+          <input type="file" name="image" accept="image/*"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-transparent text-sm">
+          <p class="text-xs text-gray-500 mt-1">Max 2MB. JPG, PNG, GIF</p>
+        </div>
+
+        <button type="submit"
+          class="w-full bg-admin-primary text-white py-3 rounded-lg hover:bg-admin-secondary transition font-medium">
+          <i class="fas fa-upload mr-2"></i>Add Product
+        </button>
+      </form>
+    </div>
   </div>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const imageUpload = document.getElementById('image-upload');
-      const previewContainer = document.getElementById('image-preview-container');
-      
-      // Image preview handler
-      imageUpload.addEventListener('change', function() {
-        const file = this.files[0];
-        
-        if (file) {
-          // Validate file size
-          if (file.size > 2 * 1024 * 1024) {
-            alert('File size exceeds 2MB limit');
-            this.value = '';
-            previewContainer.innerHTML = '<p class="text-gray-500">No image selected</p>';
-            return;
-          }
-          
-          // Validate file type
-          const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-          if (!validTypes.includes(file.type)) {
-            alert('Only JPG, PNG, and GIF files are allowed');
-            this.value = '';
-            previewContainer.innerHTML = '<p class="text-gray-500">No image selected</p>';
-            return;
-          }
-          
-          // Create preview
-          const reader = new FileReader();
-          reader.onload = function(e) {
-            previewContainer.innerHTML = `<img src="${e.target.result}" alt="Preview" class="image-preview w-full h-full object-contain">`;
-          }
-          reader.readAsDataURL(file);
-        } else {
-          previewContainer.innerHTML = '<p class="text-gray-500">No image selected</p>';
-        }
-      });
-      
-      // Form validation
-      const form = document.getElementById('product-form');
-      form.addEventListener('submit', function(e) {
-        const requiredFields = form.querySelectorAll('[required]');
-        let isValid = true;
-        
-        requiredFields.forEach(field => {
-          if (!field.value.trim()) {
-            isValid = false;
-            field.classList.add('border-red-500');
-          } else {
-            field.classList.remove('border-red-500');
-          }
-        });
-        
-        if (!isValid) {
-          e.preventDefault();
-          alert('Please fill in all required fields');
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+
+  <!-- Products List -->
+  <div class="lg:col-span-2">
+    <div class="bg-white rounded-xl shadow-sm">
+      <div class="p-4 border-b flex justify-between items-center">
+        <h3 class="font-bold text-gray-800">All Products ({{ products|length if products else 0 }})</h3>
+      </div>
+
+      <div class="p-4">
+        {% if products %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {% for product in products %}
+          <div class="border rounded-lg overflow-hidden hover:shadow-md transition group">
+            <div class="h-40 bg-gray-100 relative">
+              {% if product.image_filename %}
+              <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}" alt="{{ product.name }}"
+                class="w-full h-full object-cover">
+              {% else %}
+              <div class="w-full h-full flex items-center justify-center text-gray-400">
+                <i class="fas fa-image text-4xl"></i>
+              </div>
+              {% endif %}
+              <span class="absolute top-2 right-2 px-2 py-1 bg-white/90 text-xs font-bold rounded">
+                {{ product.sku }}
+              </span>
+            </div>
+            <div class="p-4">
+              <div class="flex justify-between items-start mb-2">
+                <h4 class="font-bold text-gray-900">{{ product.name }}</h4>
+                <span class="text-green-600 font-bold">₹{{ "%.2f"|format(product.price) }}</span>
+              </div>
+              <p class="text-gray-500 text-sm mb-2">{{ product.category }}</p>
+              <div class="flex justify-between items-center">
+                <span
+                  class="text-sm {% if product.stock > 5 %}text-green-600{% elif product.stock > 0 %}text-yellow-600{% else %}text-red-600{% endif %}">
+                  Stock: {{ product.stock }}
+                </span>
+                <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" class="inline"
+                  onsubmit="return confirm('Delete this product?')">
+                  <button type="submit" class="text-red-500 hover:text-red-700 text-sm">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-12">
+          <div class="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-box-open text-3xl text-gray-400"></i>
+          </div>
+          <h3 class="text-lg font-medium text-gray-700 mb-1">No products yet</h3>
+          <p class="text-gray-500">Add your first product using the form.</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

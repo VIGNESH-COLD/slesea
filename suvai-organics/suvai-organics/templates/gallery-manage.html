@@ -1,212 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery Management - Suvai Admin</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-    }
-    .gallery-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-    }
-    .gallery-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    .image-preview {
-      height: 200px;
-      object-fit: contain;
-    }
-    .delete-btn {
-      transition: all 0.2s ease;
-    }
-    .delete-btn:hover {
-      transform: scale(1.1);
-      color: #e53e3e;
-    }
-  </style>
-</head>
-<body class="bg-gray-100 font-sans">
-  <div class="flex h-screen">
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-green-800 text-white flex flex-col">
-      <div class="p-6 text-2xl font-bold border-b border-green-700">Suvai Admin</div>
-      <nav class="flex-1 p-4">
-        <ul class="space-y-4">
-          <li><a href="{{ url_for('admin_dashboard')}}" class="block p-2 rounded hover:bg-green-700">📊 Dashboard</a></li>
-          <li><a href="{{ url_for('products_upload')}}" class="block p-2 rounded hover:bg-green-700">🛒 Products</a></li>
-          <li><a href="{{ url_for('farmers_manage')}}" class="block p-2 rounded hover:bg-green-700">👩‍🌾 Farmers</a></li>
-          <li><a href="{{ url_for('gallery_manage')}}" class="block p-2 rounded bg-green-700">🖼 Gallery</a></li>
-          <li><a href="{{ url_for('partners_manage')}}" class="block p-2 rounded hover:bg-green-700">🤝 Partners</a></li>
-        </ul>
-      </nav>
-      <div class="p-4 border-t border-green-700">
-        <a href="{{ url_for('admin_logout') }}" class="w-full bg-red-500 py-2 rounded hover:bg-red-600 block text-center">🚪 Logout</a>
-      </div>
-    </aside>
+{% extends "admin-layout.html" %}
+{% set admin_active_page = 'gallery' %}
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-1 p-8 overflow-y-auto">
-      <h1 class="text-3xl font-bold text-green-900 mb-6">🖼 Gallery Management</h1>
-      
-      <!-- Flash Messages -->
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          <div class="mb-6">
-            {% for category, message in messages %}
-              <div class="p-4 rounded {% if category == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
-                {{ message }}
-              </div>
-            {% endfor %}
-          </div>
-        {% endif %}
-      {% endwith %}
+{% block title %}Gallery Management - Suvai Admin{% endblock %}
 
-      <!-- Upload Form -->
-      <div class="bg-white p-6 rounded-lg shadow mb-6">
-        <h2 class="text-xl font-semibold text-green-700 mb-4">📤 Upload New Photo</h2>
-        <form method="POST" action="{{ url_for('gallery_manage') }}" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="md:col-span-2">
-            <label class="block text-gray-700 mb-2">Image *</label>
-            <input type="file" name="image" id="image-upload" class="w-full p-2 border rounded" accept="image/*" required>
-            <p class="text-sm text-gray-500 mt-1">Max 2MB (JPG, PNG, GIF)</p>
-          </div>
-          
-          <div>
-            <label class="block text-gray-700 mb-2">Caption</label>
-            <input type="text" name="caption" placeholder="Image caption" class="w-full p-2 border rounded">
-          </div>
-          
-          <div>
-            <label class="block text-gray-700 mb-2">Category *</label>
-            <select name="category" class="w-full p-2 border rounded" required>
-              <option value="Farm Life">Farm Life</option>
-              <option value="Harvests">Harvests</option>
-              <option value="Production">Production</option>
-              <option value="Packaging">Packaging</option>
-              <option value="Community">Community</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          
-          <!-- Image Preview -->
-          <div class="md:col-span-2">
-            <div class="border rounded-lg p-4 flex flex-col items-center">
-              <h3 class="text-lg font-medium mb-3">Image Preview</h3>
-              <div id="image-preview-container" class="w-64 h-48 bg-gray-100 border-2 border-dashed rounded-lg flex items-center justify-center">
-                <p class="text-gray-500">No image selected</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="md:col-span-2 flex justify-end">
-            <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">
-              Upload Photo
-            </button>
-          </div>
-        </form>
-      </div>
+{% block page_title %}Gallery Management{% endblock %}
 
-      <!-- Gallery Grid -->
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold text-green-700 mb-4">📷 Existing Gallery</h2>
-        
-        {% if gallery_items %}
-        <div class="gallery-grid">
-          {% for item in gallery_items %}
-          <div class="gallery-item">
-            <img src="{{ url_for('static', filename='uploads/gallery/' + item.filename) }}" alt="{{ item.caption }}" class="gallery-img">
-            <div class="p-3 bg-gray-50">
-              <p class="text-sm font-medium text-gray-900 truncate">{{ item.caption if item.caption else 'No caption' }}</p>
-              <p class="text-xs text-gray-500">{{ item.category }}</p>
-              <div class="mt-2 flex justify-between items-center">
-                <span class="text-xs text-gray-500">{{ item.created_at[:10] }}</span>
-                <form method="POST" action="{{ url_for('delete_gallery_item_route', item_id=item.id) }}">
-                  <button type="submit" class="delete-btn text-red-600 hover:text-red-800">
-                    <i class="fas fa-trash"></i> Delete
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <!-- Upload Form -->
+  <div class="lg:col-span-1">
+    <div class="bg-white rounded-xl shadow-sm p-6 sticky top-24">
+      <h3 class="text-lg font-bold text-gray-800 mb-4">
+        <i class="fas fa-upload text-admin-accent mr-2"></i>Upload Image
+      </h3>
+
+      <form action="{{ url_for('gallery_manage') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Image File</label>
+          <input type="file" name="image" accept="image/*" required
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-transparent">
+          <p class="text-xs text-gray-500 mt-1">Max 2MB. JPG, PNG, GIF</p>
         </div>
-        {% else %}
-        <div class="text-center py-12">
-          <div class="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32 mx-auto mb-6 flex items-center justify-center">
-            <i class="fas fa-images text-4xl text-gray-400"></i>
-          </div>
-          <h3 class="text-xl font-bold text-gray-600 mb-3">No Gallery Items</h3>
-          <p class="text-gray-500">Upload your first image using the form above</p>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Caption</label>
+          <input type="text" name="caption"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-transparent"
+            placeholder="Image caption...">
         </div>
-        {% endif %}
-      </div>
-    </main>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+          <select name="category"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-accent focus:border-transparent">
+            <option value="Farm">Farm</option>
+            <option value="Products">Products</option>
+            <option value="Events">Events</option>
+            <option value="Team">Team</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <button type="submit"
+          class="w-full bg-admin-primary text-white py-3 rounded-lg hover:bg-admin-secondary transition font-medium">
+          <i class="fas fa-cloud-upload-alt mr-2"></i>Upload Image
+        </button>
+      </form>
+    </div>
   </div>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const imageUpload = document.getElementById('image-upload');
-      const previewContainer = document.getElementById('image-preview-container');
-      
-      // Image preview handler
-      imageUpload.addEventListener('change', function() {
-        const file = this.files[0];
-        
-        if (file) {
-          // Validate file size
-          if (file.size > 2 * 1024 * 1024) {
-            alert('File size exceeds 2MB limit');
-            this.value = '';
-            previewContainer.innerHTML = '<p class="text-gray-500">No image selected</p>';
-            return;
-          }
-          
-          // Validate file type
-          const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-          if (!validTypes.includes(file.type)) {
-            alert('Only JPG, PNG, and GIF files are allowed');
-            this.value = '';
-            previewContainer.innerHTML = '<p class="text-gray-500">No image selected</p>';
-            return;
-          }
-          
-          // Create preview
-          const reader = new FileReader();
-          reader.onload = function(e) {
-            previewContainer.innerHTML = `<img src="${e.target.result}" alt="Preview" class="image-preview w-full h-full object-contain">`;
-          }
-          reader.readAsDataURL(file);
-        } else {
-          previewContainer.innerHTML = '<p class="text-gray-500">No image selected</p>';
-        }
-      });
-      
-      // Confirm before deleting
-      const deleteForms = document.querySelectorAll('form[action*="delete"]');
-      deleteForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-          if (!confirm('Are you sure you want to delete this gallery item?')) {
-            e.preventDefault();
-          }
-        });
-      });
-    });
-  </script>
-</body>
-</html>
+
+  <!-- Gallery Grid -->
+  <div class="lg:col-span-2">
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h3 class="font-bold text-gray-800 mb-4">All Images ({{ gallery_items|length if gallery_items else 0 }})</h3>
+
+      {% if gallery_items %}
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {% for item in gallery_items %}
+        <div class="relative group rounded-lg overflow-hidden">
+          <img src="{{ url_for('static', filename='uploads/gallery/' + item.filename) }}" alt="{{ item.caption }}"
+            class="w-full h-40 object-cover">
+          <div
+            class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <form action="{{ url_for('delete_gallery_item_route', item_id=item.id) }}" method="POST" class="inline">
+              <button type="submit"
+                class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition text-sm"
+                onclick="return confirm('Delete this image?')">
+                <i class="fas fa-trash mr-1"></i> Delete
+              </button>
+            </form>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
+            <p class="text-white text-xs truncate">{{ item.caption or 'No caption' }}</p>
+            <span class="text-white/70 text-xs">{{ item.category }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="text-center py-12">
+        <div class="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-images text-3xl text-gray-400"></i>
+        </div>
+        <h3 class="text-lg font-medium text-gray-700 mb-1">No images yet</h3>
+        <p class="text-gray-500">Upload your first image using the form.</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

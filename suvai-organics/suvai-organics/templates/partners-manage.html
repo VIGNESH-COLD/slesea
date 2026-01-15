@@ -1,75 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Partner Management - Suvai Admin</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 font-sans">
+{% extends "admin-layout.html" %}
+{% set admin_active_page = 'partners' %}
 
-<div class="flex h-screen">
+{% block title %}Partners Management - Suvai Admin{% endblock %}
 
-  <!-- SIDEBAR -->
-  <aside class="w-64 bg-green-800 text-white flex flex-col">
-    <div class="p-6 text-2xl font-bold border-b border-green-700">Suvai Admin</div>
-    <nav class="flex-1 p-4">
-      <ul class="space-y-4">
-         <li><a href="{{ url_for('admin_dashboard')}}" class="block p-2 rounded bg-green-700">📊 Dashboard</a></li>
-        <li><a href="{{ url_for('products_upload')}}" class="block p-2 rounded hover:bg-green-700">🛒 Products</a></li>
-        <li><a href="{{ url_for('farmers_manage')}}" class="block p-2 rounded hover:bg-green-700">👩‍🌾 Farmers</a></li>
-        <li><a href="{{ url_for('gallery_manage')}}" class="block p-2 rounded hover:bg-green-700">🖼 Gallery</a></li>
-        <li><a href="{{ url_for('partners_manage')}}" class="block p-2 rounded hover:bg-green-700">🤝 Partners</a></li>
-      </ul>
-    </nav>
-    <div class="p-4 border-t border-green-700">
-      <button class="w-full bg-red-500 py-2 rounded hover:bg-red-600">🚪 Logout</button>
+{% block page_title %}Partners Management{% endblock %}
+
+{% block content %}
+<!-- Stats Summary -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+  <div class="bg-green-50 border border-green-200 rounded-xl p-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-green-700 text-sm font-medium">Approved</p>
+        <p class="text-2xl font-bold text-green-800">{{ partners|selectattr('status', 'equalto', 'approved')|list|length
+          }}</p>
+      </div>
+      <i class="fas fa-check-circle text-green-400 text-2xl"></i>
     </div>
-  </aside>
-
-  <!-- MAIN CONTENT -->
-  <main class="flex-1 p-8 overflow-y-auto">
-    <h1 class="text-3xl font-bold text-green-900 mb-6">🤝 Partner Management</h1>
-
-    <!-- Add Partner Form -->
-    <div class="bg-white p-6 rounded-lg shadow mb-6">
-      <h2 class="text-xl font-semibold text-green-700 mb-4">➕ Add New Partner</h2>
-      <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="text" placeholder="Partner Name" class="p-2 border rounded">
-        <input type="email" placeholder="Partner Email" class="p-2 border rounded">
-        <input type="text" placeholder="Organization Name" class="p-2 border rounded">
-        <input type="text" placeholder="Location" class="p-2 border rounded">
-        <button type="submit" class="bg-green-700 text-white py-2 rounded hover:bg-green-800 col-span-1 md:col-span-2">Add Partner</button>
-      </form>
+  </div>
+  <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-yellow-700 text-sm font-medium">Pending</p>
+        <p class="text-2xl font-bold text-yellow-800">{{ partners|selectattr('status', 'equalto', 'pending')|list|length
+          }}</p>
+      </div>
+      <i class="fas fa-clock text-yellow-400 text-2xl"></i>
     </div>
-
-    <!-- Partner List -->
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-xl font-semibold text-green-700 mb-4">📋 Existing Partners</h2>
-      <table class="w-full border">
-        <thead class="bg-green-100">
-          <tr>
-            <th class="border p-2">Name</th>
-            <th class="border p-2">Email</th>
-            <th class="border p-2">Organization</th>
-            <th class="border p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-t">
-            <td class="border p-2">Anitha Ravi</td>
-            <td class="border p-2">anitha@wellnesshub.com</td>
-            <td class="border p-2">Wellness Hub</td>
-            <td class="border p-2">
-              <button class="text-blue-600 hover:underline">Edit</button> | 
-              <button class="text-red-600 hover:underline">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  </div>
+  <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-blue-700 text-sm font-medium">Total Partners</p>
+        <p class="text-2xl font-bold text-blue-800">{{ partners|length }}</p>
+      </div>
+      <i class="fas fa-handshake text-blue-400 text-2xl"></i>
     </div>
-  </main>
-
+  </div>
 </div>
-</body>
-</html>
+
+<!-- Partners Table -->
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+  <div class="p-4 border-b">
+    <h3 class="font-bold text-gray-800">All Partner Requests</h3>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Business Name</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Contact Person</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Email</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Phone</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
+          <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        {% if partners %}
+        {% for partner in partners %}
+        <tr class="hover:bg-gray-50">
+          <td class="px-6 py-4">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                <i class="fas fa-building text-blue-600"></i>
+              </div>
+              <span class="font-medium text-gray-900">{{ partner.business_name }}</span>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-gray-600">{{ partner.contact_person }}</td>
+          <td class="px-6 py-4 text-gray-600">{{ partner.email }}</td>
+          <td class="px-6 py-4 text-gray-600">{{ partner.phone }}</td>
+          <td class="px-6 py-4">
+            <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full">{{ partner.type or 'N/A' }}</span>
+          </td>
+          <td class="px-6 py-4">
+            <span class="px-3 py-1 text-xs font-semibold rounded-full
+                                {% if partner.status == 'approved' %}bg-green-100 text-green-800
+                                {% elif partner.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                {% else %}bg-red-100 text-red-800{% endif %}">
+              {{ partner.status|capitalize }}
+            </span>
+          </td>
+          <td class="px-6 py-4">
+            <a href="{{ url_for('delete_partner', partner_id=partner.id) }}"
+              class="text-red-600 hover:text-red-800 text-sm font-medium"
+              onclick="return confirm('Delete this partner?')">
+              <i class="fas fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+          <td colspan="7" class="px-6 py-16 text-center">
+            <div class="flex flex-col items-center">
+              <div class="bg-gray-100 rounded-full p-4 mb-4">
+                <i class="fas fa-handshake text-4xl text-gray-400"></i>
+              </div>
+              <h3 class="text-lg font-medium text-gray-700 mb-1">No partner requests</h3>
+              <p class="text-gray-500">Partner registrations will appear here.</p>
+            </div>
+          </td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

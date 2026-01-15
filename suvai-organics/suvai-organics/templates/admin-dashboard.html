@@ -1,73 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Suvai Organics - Admin Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 font-sans">
+{% extends "admin-layout.html" %}
+{% set admin_active_page = 'dashboard' %}
 
-<div class="flex h-screen">
+{% block title %}Dashboard - Suvai Admin{% endblock %}
 
-  <!-- 🌿 SIDEBAR -->
-  <aside class="w-64 bg-green-800 text-white flex flex-col">
-    <div class="p-6 text-2xl font-bold border-b border-green-700">
-      Suvai Admin
+{% block page_title %}Dashboard Overview{% endblock %}
+
+{% block content %}
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <!-- Total Revenue -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-500">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-500 uppercase tracking-wide">Total Revenue</p>
+        <p class="text-3xl font-bold text-gray-900 mt-1">₹{{ "%.2f"|format(stats.total_revenue) }}</p>
+      </div>
+      <div class="bg-green-100 rounded-full p-3">
+        <i class="fas fa-rupee-sign text-green-600 text-xl"></i>
+      </div>
     </div>
-    <nav class="flex-1 p-4">
-      <ul class="space-y-4">
-        <li><a href="{{ url_for('admin_dashboard')}}" class="block p-2 rounded bg-green-700">📊 Dashboard</a></li>
-        <li><a href="{{ url_for('products_upload')}}" class="block p-2 rounded hover:bg-green-700">🛒 Products</a></li>
-        <li><a href="{{ url_for('farmers_manage')}}" class="block p-2 rounded hover:bg-green-700">👩‍🌾 Farmers</a></li>
-        <li><a href="{{ url_for('gallery_manage')}}" class="block p-2 rounded hover:bg-green-700">🖼 Gallery</a></li>
-        <li><a href="{{ url_for('partners_manage')}}" class="block p-2 rounded hover:bg-green-700">🤝 Partners</a></li>
-      </ul>
-    </nav>
-    <div class="p-4 border-t border-green-700">
-      <button class="w-full bg-red-500 py-2 rounded hover:bg-red-600">🚪 Logout</button>
+    <p class="text-sm text-green-600 mt-2"><i class="fas fa-arrow-up mr-1"></i> From {{ stats.completed_orders }} orders
+    </p>
+  </div>
+
+  <!-- Total Products -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-500">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-500 uppercase tracking-wide">Total Products</p>
+        <p class="text-3xl font-bold text-gray-900 mt-1">{{ stats.product_count }}</p>
+      </div>
+      <div class="bg-blue-100 rounded-full p-3">
+        <i class="fas fa-box text-blue-600 text-xl"></i>
+      </div>
     </div>
-  </aside>
+    <a href="{{ url_for('products_upload') }}" class="text-sm text-blue-600 mt-2 inline-block hover:underline">Manage
+      Products →</a>
+  </div>
 
-  <!-- 📊 MAIN CONTENT -->
-  <main class="flex-1 p-8 overflow-y-auto">
-    <!-- HEADER -->
-    <header class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold text-green-900">Admin Dashboard</h1>
-      <p class="text-gray-600">Welcome, Admin!</p>
-    </header>
+  <!-- Pending Orders -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-orange-500">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-500 uppercase tracking-wide">Pending Orders</p>
+        <p class="text-3xl font-bold text-gray-900 mt-1">{{ stats.pending_orders }}</p>
+      </div>
+      <div class="bg-orange-100 rounded-full p-3">
+        <i class="fas fa-clock text-orange-600 text-xl"></i>
+      </div>
+    </div>
+    <a href="{{ url_for('orders_manage') }}" class="text-sm text-orange-600 mt-2 inline-block hover:underline">View
+      Orders →</a>
+  </div>
 
-    <!-- QUICK STATS -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold text-green-700">Total Products</h2>
-        <p class="text-3xl font-bold mt-2">42</p>
+  <!-- Approved Farmers -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-500">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-sm font-medium text-gray-500 uppercase tracking-wide">Approved Farmers</p>
+        <p class="text-3xl font-bold text-gray-900 mt-1">{{ stats.farmer_count }}</p>
       </div>
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold text-green-700">Total Farmers</h2>
-        <p class="text-3xl font-bold mt-2">108</p>
+      <div class="bg-purple-100 rounded-full p-3">
+        <i class="fas fa-tractor text-purple-600 text-xl"></i>
       </div>
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-semibold text-green-700">Pending Requests</h2>
-        <p class="text-3xl font-bold mt-2">5</p>
-      </div>
-    </section>
-
-    <!-- RECENT ACTIVITY -->
-    <section>
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-xl font-bold text-green-700 mb-4">📌 Recent Activity</h2>
-        <ul class="space-y-2 text-gray-700">
-          <li>✅ Product <strong>“Millet Chips”</strong> added</li>
-          <li>✅ Farmer <strong>“Arun Kumar”</strong> approved</li>
-          <li>🖼 Gallery photo updated</li>
-          <li>🤝 New partner <strong>“GreenMart”</strong> registered</li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
+    </div>
+    <a href="{{ url_for('farmers_manage') }}" class="text-sm text-purple-600 mt-2 inline-block hover:underline">Manage
+      Farmers →</a>
+  </div>
 </div>
 
-</body>
-</html>
+<!-- Two Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <!-- Recent Orders -->
+  <div class="lg:col-span-2 bg-white rounded-xl shadow-sm">
+    <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+      <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-shopping-bag text-admin-accent mr-2"></i>Recent
+        Orders</h3>
+      <a href="{{ url_for('orders_manage') }}" class="text-sm text-blue-600 hover:underline">View All</a>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Order ID</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Customer</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Amount</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
+            <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {% if recent_orders %}
+          {% for order in recent_orders %}
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">#{{ order.id }}</td>
+            <td class="px-6 py-4 text-sm text-gray-600">{{ order.customer_name }}</td>
+            <td class="px-6 py-4 text-sm font-semibold text-gray-900">₹{{ "%.2f"|format(order.total_amount) }}</td>
+            <td class="px-6 py-4">
+              <span class="px-2 py-1 text-xs font-semibold rounded-full
+                                    {% if order.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                    {% elif order.status == 'processing' %}bg-blue-100 text-blue-800
+                                    {% elif order.status == 'shipped' %}bg-purple-100 text-purple-800
+                                    {% elif order.status == 'delivered' %}bg-green-100 text-green-800
+                                    {% else %}bg-gray-100 text-gray-800{% endif %}">
+                {{ order.status|capitalize }}
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <a href="{{ url_for('admin_order_details', order_id=order.id) }}"
+                class="text-blue-600 hover:text-blue-800 text-sm font-medium">View</a>
+            </td>
+          </tr>
+          {% endfor %}
+          {% else %}
+          <tr>
+            <td colspan="5" class="px-6 py-10 text-center text-gray-500">
+              <i class="fas fa-inbox text-4xl mb-3 opacity-50"></i>
+              <p>No orders yet</p>
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Quick Actions & Pending Requests -->
+  <div class="space-y-6">
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-bolt text-yellow-500 mr-2"></i>Quick Actions
+      </h3>
+      <div class="space-y-3">
+        <a href="{{ url_for('products_upload') }}"
+          class="flex items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+          <i class="fas fa-plus-circle text-blue-600 mr-3"></i>
+          <span class="font-medium text-blue-800">Add New Product</span>
+        </a>
+        <a href="{{ url_for('orders_manage') }}"
+          class="flex items-center p-3 bg-orange-50 rounded-lg hover:bg-orange-100 transition">
+          <i class="fas fa-clipboard-list text-orange-600 mr-3"></i>
+          <span class="font-medium text-orange-800">Manage Orders</span>
+        </a>
+        <a href="{{ url_for('farmers_manage') }}"
+          class="flex items-center p-3 bg-green-50 rounded-lg hover:bg-green-100 transition">
+          <i class="fas fa-user-check text-green-600 mr-3"></i>
+          <span class="font-medium text-green-800">Review Farmer Requests</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Pending Requests Summary -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fas fa-hourglass-half text-orange-500 mr-2"></i>Pending
+        Requests</h3>
+      <ul class="space-y-3">
+        <li class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+          <span class="text-gray-700">Farmer Registrations</span>
+          <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-bold">{{ stats.pending_farmers
+            }}</span>
+        </li>
+        <li class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+          <span class="text-gray-700">Partner Requests</span>
+          <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-bold">{{ stats.pending_partners
+            }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

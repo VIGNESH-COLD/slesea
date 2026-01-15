@@ -1,596 +1,212 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suvai Organics - Taste the Purity of Nature</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#4a6c3c',
-                        secondary: '#a8c48f',
-                        accent: '#d4a76a',
-                        light: '#f8f5e9',
-                        dark: '#2c3e22',
-                    },
-                    fontFamily: {
-                        heading: ['Playfair Display', 'serif'],
-                        body: ['Poppins', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'fade-in': 'fadeIn 0.8s ease-out forwards',
-                        'slide-up': 'slideUp 0.8s ease-out forwards',
-                        'bounce-slow': 'bounce 3s infinite'
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: 0 },
-                            '100%': { opacity: 1 }
-                        },
-                        slideUp: {
-                            '0%': { opacity: 0, transform: 'translateY(20px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' }
-                        }
-                    }
+{% extends "layout.html" %}
+
+{% block title %}Suvai Organics - Home{% endblock %}
+
+{% block styles %}
+<style>
+    .hero-bg {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234a6c3c" opacity="0.05"/><path d="M20,20 Q40,5 60,20 T100,20 Q85,40 100,60 T80,100 Q60,85 40,100 T0,80 Q5,60 0,40 T20,20" fill="none" stroke="%23a8c48f" stroke-width="1" opacity="0.2"/></svg>');
+        background-size: 300px;
+    }
+
+    .farm-pattern {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="20" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="50" cy="20" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="80" cy="20" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="20" cy="50" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="50" cy="50" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="80" cy="50" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="20" cy="80" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="50" cy="80" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="80" cy="80" r="3" fill="%234a6c3c" opacity="0.2"/></svg>');
+        background-size: 150px;
+    }
+
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .animate-on-scroll.animated {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="hero-section" class="hero-bg py-16 md:py-24">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+            <div class="bg-white bg-opacity-80 rounded-2xl p-6 md:p-8 shadow-lg animate-on-scroll">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-4">Taste the Purity
+                    of Nature</h2>
+                <p class="text-lg md:text-xl text-gray-700 mb-6">Welcome to Suvai Organics — your trusted partner for
+                    natural foods and sustainable living. Experience the taste of tradition while supporting farmers and
+                    the earth.</p>
+
+                <div class="mb-6 space-y-3">
+                    <div class="flex items-center">
+                        <div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-check text-xs text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Pure, farm-fresh organic products</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center mr-3">
+                            <i class="fas fa-check text-xs text-primary"></i>
+                        </div>
+                        <span class="text-gray-700">Supporting natural farming and empowering local farmers</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="{{ url_for('products') }}"
+                        class="bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition shadow-lg flex items-center">
+                        <i class="fas fa-shopping-cart mr-2"></i> Shop Now
+                    </a>
+                    <a href="{{ url_for('about') }}"
+                        class="border-2 border-primary text-primary px-6 py-3 rounded-full hover:bg-primary hover:text-white transition flex items-center">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="md:w-1/2 pl-0 md:pl-10">
+            <div class="relative animate-on-scroll">
+                <div
+                    class="absolute -top-10 -right-10 w-32 h-32 bg-accent rounded-full opacity-20 filter blur-xl animate-pulse">
+                </div>
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                    alt="Organic farming"
+                    class="rounded-2xl shadow-2xl relative z-10 transform hover:scale-[1.02] transition duration-500">
+                <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg z-20 flex items-center">
+                    <div class="bg-primary text-white p-3 rounded-full mr-3">
+                        <i class="fas fa-leaf text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Certified</p>
+                        <p class="font-bold text-primary">100% Organic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 animate-on-scroll">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Featured Products</h2>
+            <div class="w-24 h-1 bg-accent mx-auto"></div>
+        </div>
+
+        {% if featured_products %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for product in featured_products %}
+            <div
+                class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2 animate-on-scroll">
+                <div class="h-64 overflow-hidden relative group">
+                    {% if product.image_filename %}
+                    <img src="{{ url_for('static', filename='uploads/' + product.image_filename) }}"
+                        alt="{{ product.name }}"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    {% else %}
+                    <div class="bg-gray-200 w-full h-full flex items-center justify-center">
+                        <span class="text-gray-400">No Image</span>
+                    </div>
+                    {% endif %}
+
+                    <div
+                        class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                        <a href="{{ url_for('products') }}"
+                            class="bg-white text-primary px-6 py-2 rounded-full font-bold transform translate-y-4 group-hover:translate-y-0 transition duration-300">View
+                            Details</a>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-primary">{{ product.name }}</h3>
+                        <span class="text-accent font-bold">₹{{ "%.2f"|format(product.price) }}</span>
+                    </div>
+                    <p class="text-gray-600 mb-4 line-clamp-2">{{ product.description }}</p>
+                    <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+                        <button type="submit"
+                            class="w-full bg-primary text-white py-2 rounded-full hover:bg-dark transition flex items-center justify-center">
+                            <i class="fas fa-shopping-bag mr-2"></i> Add to Cart
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-10">
+            <p class="text-gray-500 text-lg">Browse our shop to see what's in store!</p>
+            <a href="{{ url_for('products') }}" class="inline-block mt-4 text-primary font-bold hover:underline">Go to
+                Shop</a>
+        </div>
+        {% endif %}
+
+        <div class="text-center mt-12">
+            <a href="{{ url_for('products') }}"
+                class="inline-block border-2 border-primary text-primary px-8 py-3 rounded-full hover:bg-primary hover:text-white transition font-medium">View
+                All Products</a>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section (Static) -->
+<section class="py-16 bg-light farm-pattern">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center mb-16 animate-on-scroll">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">Why Choose Suvai Organics?</h2>
+            <p class="text-lg text-gray-700">Our commitment to purity and sustainability sets us apart</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+                class="bg-white rounded-xl p-8 shadow-md text-center hover:shadow-lg transition transform hover:-translate-y-1 animate-on-scroll">
+                <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-seedling text-primary text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-heading font-bold text-primary mb-3">Chemical-Free Information</h3>
+                <p class="text-gray-700">We verify that all our sources use 100% natural farming methods without
+                    synthetic inputs.</p>
+            </div>
+            <div
+                class="bg-white rounded-xl p-8 shadow-md text-center hover:shadow-lg transition transform hover:-translate-y-1 animate-on-scroll">
+                <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-hand-holding-heart text-primary text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-heading font-bold text-primary mb-3">Farmer Focused</h3>
+                <p class="text-gray-700">We work directly with farmers to ensure fair trade and sustainable livelihoods.
+                </p>
+            </div>
+            <div
+                class="bg-white rounded-xl p-8 shadow-md text-center hover:shadow-lg transition transform hover:-translate-y-1 animate-on-scroll">
+                <div class="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-carrot text-primary text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-heading font-bold text-primary mb-3">Nutrient Rich</h3>
+                <p class="text-gray-700">Our traditional varieties are packed with natural nutrients and authentic
+                    flavor.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Simple animation on scroll (Page Specific)
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
                 }
-            }
-        }
-    </script>
-    <style>
-        .hero-bg {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234a6c3c" opacity="0.05"/><path d="M20,20 Q40,5 60,20 T100,20 Q85,40 100,60 T80,100 Q60,85 40,100 T0,80 Q5,60 0,40 T20,20" fill="none" stroke="%23a8c48f" stroke-width="1" opacity="0.2"/></svg>');
-            background-size: 300px;
-        }
-        .farm-pattern {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="20" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="50" cy="20" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="80" cy="20" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="20" cy="50" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="50" cy="50" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="80" cy="50" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="20" cy="80" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="50" cy="80" r="3" fill="%234a6c3c" opacity="0.2"/><circle cx="80" cy="80" r="3" fill="%234a6c3c" opacity="0.2"/></svg>');
-            background-size: 150px;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Navigation underline effect */
-        .nav-link {
-            position: relative;
-            display: inline-block;
-        }
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #4a6c3c;
-            transition: width 0.4s ease;
-        }
-        .nav-link:hover:after {
-            width: 100%;
-        }
-    </style>
-</head>
-<body class="font-body text-dark bg-light">
-
-
-    <!-- Header & Navigation -->
-    <header class="sticky top-0 z-40 bg-white shadow-md transition-all duration-300">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transition-transform duration-300 hover:rotate-12">
-                        <span class="text-light text-xl font-bold">S</span>
-                    </div>
-                    <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
-                </div>
-                
-                <nav class="hidden md:flex space-x-8">
-                    <a href="{{ url_for('home') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
-                    <a href="{{ url_for('about') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
-                    <a href="{{ url_for('products') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
-                    <a href="{{ url_for('natural_farming') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Natural Farming</a>
-                    <a href="{{ url_for('farmers') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Farmers</a>
-                    <a href="{{ url_for('gallery') }}" class="font-medium text-gray-600 hover:text-primary transition nav-link">Gallery</a>
-                    <a href="{{ url_for('contact') }}" class="font-medium text-primary hover:text-accent transition nav-link">Contact Us</a>
-                </nav>
-                
-                <div class="flex items-center space-x-4">
-                    <a href="{{ url_for('register_main') }}" class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105 hover:shadow-lg">Register</a>
-                    <button class="md:hidden text-gray-600 transition-transform duration-300 hover:rotate-90">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                     <a href="{{ url_for('admin_login') }}" class="hidden md:block bg-accent text-white px-4 py-2 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105 hover:shadow-lg">Admin</a>
-
-                    <button class="md:hidden text-gray-600 transition-transform duration-300 hover:rotate-90">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="hero-section" class="hero-bg py-16 md:py-24">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <div class="bg-white bg-opacity-80 rounded-2xl p-6 md:p-8 shadow-lg animate-on-scroll">
-                    <h2 id="hero-heading" class="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary mb-4">Taste the Purity of Nature</h2>
-                    <p id="hero-text" class="text-lg md:text-xl text-gray-700 mb-6">Welcome to Suvai Organics — your trusted partner for natural foods and sustainable living. Experience the taste of tradition while supporting farmers and the earth.</p>
-                    
-                    <div class="mb-6 space-y-3">
-                        <div class="flex items-center">
-                            <div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center mr-3 transition-transform duration-300 hover:scale-110">
-                                <i class="fas fa-check text-xs text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Pure, farm-fresh organic products</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center mr-3 transition-transform duration-300 hover:scale-110">
-                                <i class="fas fa-check text-xs text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Supporting natural farming and empowering local farmers</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center mr-3 transition-transform duration-300 hover:scale-110">
-                                <i class="fas fa-check text-xs text-primary"></i>
-                            </div>
-                            <span class="text-gray-700">Honest, healthy snacks for your lifestyle</span>
-                        </div>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-4">
-                        <a href="{{ url_for('products') }}" class="bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center">
-                            <i class="fas fa-shopping-cart mr-2"></i> Shop Now
-                        </a>
-                        <a href="{{ url_for('register_main') }}" class="text-primary hover:text-accent transition-all duration-300 hover:scale-105 flex items-center">
-                            <i class="fas fa-hands-helping mr-2"></i> Join Us
-                        </a>
-                        <a href="{{ url_for('farmers') }}" class="border border-primary text-primary px-6 py-3 rounded-full hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 flex items-center">
-                            <i class="fas fa-book-open mr-2"></i> Learn More
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="md:w-1/2 flex justify-center animate-on-scroll">
-                <div class="relative">
-                    <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-xl transition-all duration-500 hover:rotate-3 hover:scale-105">
-                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-full flex items-center justify-center">
-                            <img src="https://andyyounggroup.com/wp-content/uploads/2022/05/andy-young-farm-products.jpg" alt="Organic-Millets" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                    <div class="absolute -bottom-4 -right-4 bg-accent rounded-lg p-4 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                        <p class="text-white font-bold text-center">100% Organic<br>Farmer-Produced</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Products -->
-    <section class="py-16 bg-white animate-on-scroll">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">Our Organic Products</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Hand-picked range of organic and healthy products, ethically sourced and freshly prepared using age-old methods.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Product Card 1 -->
-                <div class="product-card bg-light rounded-xl overflow-hidden border border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                    <div class="h-48 bg-gray-200 border-2 border-dashed rounded-t-xl w-full flex items-center justify-center">
-                        <img src="https://shivaruthraexports.com/wp-content/uploads/2021/10/organic-Millets3.jpg" alt="Organic-Millets" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-primary mb-2">Organic Millets</h3>
-                        <p class="text-gray-600 mb-4">Rich in nutrients and fiber, perfect for a healthy diet.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-lg font-bold text-accent">₹120/kg</span>
-                            <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105">
-                                Add to Cart
-                            </button>
-                            <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition-all duration-300 hover:scale-105">
-                                Buy Now
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product Card 2 -->
-                <div class="product-card bg-light rounded-xl overflow-hidden border border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                    <div class="h-48 bg-gray-200 border-2 border-dashed rounded-t-xl w-full flex items-center justify-center">
-                        <img src="https://balibuda.com/wp-content/uploads/2023/09/bali_buda_blog_coconut_oil_banner.png" alt="Cold-Presses-Coconut-Oil" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-primary mb-2">Cold-pressed Coconut Oil</h3>
-                        <p class="text-gray-600 mb-4">Pure, unrefined oil with natural aroma and benefits.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-lg font-bold text-accent">₹250/L</span>
-                            <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105">
-                                Add to Cart
-                            </button>
-                            <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition-all duration-300 hover:scale-105">
-                                Buy Now
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product Card 3 -->
-                <div class="product-card bg-light rounded-xl overflow-hidden border border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                    <div class="h-48 bg-gray-200 border-2 border-dashed rounded-t-xl w-full flex items-center justify-center">
-                        <img src="https://sudhantira.com/cdn/shop/files/96_9ea8324e-f15d-43e3-816d-7ae6405eb479.png?v=1695388172&width=1445" alt="Organic-Palm-Jaggery" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-primary mb-2">Traditional Jaggery</h3>
-                        <p class="text-gray-600 mb-4">Natural sweetener rich in minerals and vitamins.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-lg font-bold text-accent">₹90/kg</span>
-                            <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105">
-                                Add to Cart
-                            </button>
-                            <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition-all duration-300 hover:scale-105">
-                                Buy Now
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product Card 4 -->
-                <div class="product-card bg-light rounded-xl overflow-hidden border border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                    <div class="h-48 bg-gray-200 border-2 border-dashed rounded-t-xl w-full flex items-center justify-center">
-                        <img src="https://5.imimg.com/data5/SELLER/Default/2024/12/470661980/TX/GS/IM/131586060/millet-chips.jpg" alt="Millets-Chips(Spicy)" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-primary mb-2">Millet Snacks</h3>
-                        <p class="text-gray-600 mb-4">Crunchy, healthy snacks for guilt-free munching.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-lg font-bold text-accent">₹50/pack</span>
-                            <button class="bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition-all duration-300 hover:scale-105">
-                                Add to Cart
-                            </button>
-                            <button class="bg-accent text-white px-4 py-2 rounded-full hover:bg-amber-700 transition-all duration-300 hover:scale-105">
-                                Buy Now
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Natural Farming Section -->
-    <section class="py-16 farm-pattern animate-on-scroll">
-        <div class="container mx-auto px-4">
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden max-w-5xl mx-auto transition-all duration-500 hover:shadow-2xl">
-                <div class="md:flex">
-                    <div class="md:w-2/5 bg-primary p-8 text-white flex flex-col justify-center">
-                        <h2 class="text-3xl font-heading font-bold mb-4">Natural Farming</h2>
-                        <p class="mb-6">A chemical-free, eco-positive way of cultivating food that respects the earth.</p>
-                        <ul class="space-y-3">
-                            <li class="flex items-start transition-transform duration-300 hover:translate-x-1">
-                                <i class="fas fa-check-circle mt-1 mr-3"></i>
-                                <span>No pesticides or synthetic inputs</span>
-                            </li>
-                            <li class="flex items-start transition-transform duration-300 hover:translate-x-1">
-                                <i class="fas fa-check-circle mt-1 mr-3"></i>
-                                <span>Cow-based composting</span>
-                            </li>
-                            <li class="flex items-start transition-transform duration-300 hover:translate-x-1">
-                                <i class="fas fa-check-circle mt-1 mr-3"></i>
-                                <span>Local seeds & biodiversity focus</span>
-                            </li>
-                            <li class="flex items-start transition-transform duration-300 hover:translate-x-1">
-                                <i class="fas fa-check-circle mt-1 mr-3"></i>
-                                <span>Sustainability + tradition</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="md:w-3/5 p-8">
-                        <h3 class="text-2xl font-heading font-bold text-primary mb-4">Farmer Support</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <div class="bg-light p-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                                <div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-3 transition-transform duration-300 hover:rotate-12">
-                                    <i class="fas fa-graduation-cap text-primary"></i>
-                                </div>
-                                <h4 class="font-bold text-lg text-primary mb-2">Training Programs</h4>
-                                <p class="text-gray-600">Comprehensive training to switch to natural farming practices.</p>
-                            </div>
-                            <div class="bg-light p-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                                <div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-3 transition-transform duration-300 hover:rotate-12">
-                                    <i class="fas fa-handshake text-primary"></i>
-                                </div>
-                                <h4 class="font-bold text-lg text-primary mb-2">Fair Pricing</h4>
-                                <p class="text-gray-600">Direct market access with fair and transparent pricing models.</p>
-                            </div>
-                            <div class="bg-light p-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                                <div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-3 transition-transform duration-300 hover:rotate-12">
-                                    <i class="fas fa-users text-primary"></i>
-                                </div>
-                                <h4 class="font-bold text-lg text-primary mb-2">Community Support</h4>
-                                <p class="text-gray-600">Strong farmer community with regular meetings and knowledge sharing.</p>
-                            </div>
-                            <div class="bg-light p-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                                <div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mb-3 transition-transform duration-300 hover:rotate-12">
-                                    <i class="fas fa-seedling text-primary"></i>
-                                </div>
-                                <h4 class="font-bold text-lg text-primary mb-2">Input Support</h4>
-                                <p class="text-gray-600">Access to organic seeds, natural fertilizers, and farming tools.</p>
-                            </div>
-                        </div>
-                        <a href="{{ url_for('natural_farming') }}" class="bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition-all duration-300 hover:scale-105">
-                            Join Our Farming Movement
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="py-16 bg-light animate-on-scroll">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12 animate-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-4">What Our Customers Say</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Hear from people who have experienced the purity of our organic products.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="testimonial-card bg-white rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed flex items-center justify-center">
-                            <div class="animate-pulse-slow w-6 h-6 rounded-full bg-primary opacity-20"></div>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold text-primary">Rajesh K.</h4>
-                            <p class="text-gray-500 text-sm">Chennai</p>
-                        </div>
-                    </div>
-                    <div class="text-yellow-400 mb-3">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="text-gray-700 italic">"Authentic taste, just like home. Truly healthy snacks I trust for my family. The millet chips are our favorite!"</p>
-                </div>
-                
-                <div class="testimonial-card bg-white rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed flex items-center justify-center">
-                            <div class="animate-pulse-slow w-6 h-6 rounded-full bg-primary opacity-20"></div>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold text-primary">Priya M.</h4>
-                            <p class="text-gray-500 text-sm">Madurai</p>
-                        </div>
-                    </div>
-                    <div class="text-yellow-400 mb-3">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="text-gray-700 italic">"I love that I'm supporting farmers while enjoying such delicious food. The cold-pressed oils have transformed my cooking."</p>
-                </div>
-                
-                <div class="testimonial-card bg-white rounded-xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-gray-200 border-2 border-dashed flex items-center justify-center">
-                            <div class="animate-pulse-slow w-6 h-6 rounded-full bg-primary opacity-20"></div>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold text-primary">Karthik S.</h4>
-                            <p class="text-gray-500 text-sm">Coimbatore</p>
-                        </div>
-                    </div>
-                    <div class="text-yellow-400 mb-3">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <p class="text-gray-700 italic">"From oil to spices — it's all fresh, flavorful, and real! The organic jaggery is a game-changer for my morning coffee."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Farmer Network -->
-    <section class="py-16 animate-on-scroll">
-        <div class="container mx-auto px-4">
-            <div class="bg-primary rounded-2xl p-8 md:p-12 text-white transition-all duration-500 hover:shadow-2xl">
-                <div class="md:flex items-center">
-                    <div class="md:w-3/5 mb-8 md:mb-0 md:pr-8">
-                        <h2 class="text-3xl md:text-4xl font-heading font-bold mb-4">Meet Our Soil Warriors</h2>
-                        <p class="mb-6">Suvai Organics is powered by a network of dedicated farmers across Tamil Nadu who practice natural farming with passion and integrity.</p>
-                        
-                        <div class="flex flex-wrap gap-4 mb-6">
-                            <div class="bg-white bg-opacity-20 rounded-lg px-4 py-2 transition-all duration-300 hover:scale-105">
-                                <p class="text-xl font-bold">100+</p>
-                                <p class="text-sm">Farmers</p>
-                            </div>
-                            <div class="bg-white bg-opacity-20 rounded-lg px-4 py-2 transition-all duration-300 hover:scale-105">
-                                <p class="text-xl font-bold">15+</p>
-                                <p class="text-sm">Districts</p>
-                            </div>
-                            <div class="bg-white bg-opacity-20 rounded-lg px-4 py-2 transition-all duration-300 hover:scale-105">
-                                <p class="text-xl font-bold">50+</p>
-                                <p class="text-sm">Products</p>
-                            </div>
-                        </div>
-                        
-                        <p class="mb-6">Our farmers receive regular support, mentoring, and take pride in producing chemical-free food that nourishes communities.</p>
-                        
-                        <a href="{{ url_for('farmers') }}" class="bg-accent text-white px-6 py-3 rounded-full hover:bg-amber-700 transition-all duration-300 hover:scale-105">
-                            <i class="fas fa-tractor mr-2"></i> Partner with Us
-                        </a>
-                    </div>
-                    
-                    <div class="md:w-2/5">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-gray-200 border-2 border-dashed rounded-xl aspect-square flex items-center justify-center overflow-hidden">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/India_Farming.jpg" alt="Farmers" class="w-full h-full object-cover">
-                            </div>
-                            <div class="bg-gray-200 border-2 border-dashed rounded-xl aspect-square flex items-center justify-center overflow-hidden">
-                                <img src="https://samunnati.com/wp-content/uploads/2024/02/unlocking-agri-sector.jpg" alt="Farmers" class="w-full h-full object-cover">
-                            </div>
-                            <div class="bg-gray-200 border-2 border-dashed rounded-xl aspect-square flex items-center justify-center overflow-hidden">
-                                <img src="https://thumbs.dreamstime.com/b/farmer-planting-fields-lady-field-tamilnadu-india-56358228.jpg" alt="Farmers" class="w-full h-full object-cover">
-                            </div>
-                            <div class="bg-gray-200 border-2 border-dashed rounded-xl aspect-square flex items-center justify-center overflow-hidden">
-                                <img src="https://images.theconversation.com/files/529353/original/file-20230531-19-u3v1t1.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=926&fit=clip" alt="Farmers" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white pt-16 pb-8 animate-on-scroll">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
-                
-                <!-- Brand Section -->
-                <div class="flex flex-col items-center md:items-start">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3 transition-transform duration-300 hover:rotate-12">
-                            <span class="text-light text-xl font-bold">S</span>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold text-white">Suvai Organics</h3>
-                    </div>
-                    <div class="flex space-x-6">
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-accent transition-all duration-300 hover:scale-125 hover:rotate-6">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Quick Links -->
-                <div class="flex flex-col items-center md:items-start">
-                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="{{ url_for('home') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Home</a></li>
-                        <li><a href="{{ url_for('about') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">About Us</a></li>
-                        <li><a href="{{ url_for('products') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Products</a></li>
-                        <li><a href="{{ url_for('natural_farming') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Natural Farming</a></li>
-                        <li><a href="{{ url_for('farmers') }}" class="text-gray-300 hover:text-accent transition-all duration-300 hover:translate-x-1">Our Farmers</a></li>
-                    </ul>
-                </div>
-
-                <!-- Contact Us -->
-                <div class="flex flex-col items-center md:items-start">
-                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
-                    <ul class="space-y-3">
-                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
-                            <i class="fas fa-envelope mt-1 mr-3 text-accent"></i>
-                            <span>contact@suvaiorganics.com</span>
-                        </li>
-                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
-                            <i class="fas fa-phone-alt mt-1 mr-3 text-accent"></i>
-                            <span>+91 98765 43210</span>
-                        </li>
-                        <li class="flex items-start justify-center md:justify-start transition-transform duration-300 hover:translate-x-1">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
-                            <span>Tamil Nadu, India</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Footer Bottom -->
-            <div class="pt-8 border-t border-gray-700 text-center">
-                <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
-                <p class="mt-2 text-gray-500 text-sm">Join us in building a healthier tomorrow.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Simple script for mobile menu toggle (to be implemented in real site)
-        document.addEventListener('DOMContentLoaded', function() {
-
-            
-            // Scroll animation observer
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animated');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1
             });
-            
-            document.querySelectorAll('.animate-on-scroll').forEach(el => {
-                observer.observe(el);
-            });
-            
-            // Dynamic Welcome Page
-            const heroSection = document.getElementById('hero-section');
-            const heroHeading = document.getElementById('hero-heading');
-            const heroText = document.getElementById('hero-text');
-
-            const dynamicContent = [
-                {
-                    heading: "Taste the Purity of Nature",
-                    text: "Welcome to Suvai Organics — your trusted partner for natural foods and sustainable living. Experience the taste of tradition while supporting farmers and the earth.",
-                    bg: 'url("data:image/svg+xml;utf8,<svg xmlns=\\"http://www.w3.org/2000/svg\\" width=\\"100\\" height=\\"100\\" viewBox=\\"0 0 100 100\\"><rect width=\\"100\\" height=\\"100\\" fill=\\"%234a6c3c\\" opacity=\\"0.05\\"/><path d=\\"M20,20 Q40,5 60,20 T100,20 Q85,40 100,60 T80,100 Q60,85 40,100 T0,80 Q5,60 0,40 T20,20\\" fill=\\"none\\" stroke=\\"%23a8c48f\\" stroke-width=\\"1\\" opacity=\\"0.2\\"/></svg>")'
-                },
-                {
-                    heading: "From Our Farms to Your Table",
-                    text: "Directly sourced, chemical-free produce. We ensure freshness and quality in every product, supporting local farmers and sustainable practices.",
-                    bg: 'linear-gradient(rgba(74, 108, 60, 0.1), rgba(74, 108, 60, 0.1)), url("https://images.unsplash.com/photo-1533090420-f0018847672e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80")'
-                },
-                {
-                    heading: "Nourishing Lives, Nurturing Earth",
-                    text: "Our commitment extends beyond food. We foster a community that values health, tradition, and environmental stewardship for a better tomorrow.",
-                    bg: 'linear-gradient(rgba(74, 108, 60, 0.1), rgba(74, 108, 60, 0.1)), url("https://images.unsplash.com/photo-1509233725247-49e65479791d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80")'
-                }
-            ];
-
-            let currentIndex = 0;
-
-            function updateHeroContent() {
-                const content = dynamicContent[currentIndex];
-                heroHeading.textContent = content.heading;
-                heroText.textContent = content.text;
-                heroSection.style.backgroundImage = content.bg;
-                currentIndex = (currentIndex + 1) % dynamicContent.length;
-            }
-
-            // Update content every 5 seconds
-            setInterval(updateHeroContent, 5000);
-            updateHeroContent(); // Initial call to set content immediately
+        }, {
+            threshold: 0.1
         });
-    </script>
-</body>
-</html>
+
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+            observer.observe(el);
+        });
+    });
+</script>
+{% endblock %}

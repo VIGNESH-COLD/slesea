@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Suvai Organics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4a6c3c',
+                        secondary: '#a8c48f',
+                        accent: '#d4a76a',
+                        light: '#f8f5e9',
+                        dark: '#2c3e22',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-body text-dark bg-light">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="{{ url_for('home') }}" class="flex items-center">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+                            class="w-10 h-10 rounded-full mr-3 object-cover">
+                        <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
+                    </a>
+                </div>
+
+                <nav class="hidden md:flex space-x-8">
+                    <a href="{{ url_for('home') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition">Home</a>
+                    <a href="{{ url_for('products') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition">Products</a>
+                    <a href="{{ url_for('view_cart') }}"
+                        class="font-medium text-gray-600 hover:text-primary transition">Cart</a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <span class="text-primary font-medium">Welcome, {{ current_user.username }}</span>
+                    <a href="{{ url_for('customer_logout') }}"
+                        class="bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <div class="text-center mb-6">
+                            <div
+                                class="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-white text-3xl font-bold">
+                                {{ current_user.username[0].upper() }}
+                            </div>
+                            <h2 class="text-xl font-heading font-bold">{{ current_user.username }}</h2>
+                            <p class="text-gray-500 text-sm">{{ current_user.email }}</p>
+                        </div>
+                        <div class="border-t border-gray-200 pt-4">
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mb-2">Member Since</p>
+                            <p class="font-medium">{{ current_user.created_at.strftime('%B %d, %Y') }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="lg:col-span-3">
+                    <h2 class="text-3xl font-heading font-bold text-primary mb-6">Order History</h2>
+
+                    {% if orders %}
+                    <div class="space-y-6">
+                        {% for order in orders %}
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
+                            <div class="p-6 border-b border-gray-100 bg-gray-50">
+                                <div class="flex flex-wrap justify-between items-center gap-4">
+                                    <div class="flex space-x-8">
+                                        <div>
+                                            <p class="text-xs text-gray-500 uppercase">Order Placed</p>
+                                            <p class="font-medium">{{ order.created_at.strftime('%d %b %Y') }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500 uppercase">Total</p>
+                                            <p class="font-medium">₹{{ "%.2f"|format(order.total_amount) }}</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500 uppercase">Order ID</p>
+                                            <p class="font-medium">#{{ order.id }}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="px-3 py-1 rounded-full text-xs font-semibold
+                                            {% if order.status == 'completed' %} bg-green-100 text-green-800
+                                            {% elif order.status == 'processing' %} bg-blue-100 text-blue-800
+                                            {% elif order.status == 'cancelled' %} bg-red-100 text-red-800
+                                            {% else %} bg-yellow-100 text-yellow-800 {% endif %}">
+                                            {{ order.status.title() }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="space-y-4">
+                                    {% for item in order.items %}
+                                    <div class="flex items-center">
+                                        <div
+                                            class="flex-shrink-0 w-16 h-16 bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
+                                            {% if item.product.image_filename %}
+                                            <img src="{{ url_for('static', filename='uploads/' + item.product.image_filename) }}"
+                                                alt="{{ item.product.name }}" class="w-full h-full object-cover">
+                                            {% else %}
+                                            <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                                <i class="fas fa-box"></i>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <div class="flex justify-between">
+                                                <h4 class="text-lg font-medium text-primary">{{ item.product.name }}
+                                                </h4>
+                                                <p class="font-medium">₹{{ "%.2f"|format(item.price) }}</p>
+                                            </div>
+                                            <p class="text-gray-500 text-sm">Qty: {{ item.quantity }}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="mt-6 pt-6 border-t border-gray-100 flex justify-between items-center">
+                                    <div class="text-sm text-gray-500">
+                                        <span class="font-medium text-gray-700">Shipping to:</span> {{
+                                        order.shipping_address }}, {{ order.city }} - {{ order.pin_code }}
+                                    </div>
+                                    <a href="{{ url_for('order_confirmation', order_id=order.id) }}"
+                                        class="text-primary hover:text-dark text-sm font-medium hover:underline">View
+                                        Invoice</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="bg-white rounded-xl shadow-lg p-12 text-center">
+                        <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-shopping-basket text-3xl text-gray-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">No orders yet</h3>
+                        <p class="text-gray-500 mb-6">You haven't placed any orders with us yet.</p>
+                        <a href="{{ url_for('products') }}"
+                            class="inline-block bg-primary text-white px-6 py-3 rounded-full hover:bg-dark transition">Start
+                            Shopping</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">© 2023 Suvai Organics. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

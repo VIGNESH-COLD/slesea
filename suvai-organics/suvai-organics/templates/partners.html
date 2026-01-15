@@ -1,38 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Partners - Suvai Organics</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4a6c3c',
+            secondary: '#a8c48f',
+            accent: '#d4a76a',
+            light: '#f8f5e9',
+            dark: '#2c3e22',
+          },
+          fontFamily: {
+            heading: ['Playfair Display', 'serif'],
+            body: ['Poppins', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .nav-link {
+      position: relative;
+      display: inline-block;
+    }
+
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #4a6c3c;
+      transition: width 0.4s ease;
+    }
+
+    .nav-link:hover:after {
+      width: 100%;
+    }
+
+    /* Mobile menu styles */
+    .mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out;
+    }
+
+    .mobile-menu.active {
+      max-height: 500px;
+    }
+  </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50">
+
+<body class="font-body text-dark bg-light">
   <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white shadow">
+  <header class="sticky top-0 z-50 bg-white shadow-md">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center py-4">
-        <a href="{{ url_for('home') }}" class="flex items-center">
-          <div class="bg-green-700 rounded-full w-10 h-10 flex items-center justify-center mr-3">
-            <span class="text-white text-xl font-bold">S</span>
-          </div>
-          <h1 class="text-xl md:text-2xl font-bold text-green-800">Suvai Organics</h1>
-        </a>
-        <nav class="hidden md:flex space-x-6">
-          <a href="{{ url_for('home') }}" class="hover:text-green-800">Home</a>
-          <a href="{{ url_for('about') }}" class="hover:text-green-800">About</a>
-          <a href="{{ url_for('products') }}" class="hover:text-green-800">Products</a>
-          <a href="{{ url_for('farmers') }}" class="hover:text-green-800">Farmers</a>
-          <a href="{{ url_for('gallery') }}" class="hover:text-green-800">Gallery</a>
-          <a href="{{ url_for('contact') }}" class="text-green-800 font-medium">Contact</a>
+        <div class="flex items-center">
+          <a href="{{ url_for('home')}}" class="flex items-center">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Suvai Organics Logo"
+              class="w-10 h-10 rounded-full mr-3 object-cover">
+            <h1 class="text-xl md:text-2xl font-heading font-bold text-primary">Suvai Organics</h1>
+          </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="{{ url_for('home') }}"
+            class="font-medium text-gray-600 hover:text-primary transition nav-link">Home</a>
+          <a href="{{ url_for('about') }}"
+            class="font-medium text-gray-600 hover:text-primary transition nav-link">About Us</a>
+          <a href="{{ url_for('products') }}"
+            class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Products</a>
+          <a href="{{ url_for('natural_farming') }}"
+            class="font-medium text-gray-600 hover:text-primary transition nav-link">Natural Farming</a>
+          <a href="{{ url_for('farmers') }}"
+            class="font-medium text-gray-600 hover:text-primary transition nav-link">Our Farmers</a>
+          <a href="{{ url_for('gallery') }}"
+            class="font-medium text-gray-600 hover:text-primary transition nav-link">Gallery</a>
+          <a href="{{ url_for('contact') }}"
+            class="font-medium text-primary hover:text-accent transition nav-link">Contact Us</a>
         </nav>
+
+        <div class="flex items-center space-x-4">
+          <a href="{{ url_for('view_cart') }}" class="relative">
+            <i class="fas fa-shopping-cart text-xl text-gray-600 hover:text-primary"></i>
+            {% if session.get('cart') %}
+            <span
+              class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{{
+              session['cart']|length }}</span>
+            {% endif %}
+          </a>
+
+          {% if current_user.is_authenticated %}
+          <a href="{{ url_for('profile') }}"
+            class="hidden md:block text-primary font-medium hover:text-dark transition">Hi, {{
+            current_user.username }}</a>
+          <a href="{{ url_for('customer_logout') }}"
+            class="hidden md:block bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition text-sm">Logout</a>
+          {% else %}
+          <a href="{{ url_for('customer_login') }}"
+            class="hidden md:block text-gray-600 hover:text-primary font-medium transition">Login</a>
+          <a href="{{ url_for('register_main')}}"
+            class="hidden md:block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition">Register</a>
+          {% endif %}
+
+          <button class="md:hidden text-gray-600" id="mobile-menu-button">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <div class="mobile-menu md:hidden bg-white border-t mt-2" id="mobile-menu">
+        <div class="px-4 py-5 space-y-3">
+          <a href="{{ url_for('home')}}" class="block font-medium text-gray-600 hover:text-primary transition">Home</a>
+          <a href="{{ url_for('about')}}" class="block font-medium text-gray-600 hover:text-primary transition">About
+            Us</a>
+          <a href="{{ url_for('products')}}" class="block font-medium text-gray-600 hover:text-primary transition">Our
+            Products</a>
+          <a href="{{ url_for('natural_farming')}}"
+            class="block font-medium text-gray-600 hover:text-primary transition">Natural Farming</a>
+          <a href="{{ url_for('farmers')}}" class="block font-medium text-gray-600 hover:text-primary transition">Our
+            Farmers</a>
+          <a href="{{ url_for('gallery')}}"
+            class="block font-medium text-gray-600 hover:text-primary transition">Gallery</a>
+          <a href="{{ url_for('contact')}}" class="block font-medium text-primary hover:text-accent transition">Contact
+            Us</a>
+          <a href="{{ url_for('register_main')}}"
+            class="block bg-primary text-white px-4 py-2 rounded-full hover:bg-dark transition text-center">Register</a>
+        </div>
       </div>
     </div>
   </header>
 
   <!-- Hero -->
-  <section class="py-16 bg-green-700 text-white text-center">
+  <section class="py-16 bg-primary text-white text-center">
     <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold mb-3">Our Partners</h2>
+      <h2 class="text-4xl font-heading font-bold mb-3">Our Partners</h2>
       <p class="text-lg opacity-90">Organizations and people collaborating to spread natural, organic living</p>
     </div>
   </section>
@@ -43,31 +160,50 @@
       {% if partners %}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for p in partners %}
-        <div class="bg-white rounded-xl shadow p-6">
-          <h3 class="text-xl font-bold text-green-800">{{ p.name }}</h3>
-          <p class="text-gray-600">{{ p.organization or 'Independent Partner' }}</p>
-          <div class="mt-3 text-sm text-gray-500">
-            <div><span class="font-medium">Email:</span> {{ p.email or '-' }}</div>
-            <div><span class="font-medium">Location:</span> {{ p.location or '-' }}</div>
+        <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition">
+          <h3 class="text-xl font-bold text-primary">{{ p.business_name }}</h3>
+          <p class="text-gray-600 mb-2">{{ p.type or 'Partner' }}</p>
+          <div class="mt-3 text-sm text-gray-500 space-y-1">
+            <div><i class="fas fa-user mr-2 text-accent"></i> {{ p.contact_person }}</div>
+            {% if p.email %}
+            <div><i class="fas fa-envelope mr-2 text-accent"></i> {{ p.email }}</div>
+            {% endif %}
+            {% if p.phone %}
+            <div><i class="fas fa-phone mr-2 text-accent"></i> {{ p.phone }}</div>
+            {% endif %}
           </div>
         </div>
         {% endfor %}
       </div>
       {% else %}
       <div class="bg-white rounded-xl shadow p-10 text-center">
-        <p class="text-gray-600">No partners added yet.</p>
+        <div
+          class="bg-gray-100 border-2 border-dashed rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-handshake text-3xl text-gray-400"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-600 mb-2">No Partners Listed Yet</h3>
+        <p class="text-gray-500">We are currently building our network.</p>
       </div>
       {% endif %}
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-900 text-white py-10 mt-8">
+  <footer class="bg-dark text-white py-10 mt-8">
     <div class="container mx-auto px-4 text-center">
       <p class="text-gray-300">© 2023 Suvai Organics. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    // Mobile menu toggle
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+  </script>
 </body>
+
 </html>
-
-
