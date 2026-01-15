@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: suvai-organics
+    ports:
+      - "5000:5000"
+    volumes:
+      # Persist the SQLite database
+      - ./instance:/app/instance
+      # Persist user uploaded images (products, gallery)
+      - ./static/uploads:/app/static/uploads
+      # Persist generated logos or static changes if needed
+      - ./static/images:/app/static/images
+    environment:
+      - FLASK_ENV=development
+    restart: unless-stopped

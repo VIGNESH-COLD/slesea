@@ -1,0 +1,24 @@
+# Ignore virtual environment
+venv/
+env/
+
+# Ignore python cache files
+__pycache__/
+*.py[cod]
+*.so
+
+# Ignore git directory
+.git/
+.gitignore
+
+# Ignore environment variables file (if any secrets)
+.env
+
+# Ignore database file (should be volume mapped, not copied initially to avoid overwriting)
+instance/suvai.db
+
+# Ignore vscode settings
+.vscode/
+
+# Ignore artifacts directory if inside project
+.gemini/

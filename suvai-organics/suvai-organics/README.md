@@ -32,7 +32,22 @@ A full-stack Flask application for selling organic products, featuring a complet
    pip install -r requirements.txt
    ```
 
-## ▶️ How to Start the Website
+## 🐳 Docker Setup (Recommended)
+
+Run the application in a container without installing Python locally.
+
+1. **Install Docker Desktop**.
+2. **Start the application:**
+   ```powershell
+   docker-compose up --build
+   ```
+3. **Access the website:** [http://localhost:5000](http://localhost:5000)
+4. **Stop the application:** Press `Ctrl+C` or run:
+   ```powershell
+   docker-compose down
+   ```
+
+## ▶️ How to Start the Website (Manual)
 
 1. **Ensure your virtual environment is activated** (`(venv)` is visible).
 2. **Run the Flask application:**

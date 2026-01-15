@@ -1,0 +1,12 @@
+Flask
+Flask-SQLAlchemy
+Flask-Login
+Flask-Bcrypt
+Werkzeug
+Jinja2
+click
+colorama
+itsdangerous
+MarkupSafe
+blinker
+PyMySQL
